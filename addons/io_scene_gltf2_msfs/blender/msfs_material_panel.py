@@ -470,7 +470,7 @@ class MSFS_PT_Material(bpy.types.Panel):
                         )
 
                     if mat.msfs_material_type == "msfs_windshield":
-                        emissive_texture_name = "Secondary Details(A)"
+                        emissive_texture_name = "Secondary Details (Dirt)(A)"
                         extra_slot1_texture = "Wiper Mask (RG)"
                         detail_color_texture_name = (
                             "Details Scratch(R), Icing Mask(G), Fingerprints(B)"
@@ -499,7 +499,7 @@ class MSFS_PT_Material(bpy.types.Panel):
                         box,
                         mat,
                         "msfs_occlusion_metallic_roughness_texture",
-                        text=occlusion_metallic_roughness_texture_name,
+                        text=occlusion_metallic_roughness_texture_name
                     )
                     self.draw_texture_prop(
                         box, mat, "msfs_normal_texture", text=normal_texture_name

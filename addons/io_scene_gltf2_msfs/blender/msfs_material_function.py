@@ -251,6 +251,7 @@ class MSFS_Material:
             width = 200.0,
             frame = baseColorFrame
         )
+        #Input Factor
         blendColorMapNode.inputs[0].default_value = 1.0
         
         # links
@@ -308,13 +309,14 @@ class MSFS_Material:
             width = 200.0,
             frame = baseColorFrame
         )
+        #Input Factor
         blendAlphaMapNode.inputs[0].default_value = 1.0
         
         ## Links
         self.link(blendAlphaMapNode.inputs[0], baseColorTexNode.outputs[1])
         self.link(blendAlphaMapNode.inputs[1], detailColorTexNode.outputs[1])
         
-        ## Base Color Multiplier
+        ## Base Color Multiplier A
         # In[1]: Base Color Alpha -> GroupInput[2]
         mulBaseColorANode = self.addNode(
             name = MSFS_ShaderNodes.baseColorMulA.value,
@@ -641,7 +643,7 @@ class MSFS_Material:
             location = (-300.0, -350.0),
             frame = normalFrame
         )
-
+        #Input Factor
         normalScaleNode.outputs[0].default_value = 1.0
 
         # Fix the normal view by reversing the green channel
@@ -652,6 +654,7 @@ class MSFS_Material:
             location = (-300.0, -400.0),
             frame = normalFrame
         )
+        # Green invert
         curveMapping = RGBCurvesNode.mapping.curves[1]
         curveMapping.points[0].location = (0.0, 1.0)
         curveMapping.points[1].location = (1.0, 0.0)
@@ -681,7 +684,7 @@ class MSFS_Material:
             frame = normalFrame
         )
 
-        ## Emissive Scale
+        ## Detail Normal Scale
         detailNormalScaleNode = self.addNode(
             name = MSFS_ShaderNodes.detailNormalScale.value,
             typeNode = MSFS_ShaderNodesTypes.shaderNodeValue.value,
@@ -704,6 +707,7 @@ class MSFS_Material:
             location = (200.0, -400.0),
             frame = normalFrame
         )
+        # Input Factor
         blendNormalMapNode.inputs[0].default_value = 1.0
         
         # Links
@@ -769,13 +773,15 @@ class MSFS_Material:
 
     def setRoughnessScale(self, scale):
         nodeRoughnessScale = self.getNodeByName(MSFS_ShaderNodes.roughnessScale.value)
-        nodeRoughnessScale.outputs[0].default_value = scale
-        self.updateCompLinks()
+        if nodeRoughnessScale is not None:
+            nodeRoughnessScale.outputs[0].default_value = scale
+            self.updateCompLinks()
 
     def setMetallicScale(self, scale):
         nodeMetallicScale = self.getNodeByName(MSFS_ShaderNodes.metallicScale.value)
-        nodeMetallicScale.outputs[0].default_value = scale
-        self.updateCompLinks()
+        if nodeMetallicScale is not None:
+            nodeMetallicScale.outputs[0].default_value = scale
+            self.updateCompLinks()
 
     def setEmissiveTexture(self, tex):
         nodeEmissiveTex = self.getNodeByName(MSFS_ShaderNodes.emissiveTex.value)
@@ -786,17 +792,19 @@ class MSFS_Material:
 
     def setEmissiveScale(self, scale):
         nodeEmissiveScale = self.getNodeByName(MSFS_ShaderNodes.emissiveScale.value)
-        nodeEmissiveScale.outputs[0].default_value = scale
-        self.updateEmissiveLinks()
+        if nodeEmissiveScale is not None:
+            nodeEmissiveScale.outputs[0].default_value = scale
+            self.updateEmissiveLinks()
 
     def setEmissiveColor(self, color):
         nodeEmissiveColor = self.getNodeByName(MSFS_ShaderNodes.emissiveColor.value)
-        emissiveValue = nodeEmissiveColor.outputs[0].default_value
-        emissiveValue[0] = color[0]
-        emissiveValue[1] = color[1]
-        emissiveValue[2] = color[2]
-        nodeEmissiveColor.outputs[0].default_value = emissiveValue
-        self.updateEmissiveLinks()
+        if nodeEmissiveColor is not None:
+            emissiveValue = nodeEmissiveColor.outputs[0].default_value
+            emissiveValue[0] = color[0]
+            emissiveValue[1] = color[1]
+            emissiveValue[2] = color[2]
+            nodeEmissiveColor.outputs[0].default_value = emissiveValue
+            self.updateEmissiveLinks()
 
     def setNormalScale(self, scale):
         nodeNormalScale = self.getNodeByName(MSFS_ShaderNodes.normalScale.value)
@@ -859,6 +867,7 @@ class MSFS_Material:
         self.link(nodeBaseColorA.outputs[0], nodeMulBaseColorA.inputs[1])
         self.link(nodeBaseColorRGB.outputs[0], nodeMulBaseColorRGB.inputs[1])
 
+        # no tex
         if not nodeBaseColorTex.image and not nodeDetailColorTex.image:
             self.link(nodeBaseColorRGB.outputs[0], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value])
             self.link(nodeBaseColorA.outputs[0], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.alpha.value])
@@ -872,9 +881,11 @@ class MSFS_Material:
         elif not nodeBaseColorTex.image and nodeDetailColorTex.image:
             nodeBlendColorMap.blend_type = "ADD"
             self.link(nodeMulBaseColorRGB.outputs[0], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value])
+            # Alpha links
             self.link(nodeDetailColorTex.outputs[1],nodeMulBaseColorA.inputs[0])
             self.link(nodeMulBaseColorA.outputs[0], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.alpha.value])
 
+        # has both tex
         else:
             nodeBlendColorMap.blend_type = "MULTIPLY"
             self.link(nodeMulBaseColorRGB.outputs[0], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value])

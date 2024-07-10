@@ -85,6 +85,8 @@ class MSFS_Material_Property_Update:
             msfs_mat = MSFS_Windshield(self, buildTree=True)
             self.msfs_alpha_mode = "BLEND"
             self.msfs_metallic_factor = 0.0
+            self.msfs_roughness_factor = 0.1
+            self.msfs_base_color_factor = [1.0, 1.0, 1.0, 0.1]
         elif self.msfs_material_type == "msfs_porthole":
             msfs_mat = MSFS_Porthole(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
@@ -92,6 +94,8 @@ class MSFS_Material_Property_Update:
             msfs_mat = MSFS_Glass(self, buildTree=True)
             self.msfs_alpha_mode = "BLEND"
             self.msfs_metallic_factor = 0.0
+            self.msfs_roughness_factor = 0.1
+            self.msfs_base_color_factor = [1.0, 1.0, 1.0, 0.1]
         elif self.msfs_material_type == "msfs_clearcoat":
             msfs_mat = MSFS_Clearcoat(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
@@ -111,6 +115,8 @@ class MSFS_Material_Property_Update:
             msfs_mat = MSFS_Invisible(self, buildTree=True)
             self.msfs_no_cast_shadow = True
             self.msfs_alpha_mode = "BLEND"
+            self.msfs_base_color_factor = [0.8, 0.0, 0.0, 0.1]
+            self.msfs_emissive_factor = [0.8, 0.0, 0.0]
         elif self.msfs_material_type == "msfs_fake_terrain":
             msfs_mat = MSFS_Fake_Terrain(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
@@ -121,6 +127,8 @@ class MSFS_Material_Property_Update:
             msfs_mat = MSFS_Environment_Occluder(self, buildTree=True)
             self.msfs_no_cast_shadow = True
             self.msfs_alpha_mode = "BLEND"
+            self.msfs_base_color_factor = [0.0, 0.8, 0.0, 0.1]
+            self.msfs_emissive_factor = [0.0, 0.8, 0.0]
         elif self.msfs_material_type == "msfs_ghost":
             msfs_mat = MSFS_Ghost(self, buildTree=True)
             self.msfs_no_cast_shadow = True
@@ -285,7 +293,10 @@ class MSFS_Material_Property_Update:
     def update_emissive_scale(self, context):
         msfs = MSFS_Material_Property_Update.getMaterial(self)
         if msfs is not None:
-            msfs.setEmissiveScale(self.msfs_emissive_scale)
+            if type(msfs) is MSFS_Windshield or type(msfs) is MSFS_Glass:
+                msfs.setEmissiveScale(0.1)
+            else:
+                msfs.setEmissiveScale(self.msfs_emissive_scale)
 
     @staticmethod
     def update_metallic_scale(self, context):
