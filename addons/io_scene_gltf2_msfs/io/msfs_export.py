@@ -36,6 +36,34 @@ class Export:
 
             gltf2_asset.generator += " and Asobo Studio MSFS Blender I/O v" + get_version_string()
 
+        # for the vetex color rainbow
+        # asset hook is called first before the nodes and objects and mesh, so we make changes to the meshes here
+        # possible caching of blender data may result in changes not takeng at the point of hook function running
+        # does not work in:
+        # def gather_mesh_hook(self, gltf2_mesh, blender_mesh, blender_object, vertex_groups, modifiers, skip_filter, materials, export_settings):
+
+        #print("gather_asset_hook - Started with ", gltf2_asset)
+        selected_objects = bpy.context.selected_objects
+        active_object = bpy.context.active_object
+        for o in selected_objects:
+        #for o in bpy.context.scene.objects:
+            #print("gather_asset_hook - Scene Object",o)
+            # only for meshes
+            if o.type == 'MESH':
+                obj = o
+                #print("gather_asset_hook - obj", obj, obj.data)
+                for ca in obj.data.color_attributes:
+                    if ca.data_type != 'FLOAT_COLOR':
+                        #print("gather_asset_hook - col before", obj, ca.domain, ca.data_type)
+                        bpy.context.view_layer.objects.active = obj
+                        #print("gather_asset_hook - col view_layer", obj, ca.domain, ca.data_type)
+                        bpy.ops.geometry.attribute_convert(mode='GENERIC', domain='CORNER', data_type='FLOAT_COLOR')
+                        #print("gather_asset_hook - After", obj, obj.data)
+                        for ca in obj.data.color_attributes:
+                            #print("gather_asset_hook - col after", obj, ca.data_type)
+                            pass
+        #print("gather_asset_hook - Done")
+
     def gather_gltf_extensions_hook(self, gltf2_plan, export_settings):
         if self.properties.enable_msfs_extension:
             for i, image in enumerate(gltf2_plan.images):
