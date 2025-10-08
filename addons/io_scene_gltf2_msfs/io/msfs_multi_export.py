@@ -22,162 +22,244 @@ import bpy
 
 def export_blender_under_3_3(file_path, settings):
     return bpy.ops.export_scene.gltf(
-                filepath = file_path,
-                check_existing = True,
-                export_format = 'GLTF_SEPARATE',
-                export_copyright = settings.export_copyright,
-                export_image_format = settings.export_image_format,
-                export_texture_dir = settings.export_texture_dir,
-                export_keep_originals = settings.export_keep_originals,
-                export_texcoords = settings.export_texcoords,
-                export_normals = settings.export_normals,
-                export_draco_mesh_compression_enable = settings.export_draco_mesh_compression_enable,
-                export_draco_mesh_compression_level = settings.export_draco_mesh_compression_level,
-                export_draco_position_quantization = settings.export_draco_position_quantization,
-                export_draco_normal_quantization = settings.export_draco_normal_quantization,
-                export_draco_texcoord_quantization = settings.export_draco_texcoord_quantization,
-                export_draco_color_quantization = settings.export_draco_color_quantization,
-                export_draco_generic_quantization = settings.export_draco_generic_quantization,
-                export_tangents = settings.export_tangents,
-                export_materials = settings.export_materials,
-                export_colors = settings.export_colors,
-                use_mesh_edges = settings.use_mesh_edges,
-                use_mesh_vertices = settings.use_mesh_vertices,
-                export_cameras = settings.export_cameras,
-                use_selection = settings.use_selection,
-                use_visible = settings.use_visible,
-                use_renderable = settings.use_renderable,
-                use_active_collection = settings.use_active_collection,
-                export_yup = settings.export_yup,
-                export_apply = settings.export_apply,
-                export_animations = settings.export_animations,
-                export_frame_range = settings.export_frame_range,
-                export_frame_step = settings.export_frame_step,
-                export_force_sampling = settings.export_force_sampling,
-                export_def_bones = settings.export_def_bones,
-                optimize_animation_size = settings.export_optimize_animation_size,
-                export_current_frame = settings.export_current_frame,
-                export_skins = settings.export_skins,
-                export_all_influences = settings.export_all_influences,
-                export_morph = settings.export_morph,
-                export_morph_normal = settings.export_morph_normal,
-                export_morph_tangent = settings.export_morph_tangent,
-                export_lights = settings.export_lights,
-                will_save_settings = settings.will_save_settings,
-                export_displacement=settings.export_displacement
-        )  
+        filepath=file_path,
+        check_existing=True,
+        export_format="GLTF_SEPARATE",
+        export_copyright=settings.export_copyright,
+        export_image_format=settings.export_image_format,
+        export_texture_dir=settings.export_texture_dir,
+        export_keep_originals=settings.export_keep_originals,
+        export_texcoords=settings.export_texcoords,
+        export_normals=settings.export_normals,
+        export_draco_mesh_compression_enable=settings.export_draco_mesh_compression_enable,
+        export_draco_mesh_compression_level=settings.export_draco_mesh_compression_level,
+        export_draco_position_quantization=settings.export_draco_position_quantization,
+        export_draco_normal_quantization=settings.export_draco_normal_quantization,
+        export_draco_texcoord_quantization=settings.export_draco_texcoord_quantization,
+        export_draco_color_quantization=settings.export_draco_color_quantization,
+        export_draco_generic_quantization=settings.export_draco_generic_quantization,
+        export_tangents=settings.export_tangents,
+        export_materials=settings.export_materials,
+        export_colors=settings.export_colors,
+        use_mesh_edges=settings.use_mesh_edges,
+        use_mesh_vertices=settings.use_mesh_vertices,
+        export_cameras=settings.export_cameras,
+        use_selection=settings.use_selection,
+        use_visible=settings.use_visible,
+        use_renderable=settings.use_renderable,
+        use_active_collection=settings.use_active_collection,
+        export_yup=settings.export_yup,
+        export_apply=settings.export_apply,
+        export_animations=settings.export_animations,
+        export_frame_range=settings.export_frame_range,
+        export_frame_step=settings.export_frame_step,
+        export_force_sampling=settings.export_force_sampling,
+        export_def_bones=settings.export_def_bones,
+        optimize_animation_size=settings.export_optimize_animation_size,
+        export_current_frame=settings.export_current_frame,
+        export_skins=settings.export_skins,
+        export_all_influences=settings.export_all_influences,
+        export_morph=settings.export_morph,
+        export_morph_normal=settings.export_morph_normal,
+        export_morph_tangent=settings.export_morph_tangent,
+        export_lights=settings.export_lights,
+        will_save_settings=settings.will_save_settings,
+        export_displacement=settings.export_displacement,
+    )
+
 
 def export_blender_3_3(file_path, settings):
     return bpy.ops.export_scene.gltf(
-                filepath = file_path,
-                check_existing = True,
-                export_format = 'GLTF_SEPARATE',
-                export_copyright = settings.export_copyright,
-                export_image_format = settings.export_image_format,
-                export_texture_dir = settings.export_texture_dir,
-                export_keep_originals = settings.export_keep_originals,
-                export_texcoords = settings.export_texcoords,
-                export_normals = settings.export_normals,
-                export_draco_mesh_compression_enable = settings.export_draco_mesh_compression_enable,
-                export_draco_mesh_compression_level = settings.export_draco_mesh_compression_level,
-                export_draco_position_quantization = settings.export_draco_position_quantization,
-                export_draco_normal_quantization = settings.export_draco_normal_quantization,
-                export_draco_texcoord_quantization = settings.export_draco_texcoord_quantization,
-                export_draco_color_quantization = settings.export_draco_color_quantization,
-                export_draco_generic_quantization = settings.export_draco_generic_quantization,
-                export_tangents = settings.export_tangents,
-                export_materials = settings.export_materials,
-                export_original_specular = False, ## No need to add option for MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
-                export_colors = settings.export_colors,
-                use_mesh_edges = settings.use_mesh_edges,
-                use_mesh_vertices = settings.use_mesh_vertices,
-                export_cameras = settings.export_cameras,
-                use_selection = settings.use_selection,
-                use_visible = settings.use_visible,
-                use_renderable = settings.use_renderable,
-                use_active_collection = settings.use_active_collection,
-                use_active_scene = settings.use_active_scene,
-                export_yup = settings.export_yup,
-                export_apply = settings.export_apply,
-                export_animations = settings.export_animations,
-                export_frame_range = settings.export_frame_range,
-                export_frame_step = settings.export_frame_step,
-                export_force_sampling = settings.export_force_sampling,
-                export_nla_strips_merged_animation_name = settings.export_nla_strips_merged_animation_name,
-                export_def_bones = settings.export_def_bones,
-                export_optimize_animation_size = settings.export_optimize_animation_size,
-                export_anim_single_armature = settings.export_anim_single_armature,
-                export_current_frame = settings.export_current_frame,
-                export_skins = settings.export_skins,
-                export_all_influences = settings.export_all_influences,
-                export_morph = settings.export_morph,
-                export_morph_normal = settings.export_morph_normal,
-                export_morph_tangent = settings.export_morph_tangent,
-                export_lights = settings.export_lights,
-                will_save_settings = settings.will_save_settings
-            )
+        filepath=file_path,
+        check_existing=True,
+        export_format="GLTF_SEPARATE",
+        export_copyright=settings.export_copyright,
+        export_image_format=settings.export_image_format,
+        export_texture_dir=settings.export_texture_dir,
+        export_keep_originals=settings.export_keep_originals,
+        export_texcoords=settings.export_texcoords,
+        export_normals=settings.export_normals,
+        export_draco_mesh_compression_enable=settings.export_draco_mesh_compression_enable,
+        export_draco_mesh_compression_level=settings.export_draco_mesh_compression_level,
+        export_draco_position_quantization=settings.export_draco_position_quantization,
+        export_draco_normal_quantization=settings.export_draco_normal_quantization,
+        export_draco_texcoord_quantization=settings.export_draco_texcoord_quantization,
+        export_draco_color_quantization=settings.export_draco_color_quantization,
+        export_draco_generic_quantization=settings.export_draco_generic_quantization,
+        export_tangents=settings.export_tangents,
+        export_materials=settings.export_materials,
+        export_original_specular=False,  ## No need to add option for MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
+        export_colors=settings.export_colors,
+        use_mesh_edges=settings.use_mesh_edges,
+        use_mesh_vertices=settings.use_mesh_vertices,
+        export_cameras=settings.export_cameras,
+        use_selection=settings.use_selection,
+        use_visible=settings.use_visible,
+        use_renderable=settings.use_renderable,
+        use_active_collection=settings.use_active_collection,
+        use_active_scene=settings.use_active_scene,
+        export_yup=settings.export_yup,
+        export_apply=settings.export_apply,
+        export_animations=settings.export_animations,
+        export_frame_range=settings.export_frame_range,
+        export_frame_step=settings.export_frame_step,
+        export_force_sampling=settings.export_force_sampling,
+        export_nla_strips_merged_animation_name=settings.export_nla_strips_merged_animation_name,
+        export_def_bones=settings.export_def_bones,
+        export_optimize_animation_size=settings.export_optimize_animation_size,
+        export_anim_single_armature=settings.export_anim_single_armature,
+        export_current_frame=settings.export_current_frame,
+        export_skins=settings.export_skins,
+        export_all_influences=settings.export_all_influences,
+        export_morph=settings.export_morph,
+        export_morph_normal=settings.export_morph_normal,
+        export_morph_tangent=settings.export_morph_tangent,
+        export_lights=settings.export_lights,
+        will_save_settings=settings.will_save_settings,
+    )
+
 
 def export_blender_3_6(file_path, settings):
     return bpy.ops.export_scene.gltf(
-                filepath = file_path,
-                check_existing = True,
-                export_format = 'GLTF_SEPARATE',
-                export_copyright = settings.export_copyright,
-                export_image_format = settings.export_image_format,
-                export_texture_dir = settings.export_texture_dir,
-                export_jpeg_quality = settings.export_jpeg_quality,
-                export_keep_originals = settings.export_keep_originals,
-                export_texcoords = settings.export_texcoords,
-                export_normals = settings.export_normals,
-                export_draco_mesh_compression_enable = settings.export_draco_mesh_compression_enable,
-                export_draco_mesh_compression_level = settings.export_draco_mesh_compression_level,
-                export_draco_position_quantization = settings.export_draco_position_quantization,
-                export_draco_normal_quantization = settings.export_draco_normal_quantization,
-                export_draco_texcoord_quantization = settings.export_draco_texcoord_quantization,
-                export_draco_color_quantization = settings.export_draco_color_quantization,
-                export_draco_generic_quantization = settings.export_draco_generic_quantization,
-                export_tangents = settings.export_tangents,
-                export_materials = settings.export_materials,
-                export_original_specular = False, ## No need to add option for MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
-                export_colors = settings.export_colors,
-                export_attributes = settings.export_attributes,
-                use_mesh_edges = settings.use_mesh_edges,
-                use_mesh_vertices = settings.use_mesh_vertices,
-                export_cameras = settings.export_cameras,
-                use_selection = settings.use_selection,
-                use_visible = settings.use_visible,
-                use_renderable = settings.use_renderable,
-                use_active_collection = settings.use_active_collection,
-                use_active_scene = settings.use_active_scene,
-                export_yup = settings.export_yup,
-                export_apply = settings.export_apply,
-                export_animations = settings.export_animations,
-                export_frame_range = settings.export_frame_range,
-                export_frame_step = settings.export_frame_step,
-                export_force_sampling = settings.export_force_sampling,
-                export_animation_mode = settings.export_animation_mode,
-                export_nla_strips_merged_animation_name = settings.export_nla_strips_merged_animation_name,
-                export_def_bones = settings.export_def_bones,
-                export_optimize_animation_size = settings.export_optimize_animation_size,
-                export_optimize_animation_keep_anim_armature = settings.export_optimize_animation_keep_anim_armature,
-                export_optimize_animation_keep_anim_object = settings.export_optimize_animation_keep_anim_object,
-                export_negative_frame = settings.export_negative_frame,
-                export_anim_slide_to_zero = settings.export_anim_slide_to_zero,
-                export_reset_pose_bones = settings.export_reset_pose_bones,
-                export_bake_animation = settings.export_bake_animation,
-                export_anim_single_armature = settings.export_anim_single_armature,
-                export_current_frame = settings.export_current_frame,
-                export_rest_position_armature = settings.export_rest_position_armature,
-                export_anim_scene_split_object = settings.export_anim_scene_split_object,
-                export_skins = settings.export_skins,
-                export_all_influences = settings.export_all_influences,
-                export_morph = settings.export_morph,
-                export_morph_normal = settings.export_morph_normal,
-                export_morph_tangent = settings.export_morph_tangent,
-                export_morph_animation = settings.export_morph_animation,
-                export_lights = settings.export_lights,
-                will_save_settings = settings.will_save_settings
-            )
+        filepath=file_path,
+        check_existing=True,
+        export_format="GLTF_SEPARATE",
+        export_copyright=settings.export_copyright,
+        export_image_format=settings.export_image_format,
+        export_texture_dir=settings.export_texture_dir,
+        export_jpeg_quality=settings.export_jpeg_quality,
+        export_keep_originals=settings.export_keep_originals,
+        export_texcoords=settings.export_texcoords,
+        export_normals=settings.export_normals,
+        export_draco_mesh_compression_enable=settings.export_draco_mesh_compression_enable,
+        export_draco_mesh_compression_level=settings.export_draco_mesh_compression_level,
+        export_draco_position_quantization=settings.export_draco_position_quantization,
+        export_draco_normal_quantization=settings.export_draco_normal_quantization,
+        export_draco_texcoord_quantization=settings.export_draco_texcoord_quantization,
+        export_draco_color_quantization=settings.export_draco_color_quantization,
+        export_draco_generic_quantization=settings.export_draco_generic_quantization,
+        export_tangents=settings.export_tangents,
+        export_materials=settings.export_materials,
+        export_original_specular=False,  ## No need to add option for MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
+        export_colors=settings.export_colors,
+        export_attributes=settings.export_attributes,
+        use_mesh_edges=settings.use_mesh_edges,
+        use_mesh_vertices=settings.use_mesh_vertices,
+        export_cameras=settings.export_cameras,
+        use_selection=settings.use_selection,
+        use_visible=settings.use_visible,
+        use_renderable=settings.use_renderable,
+        use_active_collection=settings.use_active_collection,
+        use_active_scene=settings.use_active_scene,
+        export_yup=settings.export_yup,
+        export_apply=settings.export_apply,
+        export_animations=settings.export_animations,
+        export_frame_range=settings.export_frame_range,
+        export_frame_step=settings.export_frame_step,
+        export_force_sampling=settings.export_force_sampling,
+        export_animation_mode=settings.export_animation_mode,
+        export_nla_strips_merged_animation_name=settings.export_nla_strips_merged_animation_name,
+        export_def_bones=settings.export_def_bones,
+        export_optimize_animation_size=settings.export_optimize_animation_size,
+        export_optimize_animation_keep_anim_armature=settings.export_optimize_animation_keep_anim_armature,
+        export_optimize_animation_keep_anim_object=settings.export_optimize_animation_keep_anim_object,
+        export_negative_frame=settings.export_negative_frame,
+        export_anim_slide_to_zero=settings.export_anim_slide_to_zero,
+        export_reset_pose_bones=settings.export_reset_pose_bones,
+        export_bake_animation=settings.export_bake_animation,
+        export_anim_single_armature=settings.export_anim_single_armature,
+        export_current_frame=settings.export_current_frame,
+        export_rest_position_armature=settings.export_rest_position_armature,
+        export_anim_scene_split_object=settings.export_anim_scene_split_object,
+        export_skins=settings.export_skins,
+        export_all_influences=settings.export_all_influences,
+        export_morph=settings.export_morph,
+        export_morph_normal=settings.export_morph_normal,
+        export_morph_tangent=settings.export_morph_tangent,
+        export_morph_animation=settings.export_morph_animation,
+        export_lights=settings.export_lights,
+        will_save_settings=settings.will_save_settings,
+    )
+
+
+def export_blender_4_2(file_path, settings):
+    return bpy.ops.export_scene.gltf(
+        filepath=file_path,
+        check_existing=True,
+        export_format="GLTF_SEPARATE",
+        export_copyright=settings.export_copyright,
+        export_image_format=settings.export_image_format,
+        export_jpeg_quality=settings.export_jpeg_quality,
+        export_texture_dir=settings.export_texture_dir,
+        export_keep_originals=settings.export_keep_originals,
+        export_texcoords=settings.export_texcoords,
+        export_normals=settings.export_normals,
+        export_draco_mesh_compression_enable=settings.export_draco_mesh_compression_enable,
+        export_draco_mesh_compression_level=settings.export_draco_mesh_compression_level,
+        export_draco_position_quantization=settings.export_draco_position_quantization,
+        export_draco_normal_quantization=settings.export_draco_normal_quantization,
+        export_draco_texcoord_quantization=settings.export_draco_texcoord_quantization,
+        export_draco_color_quantization=settings.export_draco_color_quantization,
+        export_draco_generic_quantization=settings.export_draco_generic_quantization,
+        export_tangents=settings.export_tangents,
+        export_materials=settings.export_materials,
+        ## No need to add option for that MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
+        export_original_specular=False,
+        export_attributes=settings.export_attributes,
+        use_mesh_edges=settings.use_mesh_edges,
+        use_mesh_vertices=settings.use_mesh_vertices,
+        export_cameras=settings.export_cameras,
+        use_selection=settings.use_selection,
+        use_visible=settings.use_visible,
+        use_renderable=False,
+        use_active_collection=False,
+        use_active_scene=False,
+        export_yup=settings.export_yup,
+        export_apply=settings.export_apply,
+        export_animations=settings.export_animations,
+        export_frame_range=settings.export_frame_range,
+        export_frame_step=settings.export_frame_step,
+        export_force_sampling=settings.export_force_sampling,
+        export_animation_mode=settings.export_animation_mode,
+        export_def_bones=settings.export_def_bones,
+        export_optimize_animation_size=settings.export_optimize_animation_size,
+        export_optimize_animation_keep_anim_armature=settings.export_optimize_animation_keep_anim_armature,
+        export_optimize_animation_keep_anim_object=settings.export_optimize_animation_keep_anim_object,
+        export_negative_frame=settings.export_negative_frame,
+        export_anim_slide_to_zero=settings.export_anim_slide_to_zero,
+        export_reset_pose_bones=settings.export_reset_pose_bones,
+        export_bake_animation=settings.export_bake_animation,
+        export_anim_single_armature=settings.export_anim_single_armature,
+        export_current_frame=settings.export_current_frame,
+        export_rest_position_armature=settings.export_rest_position_armature,
+        export_anim_scene_split_object=settings.export_anim_scene_split_object,
+        export_skins=settings.export_skins,
+        export_all_influences=settings.export_all_influences,
+        export_morph=settings.export_morph,
+        export_morph_normal=settings.export_morph_normal,
+        export_morph_tangent=settings.export_morph_tangent,
+        export_morph_animation=settings.export_morph_animation,
+        export_lights=settings.export_lights,
+        will_save_settings=settings.will_save_settings,
+        export_extras=settings.export_extras,
+        export_gn_mesh=settings.export_gn_mesh,
+        export_gpu_instances=settings.export_gpu_instances,
+        export_hierarchy_flatten_objs=settings.export_hierarchy_flatten_objs,
+        export_hierarchy_full_collections=settings.export_hierarchy_full_collections,
+        export_vertex_color=settings.export_vertex_color,
+        export_all_vertex_colors=settings.export_all_vertex_colors,
+        export_active_vertex_color_when_no_material=settings.export_active_vertex_color_when_no_material,
+        export_image_add_webp=settings.export_image_add_webp,
+        export_image_webp_fallback=settings.export_image_webp_fallback,
+        export_unused_images=settings.export_unused_images,
+        export_unused_textures=settings.export_unused_textures,
+        export_try_sparse_sk=settings.export_try_sparse_sk,
+        export_try_omit_sparse_sk=settings.export_try_omit_sparse_sk,
+        export_armature_object_remove=settings.export_armature_object_remove,
+        export_influence_nb=settings.export_influence_nb,
+        export_import_convert_lighting_mode=settings.export_import_convert_lighting_mode,
+        export_optimize_disable_viewport=settings.export_optimize_disable_viewport,
+    )
 
 
 # Scene Properties
@@ -189,26 +271,29 @@ class MSFSMultiExporterProperties:
             ("SETTINGS", "Settings", ""),
         )
     )
+
+
 # Operators
 class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
     bl_idname = "export_scene.multi_export_gltf"
     bl_label = "Multi-Export glTF 2.0"
 
-    
     @staticmethod
     def export(file_path):
         settings = bpy.context.scene.msfs_multi_exporter_settings
         bpy.context.scene.msfs_exporter_settings.use_unique_id = settings.use_unique_id
         gltf = None
-        if (bpy.app.version < (3, 3, 0)):
+        if bpy.app.version < (3, 3, 0):
             gltf = export_blender_under_3_3(file_path, settings)
-        elif (bpy.app.version < (3, 6, 0)):
+        elif bpy.app.version < (3, 6, 0):
             gltf = export_blender_3_3(file_path, settings)
-        else:
+        elif bpy.app.version < (4, 2, 0):
             gltf = export_blender_3_6(file_path, settings)
-            
+        else:
+            gltf = export_blender_4_2(file_path, settings)
+
         if gltf is None:
-                print("[ASOBO] Export failed.")
+            print("[ASOBO] Export failed.")
 
     def execute(self, context):
         if context.scene.msfs_multi_exporter_current_tab == "OBJECTS":
@@ -219,12 +304,14 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
 
             for lod_group in lod_groups:
                 export_folder_path = lod_group.folder_path
-                if export_folder_path == '//\\':
-                        export_folder_path = export_folder_path.rsplit('\\')[0]
+                if export_folder_path == "//\\":
+                    export_folder_path = export_folder_path.rsplit("\\")[0]
                 export_folder_path = bpy.path.abspath(export_folder_path)
                 # Generate XML if needed
                 if lod_group.generate_xml:
-                    xml_path = os.path.join(export_folder_path, lod_group.group_name + ".xml")
+                    xml_path = os.path.join(
+                        export_folder_path, lod_group.group_name + ".xml"
+                    )
                     found_guid = None
 
                     if os.path.exists(xml_path):
@@ -238,7 +325,9 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
                             version="1.1",
                         )
                     else:
-                        root = etree.Element("ModelInfo", guid=found_guid, version="1.1")
+                        root = etree.Element(
+                            "ModelInfo", guid=found_guid, version="1.1"
+                        )
 
                     lods = etree.SubElement(root, "LODS")
 
@@ -260,14 +349,16 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
                         if file_name != last_lod[0]:
                             lod_element.set("minSize", str(lod_value))
 
-                        lod_element.set("ModelFile", os.path.splitext(file_name)[0] + ".gltf")
+                        lod_element.set(
+                            "ModelFile", os.path.splitext(file_name)[0] + ".gltf"
+                        )
 
                     if lod_files:
                         # Format XML
                         dom = xml.dom.minidom.parseString(etree.tostring(root))
                         xml_string = dom.toprettyxml(encoding="utf-8")
 
-                        with open(xml_path,"wb") as f:
+                        with open(xml_path, "wb") as f:
                             f.write(xml_string)
                             f.close()
 
@@ -292,12 +383,23 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
                                 obj.select_set(True)
                         else:
                             select_recursive(lod.objectLOD)
-                        
+
                         if export_folder_path != "":
-                            exportPath = bpy.path.ensure_ext(os.path.join(export_folder_path, os.path.splitext(lod.file_name)[0]), ".gltf")
+                            exportPath = bpy.path.ensure_ext(
+                                os.path.join(
+                                    export_folder_path,
+                                    os.path.splitext(lod.file_name)[0],
+                                ),
+                                ".gltf",
+                            )
                             MSFS_OT_MultiExportGLTF2.export(exportPath)
                         else:
-                            self.report({'ERROR'}, "[EXPORT][ERROR] Object : " + lod.file_name + " does not have an export path set.")
+                            self.report(
+                                {"ERROR"},
+                                "[EXPORT][ERROR] Object : "
+                                + lod.file_name
+                                + " does not have an export path set.",
+                            )
 
         elif context.scene.msfs_multi_exporter_current_tab == "PRESETS":
             presets = bpy.context.scene.msfs_multi_exporter_presets
@@ -313,18 +415,26 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
                             for obj in layer.collection.all_objects:
                                 if obj in list(bpy.context.window.view_layer.objects):
                                     obj.select_set(True)
-                                    
+
                     if preset.folder_path != "":
                         export_folder_path = preset.folder_path
-                        if export_folder_path == '//\\':
-                            export_folder_path = export_folder_path.rsplit('\\')[0]
+                        if export_folder_path == "//\\":
+                            export_folder_path = export_folder_path.rsplit("\\")[0]
                         export_folder_path = bpy.path.abspath(export_folder_path)
-                        exportPath = bpy.path.ensure_ext(os.path.join(export_folder_path, preset.name), ".gltf")
+                        exportPath = bpy.path.ensure_ext(
+                            os.path.join(export_folder_path, preset.name), ".gltf"
+                        )
                         MSFS_OT_MultiExportGLTF2.export(exportPath)
                     else:
-                        self.report({'ERROR'}, "[EXPORT][ERROR] Preset : " + preset.name + " does not have an export path set.")
+                        self.report(
+                            {"ERROR"},
+                            "[EXPORT][ERROR] Preset : "
+                            + preset.name
+                            + " does not have an export path set.",
+                        )
 
         return {"FINISHED"}
+
 
 class MSFS_OT_ChangeTab(bpy.types.Operator):
     bl_idname = "msfs.multi_export_change_tab"
@@ -336,12 +446,13 @@ class MSFS_OT_ChangeTab(bpy.types.Operator):
         context.scene.msfs_multi_exporter_current_tab = self.current_tab
         return {"FINISHED"}
 
+
 # Panels
 class MSFS_PT_MultiExporter(bpy.types.Panel):
     bl_label = "Multi-Export glTF 2.0"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Multi-Export glTF 2.0"
+    bl_category = "Micorosoft Flight Simulator 2020 Tools"
 
     @classmethod
     def poll(cls, context):
@@ -355,9 +466,21 @@ class MSFS_PT_MultiExporter(bpy.types.Panel):
         current_tab = context.scene.msfs_multi_exporter_current_tab
 
         row = layout.row(align=True)
-        row.operator(MSFS_OT_ChangeTab.bl_idname, text="Objects", depress=(current_tab == "OBJECTS")).current_tab = "OBJECTS"
-        row.operator(MSFS_OT_ChangeTab.bl_idname, text="Presets", depress=(current_tab == "PRESETS")).current_tab = "PRESETS"
-        row.operator(MSFS_OT_ChangeTab.bl_idname, text="Settings", depress=(current_tab == "SETTINGS")).current_tab = "SETTINGS"
+        row.operator(
+            MSFS_OT_ChangeTab.bl_idname,
+            text="Objects",
+            depress=(current_tab == "OBJECTS"),
+        ).current_tab = "OBJECTS"
+        row.operator(
+            MSFS_OT_ChangeTab.bl_idname,
+            text="Presets",
+            depress=(current_tab == "PRESETS"),
+        ).current_tab = "PRESETS"
+        row.operator(
+            MSFS_OT_ChangeTab.bl_idname,
+            text="Settings",
+            depress=(current_tab == "SETTINGS"),
+        ).current_tab = "SETTINGS"
 
 
 def register_panel():
@@ -372,6 +495,7 @@ def register_panel():
     # If the glTF exporter is disabled, we need to unregister the extension panel
     # Just return a function to the exporter so it can unregister the panel
     return unregister_panel
+
 
 def unregister_panel():
     try:

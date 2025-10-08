@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from ..msfs_material_function import MSFS_Material
-from .utils.msfs_material_enum import (MSFS_AnisotropicNodes, MSFS_FrameNodes,
-                                       MSFS_ShaderNodesTypes)
+from .utils.msfs_material_enum import (
+    MSFS_AnisotropicNodes,
+    MSFS_FrameNodes,
+    MSFS_ShaderNodesTypes
+)
 
 
 class MSFS_Anisotropic(MSFS_Material):
@@ -21,7 +24,7 @@ class MSFS_Anisotropic(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Anisotropic, self).defaultShadersTree()
+        super().defaultShadersTree()
         self.anisotropicShaderTree()
     
     def anisotropicShaderTree(self):
@@ -49,5 +52,3 @@ class MSFS_Anisotropic(MSFS_Material):
             frame = anisotropicFrame)
         # Links
         self.link(anisotropicTexNode.outputs[0], separateAnisotropicNode.inputs[0])
-
-    

@@ -11,9 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import bpy
+
 from ..msfs_material_function import MSFS_Material
-from .utils.msfs_material_enum import (MSFS_PrincipledBSDFInputs,
-                                       MSFS_ShaderNodes)
+from .utils.msfs_material_enum import (
+    MSFS_PrincipledBSDFInputs,
+    MSFS_ShaderNodes
+)
 
 
 class MSFS_SSS(MSFS_Material):
@@ -21,8 +25,13 @@ class MSFS_SSS(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_SSS, self).defaultShadersTree()
+        super().defaultShadersTree()
 
     def setSSSColor(self, color):
+        if bpy.app.version >= (4, 2, 0):
+            return
+        
         nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
-        nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.subsurfaceColor.value].default_value = color
+        nodePrincipledBSDF.inputs[
+            MSFS_PrincipledBSDFInputs.subsurfaceColor.value
+        ].default_value = color

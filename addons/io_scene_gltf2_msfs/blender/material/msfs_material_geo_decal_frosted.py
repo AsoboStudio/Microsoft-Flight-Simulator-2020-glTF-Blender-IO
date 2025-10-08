@@ -20,4 +20,4 @@ class MSFS_Geo_Decal_Frosted(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Geo_Decal_Frosted, self).defaultShadersTree()
+        super().defaultShadersTree()

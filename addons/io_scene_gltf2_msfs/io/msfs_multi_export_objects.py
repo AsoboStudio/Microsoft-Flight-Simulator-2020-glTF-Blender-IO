@@ -27,19 +27,46 @@ class MultiExporterLOD(bpy.types.PropertyGroup):
     lod_value: bpy.props.IntProperty(name="", default=0, min=0, max=999)
     file_name: bpy.props.StringProperty(name="", default="")
 
-
+def update_relative_path(self, context):
+    if self.folder_path == "//":
+        self.folder_path = self.folder_path + "\\"
+        
 class MultiExporterLODGroup(bpy.types.PropertyGroup):
+    group_name: bpy.props.StringProperty(
+        name="",
+        default=""
+    )
     
-    def update_relative_path(self, context):
-        if self.folder_path == "//":
-            self.folder_path = self.folder_path + '\\'
-
-    group_name: bpy.props.StringProperty(name="", default="")
-    expanded: bpy.props.BoolProperty(name="", default=True)
-    lods: bpy.props.CollectionProperty(type=MultiExporterLOD)
-    folder_path: bpy.props.StringProperty(name="", default="", subtype="DIR_PATH", description="Path to the directory where you want your model to be exported", update=update_relative_path)
-    generate_xml: bpy.props.BoolProperty(name="", default=False)
-    overwrite_guid: bpy.props.BoolProperty(name="", description="If an XML file already exists in the location to export to, the GUID will be overwritten", default=False)
+    expanded: bpy.props.BoolProperty(
+        name="",
+        default=True
+    )
+    
+    lods: bpy.props.CollectionProperty(
+        type=MultiExporterLOD
+    )
+    
+    folder_path: bpy.props.StringProperty(
+        name="",
+        default="",
+        subtype="DIR_PATH",
+        description="Path to the directory where you want your model to be exported",
+        update=update_relative_path,
+    )
+    
+    generate_xml: bpy.props.BoolProperty(
+        name="",
+        default=False
+    )
+    
+    overwrite_guid: bpy.props.BoolProperty(
+        name="",
+        description=(
+            "If an XML file already exists in the location"
+            " to export to, the GUID will be overwritten"
+        ),
+        default=False,
+    )
 
 
 class MSFS_LODGroupUtility:
@@ -48,21 +75,30 @@ class MSFS_LODGroupUtility:
         sort_by_collection = context.scene.multi_exporter_grouped_by_collections
 
         if sort_by_collection:
-            # Checking visibility from the collection itself won't work, so we have to find the LayerCollection that contains our collection.
+            # Checking visibility from the collection itself won't work,
+            # so we have to find the LayerCollection that contains our collection.
             collection_hidden = False
-            for layer_collection in bpy.context.window.view_layer.layer_collection.children:
+            for (
+                layer_collection
+            ) in bpy.context.window.view_layer.layer_collection.children:
                 if layer_collection.collection == lod.collection:
                     collection_hidden = not layer_collection.visible_get()
 
             if (
-                (not context.scene.multi_exporter_show_hidden_objects and collection_hidden) or 
-                (lod.collection is None or lod.collection not in list(bpy.data.collections))
+                not context.scene.multi_exporter_show_hidden_objects
+                and collection_hidden
+            ) or (
+                lod.collection is None
+                or lod.collection not in list(bpy.data.collections)
             ):
                 return False
         else:
             if (
-                (not context.scene.multi_exporter_show_hidden_objects and lod.objectLOD.hide_get()) or 
-                (lod.objectLOD is None or lod.objectLOD not in list(bpy.context.window.view_layer.objects))
+                not context.scene.multi_exporter_show_hidden_objects
+                and lod.objectLOD.hide_get()
+            ) or (
+                lod.objectLOD is None
+                or lod.objectLOD not in list(bpy.context.window.view_layer.objects)
             ):
                 return False
 
@@ -106,14 +142,20 @@ class MSFS_OT_ReloadLODGroups(bpy.types.Operator):
                 if sort_by_collection:
                     if (
                         not lod.collection in list(bpy.data.collections)
-                        or not MSFS_OT_ReloadLODGroups.get_group_from_name(lod.collection.name) == lod_group.group_name
+                        or not MSFS_OT_ReloadLODGroups.get_group_from_name(
+                            lod.collection.name
+                        )
+                        == lod_group.group_name
                     ):
                         lod_groups[i].lods.remove(j)
                         continue
                 else:
                     if (
                         not lod.objectLOD in list(context.scene.objects)
-                        or not MSFS_OT_ReloadLODGroups.get_group_from_name(lod.objectLOD.name) == lod_group.group_name
+                        or not MSFS_OT_ReloadLODGroups.get_group_from_name(
+                            lod.objectLOD.name
+                        )
+                        == lod_group.group_name
                     ):
                         lod_groups[i].lods.remove(j)
                         continue
@@ -130,31 +172,37 @@ class MSFS_OT_ReloadLODGroups(bpy.types.Operator):
                     found_lod_groups[lod_group] = []
                 found_lod_groups[lod_group].append(collection)
         else:
-            for object in context.scene.objects:
-                if object.parent is None:
-                    lod_group = MSFS_OT_ReloadLODGroups.get_group_from_name(object.name)
+            for blender_object in context.scene.objects:
+                if blender_object.parent is None:
+                    lod_group = MSFS_OT_ReloadLODGroups.get_group_from_name(blender_object.name)
                     if lod_group not in found_lod_groups:
                         found_lod_groups[lod_group] = []
-                    found_lod_groups[lod_group].append(object)
+                    found_lod_groups[lod_group].append(blender_object)
 
         # Add to object groups
-        for lod_group in found_lod_groups:
+        for lod_group, blender_objects in found_lod_groups.items():
             if lod_group not in MSFS_OT_ReloadLODGroups.get_lod_group_names(lod_groups):
                 # Create LOD group
                 created_lod_group = lod_groups.add()
                 created_lod_group.group_name = lod_group
 
-            lod_group_index = MSFS_OT_ReloadLODGroups.get_lod_group_names(lod_groups).index(lod_group)
+            lod_group_index = MSFS_OT_ReloadLODGroups.get_lod_group_names(
+                lod_groups
+            ).index(lod_group)
 
             if sort_by_collection:
-                for collection in found_lod_groups[lod_group]:
-                    if collection not in [lod.collection for lod in lod_groups[lod_group_index].lods]:
+                for collection in blender_objects:
+                    if collection not in [
+                        lod.collection for lod in lod_groups[lod_group_index].lods
+                    ]:
                         lod = lod_groups[lod_group_index].lods.add()
                         lod.collection = collection
                         lod.file_name = collection.name
             else:
-                for obj in found_lod_groups[lod_group]:
-                    if obj not in [lod.objectLOD for lod in lod_groups[lod_group_index].lods]:
+                for obj in blender_objects:
+                    if obj not in [
+                        lod.objectLOD for lod in lod_groups[lod_group_index].lods
+                    ]:
                         lod = lod_groups[lod_group_index].lods.add()
                         lod.objectLOD = obj
                         lod.file_name = obj.name
@@ -201,7 +249,9 @@ class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
             for lod_group in lod_groups:
                 # If we only have one LOD in the group, and it is hidden, then don't render the group
                 if len(lod_group.lods) == 1:
-                    if not MSFS_LODGroupUtility.lod_is_visible(context, lod_group.lods[0]):
+                    if not MSFS_LODGroupUtility.lod_is_visible(
+                        context, lod_group.lods[0]
+                    ):
                         continue
 
                 if len(lod_group.lods) > 0:
@@ -216,6 +266,7 @@ class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
                         icon_only=True,
                         emboss=False,
                     )
+                    
                     if lod_group.expanded:
                         box.prop(lod_group, "generate_xml", text="Generate XML")
                         if lod_group.generate_xml:
@@ -242,10 +293,17 @@ class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
 
 
 def register():
-    bpy.types.Scene.msfs_multi_exporter_lod_groups = bpy.props.CollectionProperty(type=MultiExporterLODGroup)
-    bpy.types.Scene.multi_exporter_show_hidden_objects = bpy.props.BoolProperty(name="Show hidden objects", default=True)
+    bpy.types.Scene.msfs_multi_exporter_lod_groups = bpy.props.CollectionProperty(
+        type=MultiExporterLODGroup
+    )
+    
+    bpy.types.Scene.multi_exporter_show_hidden_objects = bpy.props.BoolProperty(
+        name="Show hidden objects",
+        default=True
+    )
+    
     bpy.types.Scene.multi_exporter_grouped_by_collections = bpy.props.BoolProperty(
         name="Grouped by collections",
         default=False,
-        update=MSFS_OT_ReloadLODGroups.update_grouped_by
+        update=MSFS_OT_ReloadLODGroups.update_grouped_by,
     )

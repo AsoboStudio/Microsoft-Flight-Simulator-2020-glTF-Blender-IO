@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import bpy
 
 from .msfs_gizmo import MSFSGizmo
 from .msfs_light import MSFSLight
@@ -20,25 +21,65 @@ from .msfs_material import MSFSMaterial
 class Import:
 
     def __init__(self):
-        pass
+        self.properties = bpy.context.scene.msfs_importer_properties
 
     # Create lights
-    def gather_import_light_after_hook(self, gltf2_node, blender_node, blender_light, import_settings):
-        MSFSLight.create(gltf2_node, blender_node, blender_light, import_settings)
+    def gather_import_light_after_hook(
+        self, 
+        gltf2_node, 
+        blender_node, 
+        blender_light, 
+        import_settings
+    ):
+        MSFSLight.create(
+            gltf2_node, 
+            blender_node, 
+            import_settings
+        )
 
     # Create gizmos
-    def gather_import_scene_before_hook(self, gltf_scene, blender_scene, import_settings):
-        MSFSGizmo.create(gltf_scene, blender_scene, import_settings)
+    def gather_import_scene_before_hook(
+        self, 
+        gltf_scene, 
+        blender_scene, 
+        import_settings
+    ):
+        MSFSGizmo.create(
+            gltf_scene, 
+            blender_scene, 
+            import_settings
+        )
 
     # Create Lights
-    def gather_import_node_before_hook(self, vnode, gltf_node, gltf):
-        MSFSLight.create(vnode, gltf_node, gltf)
+    def gather_import_node_before_hook(
+        self,
+        vnode,
+        gltf_node,
+        gltf
+    ):
+        MSFSLight.create(
+            vnode,
+            gltf_node,
+            gltf
+        )
 
     # Set proper gizmo blender object properties
-    def gather_import_node_after_hook(self, vnode, gltf2_node, blender_object, import_settings):
+    def gather_import_node_after_hook(
+        self,
+        vnode,
+        gltf2_node,
+        blender_object,
+        import_settings
+    ):
         MSFSGizmo.set_blender_data(gltf2_node, blender_object, import_settings)
         MSFSLight.removeLightObject(vnode, gltf2_node, blender_object)
 
     # Create materials
-    def gather_import_material_after_hook(self, gltf2_material, vertex_color, blender_material, import_settings):
+    def gather_import_material_after_hook(
+        self,
+        gltf2_material,
+        vertex_color,
+        blender_material,
+        import_settings
+    ):
         MSFSMaterial.create(gltf2_material, blender_material, import_settings)

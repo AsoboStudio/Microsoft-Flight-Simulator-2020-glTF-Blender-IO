@@ -22,12 +22,13 @@ class MSFSGizmo:
     extension_name = "ASOBO_gizmo_object"
 
     def __new__(cls, *args, **kwargs):
-        raise RuntimeError("%s should not be instantiated" % cls)
+        raise RuntimeError(f"{cls} should not be instantiated")
 
     @staticmethod
     def create(gltf_scene, blender_scene, import_settings):
         """
-        Create a "fake" node in the glTF scene to let the gizmo TRS get applied properly relative to the parent
+        Create a "fake" node in the glTF scene 
+        to let the gizmo TRS get applied properly relative to the parent
         """
         nodes = gltf_scene.nodes
         for node_idx in nodes:
@@ -39,11 +40,11 @@ class MSFSGizmo:
 
             mesh = import_settings.data.meshes[node.mesh]
             extension = ""
-            if mesh.extensions:
-                extension = mesh.extensions.get(MSFSGizmo.extension_name)
-                if extension is None:
-                    continue
-            else:
+            if not mesh.extensions:
+                continue
+            
+            extension = mesh.extensions.get(MSFSGizmo.extension_name)
+            if extension is None:
                 continue
 
             for gizmo_object in extension.get("gizmo_objects"):
@@ -96,6 +97,7 @@ class MSFSGizmo:
                 import_settings.data.nodes.append(placeholder_node)
                 if node.children is None:
                     node.children = []
+                    
                 node.children.append(len(import_settings.data.nodes) - 1)
 
     @staticmethod
@@ -119,8 +121,10 @@ class MSFSGizmo:
         # Set name
         if blender_object.msfs_gizmo_type == "sphere":
             blender_object.name = "Sphere Collision"
+            
         elif blender_object.msfs_gizmo_type == "box":
             blender_object.name = "Box Collision"
+            
         elif blender_object.msfs_gizmo_type == "cylinder":
             blender_object.name = "Cylinder Collision"
 
@@ -130,14 +134,19 @@ class MSFSGizmo:
     @staticmethod
     def export(nodes, blender_scene, export_settings):
         """
-        Let the Khronos exporter gather the gizmo to calculate the proper TRS with the parent to make sure everything is correct,
-        then remove the gizmo from the collected nodes and set the proper mesh extensions
+        Let the Khronos exporter gather the gizmo to calculate 
+        the proper TRS with the parent to make sure everything is correct,
+        then remove the gizmo from the collected nodes 
+        and set the proper mesh extensions
         """
         for node in nodes:
             collisions = []  # TODO: make sure node is mesh?
             for child in list(node.children):
-                blender_object = blender_scene.objects.get(child.name)  # The glTF exporter will ALWAYS set the node name as the blender name
-                if blender_object is None: # However, there are cases where the exporter creates fake nodes that don't exist in the scene
+                # The glTF exporter will ALWAYS set the node name as the blender name
+                blender_object = blender_scene.objects.get(child.name)
+                
+                # However, there are cases where the exporter creates fake nodes that don't exist in the scene
+                if blender_object is None: 
                     continue
                 
                 # We only need the collision gizmos that are parented to a mesh
@@ -148,6 +157,7 @@ class MSFSGizmo:
                     result = {}
                     result["type"] = blender_object.msfs_gizmo_type
                     result["translation"] = child.translation
+                    
                     if child.rotation:
                         result["rotation"] = child.rotation
 
@@ -164,10 +174,12 @@ class MSFSGizmo:
                     scale = {}
                     if blender_object.msfs_gizmo_type == "sphere":
                         scale["radius"] = abs(child.scale[0] * child.scale[1] * child.scale[2])
+                        
                     elif blender_object.msfs_gizmo_type == "box":
                         scale["length"] = abs(child.scale[0]) * 2
                         scale["width"] = abs(child.scale[1]) * 2
                         scale["height"] = abs(child.scale[2]) * 2
+                        
                     elif blender_object.msfs_gizmo_type == "cylinder":
                         scale["radius"] = abs(child.scale[0] * child.scale[1])
                         scale["height"] = abs(child.scale[2])
@@ -181,7 +193,9 @@ class MSFSGizmo:
 
                     result["extensions"] = {
                         "ASOBO_tags": Extension(
-                            name="ASOBO_tags", extension={"tags": tags}, required=False
+                            name="ASOBO_tags", 
+                            extension={"tags": tags}, 
+                            required=False
                         )
                     }
 

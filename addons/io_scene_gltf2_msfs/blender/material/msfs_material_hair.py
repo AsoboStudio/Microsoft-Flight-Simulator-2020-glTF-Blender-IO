@@ -20,6 +20,6 @@ class MSFS_Hair(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Hair, self).defaultShadersTree()
+        super().defaultShadersTree()
         MSFS_Anisotropic.anisotropicShaderTree(self)
     

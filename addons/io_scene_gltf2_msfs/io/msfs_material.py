@@ -13,17 +13,24 @@
 # limitations under the License.
 
 import bpy
+import os
+
+if bpy.app.version >= (4, 2, 0):
+    from io_scene_gltf2.blender.exp.material.gltf2_blender_search_node_tree import (
+        NodeSocket
+    )
 
 if bpy.app.version >= (3, 6, 0):
     from io_scene_gltf2.blender.exp.material.gltf2_blender_gather_texture_info import (
         gather_material_normal_texture_info_class,
-        gather_material_occlusion_texture_info_class, gather_texture_info)
+        gather_texture_info
+    )
 else:
     from io_scene_gltf2.blender.exp.gltf2_blender_gather_texture_info import (
         gather_material_normal_texture_info_class,
-        gather_material_occlusion_texture_info_class, gather_texture_info
+        gather_texture_info
     )
-
+    
 from io_scene_gltf2.blender.imp.gltf2_blender_image import BlenderImage
 
 from ..com import msfs_material_props as MSFSMaterialExtensions
@@ -60,7 +67,7 @@ class MSFSMaterial:
     ]
 
     def __new__(cls, *args, **kwargs):
-        raise RuntimeError("%s should not be instantiated" % cls)
+        raise RuntimeError(f"{cls} should not be instantiated")
 
     @staticmethod
     def create_image(index, import_settings):
@@ -74,61 +81,108 @@ class MSFSMaterial:
             return bpy.data.images[blender_image_name]
 
     @staticmethod
-    def export_image(
-        blender_material, blender_image, type, export_settings, normal_scale=None
-    ):
+    def export_image(blender_material, blender_image, image_type, export_settings):
         nodes = blender_material.node_tree.nodes
         links = blender_material.node_tree.links
 
         # Create a fake texture node temporarily (unfortunately this is the only solid way of doing this)
         texture_node = nodes.new("ShaderNodeTexImage")
+        texture_node.name = "Texture Output"
         texture_node.image = blender_image
 
+        # Save image path before converting it to an absolute path
+        saved_image_path = blender_image.filepath
+
+        # Make sure that the path of the image is absolute
+        texture_node.image.filepath = bpy.path.abspath(texture_node.image.filepath)
+        texture_node.image.filepath = os.path.realpath(texture_node.image.filepath)
+
         # Create shader to plug texture into
-        shader_node = nodes.new("ShaderNodeBsdfPrincipled")
+        principled_bsdf_node = nodes.new("ShaderNodeBsdfPrincipled")
+        principled_bsdf_node.name = "Principled BSDF Temp Node"
 
-        # Gather texture info
-        if type == "DEFAULT":
-            link = links.new(shader_node.inputs["Base Color"], texture_node.outputs[0])
+        texture_info = None
 
-            texture_info = gather_texture_info(
-                shader_node.inputs["Base Color"],
-                (shader_node.inputs["Base Color"],),
-                export_settings,
+        # region Gather texture info
+        if image_type == "DEFAULT":
+            node_link = links.new(
+                texture_node.outputs[0],
+                principled_bsdf_node.inputs["Base Color"]
             )
-        elif type == "NORMAL":
+
+            if bpy.app.version >= (4, 2, 0):
+                node_socket = NodeSocket(
+                    principled_bsdf_node.inputs["Base Color"],
+                    [blender_material.node_tree]
+                )
+
+                texture_info = gather_texture_info(
+                    node_socket,
+                    (node_socket,),
+                    export_settings
+                )
+            else:
+                texture_info = gather_texture_info(
+                    principled_bsdf_node.inputs["Base Color"],
+                    (principled_bsdf_node.inputs["Base Color"],),
+                    export_settings
+                )
+
+        elif image_type == "NORMAL":
             normal_node = nodes.new("ShaderNodeNormalMap")
-            if normal_scale:
-                normal_node.inputs["Strength"].default_value = normal_scale
-            link = links.new(normal_node.inputs["Color"], texture_node.outputs[0])
-            normal_blend_link = links.new(
-                shader_node.inputs["Normal"], normal_node.outputs[0]
+            normal_node.name = "Normal Texture Output"
+
+            links.new(
+                texture_node.outputs[0],
+                normal_node.inputs["Color"]
             )
 
-            texture_info = gather_material_normal_texture_info_class(
-                shader_node.inputs["Normal"],
-                (shader_node.inputs["Normal"],),
-                export_settings,
+            links.new(
+                normal_node.outputs[0],
+                principled_bsdf_node.inputs["Normal"]
             )
 
-            links.remove(normal_blend_link)
-        elif type == "OCCLUSION":
-            # TODO: handle this - may not be needed
-            texture_info = gather_material_occlusion_texture_info_class(
-                shader_node.inputs[0], (shader_node.inputs[0],), export_settings
-            )
+            if bpy.app.version >= (4, 2, 0):
+                node_socket = NodeSocket(
+                    principled_bsdf_node.inputs["Normal"],
+                    [blender_material.node_tree]
+                )
 
-        # Delete temp nodes
-        links.remove(link)
-        nodes.remove(shader_node)
-        nodes.remove(texture_node)
-        if type == "NORMAL":
-            nodes.remove(normal_node)
+                texture_info = gather_material_normal_texture_info_class(
+                    node_socket,
+                    (node_socket,),
+                    export_settings
+                )
+            else:
+                texture_info = gather_material_normal_texture_info_class(
+                    principled_bsdf_node.inputs["Normal"],
+                    (principled_bsdf_node.inputs["Normal"],),
+                    export_settings
+                )
+
+        # endregion
+
+        # Restore saved image file path
+        blender_image.filepath = saved_image_path
+
+        if texture_info is None:
+            return None
 
         # Some versions of the Khronos exporter have gather_texture_info return a tuple
         if isinstance(texture_info, tuple):
             texture_info = texture_info[0]
 
+        if hasattr(texture_info, "tex_coord"):
+            texture_info.tex_coord = None
+            
+        # region Delete temp nodes
+        nodes.remove(principled_bsdf_node)
+        nodes.remove(texture_node)
+        
+        if image_type == "NORMAL":
+            nodes.remove(normal_node)
+        # endregion
+        
         return texture_info
 
     @staticmethod

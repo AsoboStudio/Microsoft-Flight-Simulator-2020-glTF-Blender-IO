@@ -13,9 +13,12 @@
 # limitations under the License.
 
 from ..msfs_material_function import MSFS_Material
-from .utils.msfs_material_enum import (MSFS_FrameNodes,
-                                       MSFS_PrincipledBSDFInputs,
-                                       MSFS_ShaderNodes, MSFS_ShaderNodesTypes)
+from .utils.msfs_material_enum import (
+    MSFS_FrameNodes,
+    MSFS_PrincipledBSDFInputs,
+    MSFS_ShaderNodes,
+    MSFS_ShaderNodesTypes
+)
 
 
 class MSFS_Clearcoat(MSFS_Material):
@@ -23,7 +26,7 @@ class MSFS_Clearcoat(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Clearcoat, self).defaultShadersTree()
+        super().defaultShadersTree()
         self.clearcoatShaderTree()
 
     def clearcoatShaderTree(self):
@@ -63,8 +66,21 @@ class MSFS_Clearcoat(MSFS_Material):
             nodeClearcoat.image = tex
             nodeClearcoat.image.colorspace_settings.name = "Non-Color"
 
-            self.link(nodeClearcoatSeparate.outputs[0], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.clearcoat.value])
-            self.link(nodeClearcoatSeparate.outputs[1], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.clearcoatRoughness.value])
-        else:
-            self.unLinkNodeInput(nodePrincipledBSDF, MSFS_PrincipledBSDFInputs.clearcoat.value)
-            self.unLinkNodeInput(nodePrincipledBSDF, MSFS_PrincipledBSDFInputs.clearcoatRoughness.value)
+            self.link(
+                nodeClearcoatSeparate.outputs[0], 
+                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.clearcoat.value]
+            )
+            self.link(
+                nodeClearcoatSeparate.outputs[1], 
+                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.clearcoatRoughness.value]
+            )
+            return
+        
+        self.unLinkNodeInput(
+            nodePrincipledBSDF,
+            MSFS_PrincipledBSDFInputs.clearcoat.value
+        )
+        self.unLinkNodeInput(
+            nodePrincipledBSDF,
+            MSFS_PrincipledBSDFInputs.clearcoatRoughness.value
+        )

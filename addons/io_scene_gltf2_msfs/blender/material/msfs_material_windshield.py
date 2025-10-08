@@ -20,4 +20,4 @@ class MSFS_Windshield(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Windshield, self).defaultShadersTree()
+        super().defaultShadersTree()

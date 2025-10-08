@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import bpy
 import os
 import urllib
 
@@ -23,48 +24,102 @@ from .msfs_unique_id import MSFS_unique_id
 
 
 class Export:
+    def __init__(self):
+        # We need to wait until we create the gltf2UserExtension to import the gltf2 modules
+        # Otherwise, it may fail because the gltf2 may not be loaded yet
+        from io_scene_gltf2.io.com.gltf2_io_extensions import Extension
+        self.Extension = Extension
+        self.properties = bpy.context.scene.msfs_exporter_settings
+        
+    def gather_asset_hook(
+        self,
+        gltf2_asset,
+        export_settings
+    ):
+        if not self.properties.enable_msfs_extension:
+            return
+        
+        if gltf2_asset.extensions is None:
+            gltf2_asset.extensions = {}
+            
+        gltf2_asset.extensions["ASOBO_normal_map_convention"] = self.Extension(
+            name="ASOBO_normal_map_convention",
+            extension={"tangent_space_convention": "DirectX"},
+            required=False
+        )
+
+        gltf2_asset.generator += " and Asobo Studio MSFS Blender I/O v" + get_version_string()
+
+    def gather_gltf_extensions_hook(
+        self,
+        gltf2_plan,
+        export_settings
+    ):
+        if not self.properties.enable_msfs_extension:
+            return
+        
+        for image in gltf2_plan.images:
+            image.uri = os.path.basename(urllib.parse.unquote(image.uri))
+
+    def gather_node_hook(
+        self,
+        gltf2_object,
+        blender_object,
+        export_settings
+    ):
+        if not self.properties.enable_msfs_extension:
+            return
+        
+        if gltf2_object.extensions is None:
+            gltf2_object.extensions = {}
+
+        if self.properties.use_unique_id:
+            MSFS_unique_id.export(gltf2_object, blender_object)
+
+        if blender_object.type == "LIGHT":
+            MSFSLight.export(gltf2_object, blender_object)
     
-    def gather_asset_hook(self, gltf2_asset, export_settings):
-        if self.properties.enable_msfs_extension == True:
-            if gltf2_asset.extensions is None:
-                gltf2_asset.extensions = {}
-            gltf2_asset.extensions["ASOBO_normal_map_convention"] = self.Extension(
-                name="ASOBO_normal_map_convention",
-                extension={"tangent_space_convention": "DirectX"},
-                required=False
-            )
+    def gather_joint_hook(
+        self,
+        gltf2_node,
+        blender_bone,
+        export_settings
+    ):
+        if not self.properties.enable_msfs_extension:
+            return
 
-            gltf2_asset.generator += " and Asobo Studio MSFS Blender I/O v" + get_version_string()
+        if gltf2_node.extensions is None:
+            gltf2_node.extensions = {}
 
-    def gather_gltf_extensions_hook(self, gltf2_plan, export_settings):
-        if self.properties.enable_msfs_extension:
-            for i, image in enumerate(gltf2_plan.images):
-                image.uri = os.path.basename(urllib.parse.unquote(image.uri))
+        if self.properties.use_unique_id:
+            MSFS_unique_id.export(gltf2_node, blender_bone)
 
-    def gather_node_hook(self, gltf2_object, blender_object, export_settings):
-        if self.properties.enable_msfs_extension:
-            if gltf2_object.extensions is None:
-                gltf2_object.extensions = {}
+    def gather_scene_hook(
+        self,
+        gltf2_scene,
+        blender_scene,
+        export_settings
+    ):
+        if not self.properties.enable_msfs_extension:
+            return
+        
+        MSFSGizmo.export(
+            gltf2_scene.nodes,
+            blender_scene,
+            export_settings
+        )
 
-            if self.properties.use_unique_id:
-                MSFS_unique_id.export(gltf2_object, blender_object)
-
-            if blender_object.type == 'LIGHT':
-                MSFSLight.export(gltf2_object, blender_object)
-    
-    def gather_joint_hook(self, gltf2_node, blender_bone, export_settings):
-        if self.properties.enable_msfs_extension:
-
-            if gltf2_node.extensions is None:
-                gltf2_node.extensions = {}
-
-            if self.properties.use_unique_id:
-                MSFS_unique_id.export(gltf2_node, blender_bone)
-
-    def gather_scene_hook(self, gltf2_scene, blender_scene, export_settings):
-        if self.properties.enable_msfs_extension:
-            MSFSGizmo.export(gltf2_scene.nodes, blender_scene, export_settings)
-
-    def gather_material_hook(self, gltf2_material, blender_material, export_settings):
-        if self.properties.enable_msfs_extension:
-            MSFSMaterial.export(gltf2_material, blender_material, export_settings)
+    def gather_material_hook(
+        self,
+        gltf2_material,
+        blender_material,
+        export_settings
+    ):
+        if not self.properties.enable_msfs_extension:
+            return
+        
+        MSFSMaterial.export(
+            gltf2_material,
+            blender_material,
+            export_settings
+        )

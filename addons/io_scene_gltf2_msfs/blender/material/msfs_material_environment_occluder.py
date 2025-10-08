@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ..msfs_material_function import MSFS_Material, MSFS_ShaderNodes
+from ..msfs_material_function import MSFS_Material
 
 
 class MSFS_Environment_Occluder(MSFS_Material):
@@ -20,6 +20,6 @@ class MSFS_Environment_Occluder(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Environment_Occluder, self).defaultShadersTree()
-        self.principledBSDF = self.getNodesByClassName("ShaderNodeBsdfPrincipled")[0]
-        self.principledBSDF.inputs[21].default_value = 0
+        super().defaultShadersTree()
+        principledBSDF = self.getNodesByClassName("ShaderNodeBsdfPrincipled")[0]
+        principledBSDF.inputs[21].default_value = 0

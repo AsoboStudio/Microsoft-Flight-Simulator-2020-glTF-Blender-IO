@@ -20,4 +20,4 @@ class MSFS_Ghost(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Ghost, self).defaultShadersTree()
+        super().defaultShadersTree()

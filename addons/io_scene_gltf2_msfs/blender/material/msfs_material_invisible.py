@@ -20,6 +20,6 @@ class MSFS_Invisible(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Invisible, self).defaultShadersTree()
+        super().defaultShadersTree()
         nodeBaseColorA = self.getNodeByName(MSFS_ShaderNodes.baseColorA.value)
         nodeBaseColorA.outputs[0].default_value = 0.0

@@ -1063,10 +1063,14 @@ class AsoboMaterialDetail:
         from ..io.msfs_material import MSFSMaterial
         hasTexture = False
         result = {}
-        if (blender_material.msfs_material_type != "NONE" 
-            and blender_material.msfs_material_type != "msfs_parallax" 
-            and blender_material.msfs_material_type != "msfs_invisible" 
-            and blender_material.msfs_material_type != "msfs_environment_occluder"):
+        if (
+            blender_material.msfs_material_type not in (
+                "NONE",
+                "msfs_parallax",
+                "msfs_invisible",
+                "msfs_environment_occluder",
+            )
+        ):
 
             if blender_material.msfs_detail_color_texture is not None:
                 result["detailColorTexture"] = MSFSMaterial.export_image(
@@ -1083,9 +1087,9 @@ class AsoboMaterialDetail:
                     blender_material.msfs_detail_normal_texture,
                     "NORMAL",
                     export_settings,
-                    normal_scale=blender_material.msfs_detail_normal_scale,
                 )
                 hasTexture = True
+                result["detailNormalTexture"].scale = blender_material.msfs_detail_normal_scale
 
             if blender_material.msfs_detail_occlusion_metallic_roughness_texture is not None:
                 result["detailMetalRoughAOTexture"] = MSFSMaterial.export_image(
@@ -1106,12 +1110,14 @@ class AsoboMaterialDetail:
                 hasTexture = True
             
             if hasTexture:
-                if (blender_material.msfs_detail_uv_scale != AsoboMaterialDetail.Defaults.UVScale):
+                if blender_material.msfs_detail_uv_scale != AsoboMaterialDetail.Defaults.UVScale:
                     result["UVScale"] = blender_material.msfs_detail_uv_scale
-                if (blender_material.msfs_detail_blend_threshold != AsoboMaterialDetail.Defaults.blendThreshold):
+                if blender_material.msfs_detail_blend_threshold != AsoboMaterialDetail.Defaults.blendThreshold:
                     result["blendThreshold"] = blender_material.msfs_detail_blend_threshold
-                if (blender_material.msfs_detail_uv_offset_u != AsoboMaterialDetail.Defaults.UVOffset[0]
-                    or blender_material.msfs_detail_uv_offset_v != AsoboMaterialDetail.Defaults.UVOffset[1]):
+                if (
+                    blender_material.msfs_detail_uv_offset_u != AsoboMaterialDetail.Defaults.UVOffset[0]
+                    or blender_material.msfs_detail_uv_offset_v != AsoboMaterialDetail.Defaults.UVOffset[1]
+                ):
                     result["UVOffset"] = (blender_material.msfs_detail_uv_offset_u, blender_material.msfs_detail_uv_offset_v)
             
             if result:
@@ -1217,7 +1223,11 @@ class AsoboSSS:
     
     bpy.types.Material.msfs_sss_color = bpy.props.FloatVectorProperty(
         name="SSS Color",
-        description="The RGBA components of the SSS color of the material. These values are linear. If a SSSTexture is specified, this value is multiplied with the texel values",
+        description=(
+            "The RGBA components of the SSS color of the material."
+            " These values are linear. If a SSSTexture is specified,"
+            " this value is multiplied with the texel values"
+        ),
         subtype="COLOR",
         min=0.0,
         max=1.0,
@@ -1254,10 +1264,7 @@ class AsoboSSS:
         from ..io.msfs_material import MSFSMaterial
 
         result = {}
-        if (
-            blender_material.msfs_material_type == "msfs_sss"
-            or blender_material.msfs_material_type == "msfs_hair"
-        ):
+        if blender_material.msfs_material_type not in ("msfs_sss", "msfs_hair"):
             if blender_material.msfs_sss_color:
                 result["SSSColor"] = list(blender_material.msfs_sss_color)
 
@@ -1294,12 +1301,14 @@ class AsoboAnisotropic:
 
         # MUST BE CALLED AFTER SSS
         if blender_material.msfs_material_type == "msfs_sss":
-            blender_material.msfs_material_type = "msfs_hair"  # SSS and hair share identical properties, except for this. If present, switch from SSS to hair
+            # SSS and hair share identical properties, except for this. If present, switch from SSS to hair
+            blender_material.msfs_material_type = "msfs_hair" 
         else:
             blender_material.msfs_material_type = "msfs_anisotropic"
         if extension.get("anisotropicTexture"):
             blender_material.msfs_extra_slot1_texture = MSFSMaterial.create_image(
-                extension.get("anisotropicTexture", {}).get("index"), import_settings
+                extension.get("anisotropicTexture", {}).get("index"),
+                import_settings
             )
 
     @staticmethod
@@ -1307,20 +1316,20 @@ class AsoboAnisotropic:
         from ..io.msfs_material import MSFSMaterial
 
         result = {}
-        if (blender_material.msfs_material_type == "msfs_anisotropic" 
-            or blender_material.msfs_material_type == "msfs_hair"):
+        if blender_material.msfs_material_type not in ("msfs_anisotropic", "msfs_hair"):
+            return
+        
+        if blender_material.msfs_extra_slot1_texture is not None:
+            result["anisotropicTexture"] = MSFSMaterial.export_image(
+                blender_material,
+                blender_material.msfs_extra_slot1_texture,
+                "DEFAULT",
+                export_settings,
+            )
 
-            if blender_material.msfs_extra_slot1_texture is not None:
-                result["anisotropicTexture"] = MSFSMaterial.export_image(
-                    blender_material,
-                    blender_material.msfs_extra_slot1_texture,
-                    "DEFAULT",
-                    export_settings,
-                )
-
-                gltf2_material.extensions[AsoboAnisotropic.SerializedName] = Extension(
-                    name=AsoboAnisotropic.SerializedName, extension=result, required=False
-                )
+            gltf2_material.extensions[AsoboAnisotropic.SerializedName] = Extension(
+                name=AsoboAnisotropic.SerializedName, extension=result, required=False
+            )
 
 
 class AsoboWindshield:
@@ -1409,23 +1418,26 @@ class AsoboWindshield:
         from ..io.msfs_material import MSFSMaterial
 
         result = {}
-        if blender_material.msfs_material_type == "msfs_windshield":
-            result["rainDropScale"] = blender_material.msfs_rain_drop_scale
-            result["wiper1State"] = blender_material.msfs_wiper_1_state
-            result["wiper2State"] = blender_material.msfs_wiper_2_state
-            result["wiper3State"] = blender_material.msfs_wiper_3_state
-            result["wiper4State"] = blender_material.msfs_wiper_4_state
-            if blender_material.msfs_extra_slot1_texture is not None:
-                result["wiperMaskTexture"] = MSFSMaterial.export_image(
-                    blender_material,
-                    blender_material.msfs_extra_slot1_texture,
-                    "DEFAULT",
-                    export_settings,
-                )
-
-            gltf2_material.extensions[AsoboWindshield.SerializedName] = Extension(
-                name=AsoboWindshield.SerializedName, extension=result, required=False
+        if blender_material.msfs_material_type != "msfs_windshield":
+            return
+        
+        result["rainDropScale"] = blender_material.msfs_rain_drop_scale
+        result["wiper1State"] = blender_material.msfs_wiper_1_state
+        result["wiper2State"] = blender_material.msfs_wiper_2_state
+        result["wiper3State"] = blender_material.msfs_wiper_3_state
+        result["wiper4State"] = blender_material.msfs_wiper_4_state
+        
+        if blender_material.msfs_extra_slot1_texture is not None:
+            result["wiperMaskTexture"] = MSFSMaterial.export_image(
+                blender_material,
+                blender_material.msfs_extra_slot1_texture,
+                "DEFAULT",
+                export_settings,
             )
+
+        gltf2_material.extensions[AsoboWindshield.SerializedName] = Extension(
+            name=AsoboWindshield.SerializedName, extension=result, required=False
+        )
 
 
 class AsoboClearCoat:
@@ -1447,10 +1459,13 @@ class AsoboClearCoat:
 
         blender_material.msfs_material_type = "msfs_clearcoat"
 
-        if extension.get("dirtTexture"):
-            blender_material.msfs_dirt_texture = MSFSMaterial.create_image(
-                extension.get("dirtTexture", {}).get("index"), import_settings
-            )
+        if not extension.get("dirtTexture"):
+            return
+        
+        blender_material.msfs_dirt_texture = MSFSMaterial.create_image(
+            extension.get("dirtTexture", {}).get("index"), 
+            import_settings
+        )
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
@@ -1548,7 +1563,8 @@ class AsoboParallaxWindow:
             blender_material.msfs_parallax_corridor = extension.get("corridor")
         if extension.get("behindWindowMapTexture"):
             blender_material.msfs_detail_color_texture = MSFSMaterial.create_image(
-                extension.get("behindWindowMapTexture", {}).get("index"), import_settings
+                extension.get("behindWindowMapTexture", {}).get("index"),
+                import_settings
             )
 
     @staticmethod
@@ -1556,26 +1572,28 @@ class AsoboParallaxWindow:
         from ..io.msfs_material import MSFSMaterial
 
         result = {}
-        if blender_material.msfs_material_type == "msfs_parallax":
-            result["parallaxScale"] = blender_material.msfs_parallax_scale
-            result["roomSizeXScale"] = blender_material.msfs_parallax_room_size_x
-            result["roomSizeYScale"] = blender_material.msfs_parallax_room_size_y
-            result["roomNumberXY"] = blender_material.msfs_parallax_room_number_xy
-            result["corridor"] = blender_material.msfs_parallax_corridor
+        if blender_material.msfs_material_type != "msfs_parallax":
+            return
+        
+        result["parallaxScale"] = blender_material.msfs_parallax_scale
+        result["roomSizeXScale"] = blender_material.msfs_parallax_room_size_x
+        result["roomSizeYScale"] = blender_material.msfs_parallax_room_size_y
+        result["roomNumberXY"] = blender_material.msfs_parallax_room_number_xy
+        result["corridor"] = blender_material.msfs_parallax_corridor
 
-            if blender_material.msfs_detail_color_texture is not None:
-                result["behindWindowMapTexture"] = MSFSMaterial.export_image(
-                    blender_material,
-                    blender_material.msfs_detail_color_texture,
-                    "DEFAULT",
-                    export_settings,
-                )
-
-            gltf2_material.extensions[AsoboParallaxWindow.SerializedName] = Extension(
-                name=AsoboParallaxWindow.SerializedName,
-                extension=result,
-                required=False,
+        if blender_material.msfs_detail_color_texture is not None:
+            result["behindWindowMapTexture"] = MSFSMaterial.export_image(
+                blender_material,
+                blender_material.msfs_detail_color_texture,
+                "DEFAULT",
+                export_settings,
             )
+
+        gltf2_material.extensions[AsoboParallaxWindow.SerializedName] = Extension(
+            name=AsoboParallaxWindow.SerializedName,
+            extension=result,
+            required=False,
+        )
 
 
 class AsoboGlass:
@@ -1620,19 +1638,24 @@ class AsoboGlass:
 
         if extension.get("glassReflectionMaskFactor"):
             blender_material.msfs_glass_reflection_mask_factor = extension.get("glassReflectionMaskFactor")
+            
         if extension.get("glassDeformationFactor"):
             blender_material.msfs_glass_deformation_factor = extension.get("glassDeformationFactor")
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
         result = {}
-        if blender_material.msfs_material_type == "msfs_glass":
-            result["glassReflectionMaskFactor"] = blender_material.msfs_glass_reflection_mask_factor
-            result["glassDeformationFactor"] = blender_material.msfs_glass_deformation_factor
+        if blender_material.msfs_material_type != "msfs_glass":
+            return
+        
+        result["glassReflectionMaskFactor"] = blender_material.msfs_glass_reflection_mask_factor
+        result["glassDeformationFactor"] = blender_material.msfs_glass_deformation_factor
 
-            gltf2_material.extensions[AsoboGlass.SerializedName] = Extension(
-                name=AsoboGlass.SerializedName, extension=result, required=False
-            )
+        gltf2_material.extensions[AsoboGlass.SerializedName] = Extension(
+            name=AsoboGlass.SerializedName,
+            extension=result,
+            required=False
+        )
 
 
 class AsoboTags:
@@ -1674,18 +1697,23 @@ class AsoboTags:
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
         result = {}
-        if (blender_material.msfs_material_type != "msfs_environment_occluder"):
-            tags = []
-            if blender_material.msfs_collision_material:
-                tags.append(AsoboTags.AsoboTag.Collision)
-            if blender_material.msfs_road_collision_material:
-                tags.append(AsoboTags.AsoboTag.Road)
+        if blender_material.msfs_material_type == "msfs_environment_occluder":
+            return
+        
+        tags = []
+        if blender_material.msfs_collision_material:
+            tags.append(AsoboTags.AsoboTag.Collision)
+            
+        if blender_material.msfs_road_collision_material:
+            tags.append(AsoboTags.AsoboTag.Road)
 
-            if len(tags) > 0:
-                result["tags"] = tags
-                gltf2_material.extensions[AsoboTags.SerializedName] = Extension(
-                    name=AsoboTags.SerializedName, extension=result, required=False
-                )
+        if len(tags) <= 0:
+            return
+        
+        result["tags"] = tags
+        gltf2_material.extensions[AsoboTags.SerializedName] = Extension(
+            name=AsoboTags.SerializedName, extension=result, required=False
+        )
 
 
 class AsoboMaterialCode:

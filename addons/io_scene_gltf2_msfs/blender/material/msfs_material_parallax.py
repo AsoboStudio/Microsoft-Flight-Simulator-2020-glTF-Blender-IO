@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from ..msfs_material_function import MSFS_Material
-from .utils.msfs_material_enum import (MSFS_FrameNodes,
-                                       MSFS_PrincipledBSDFInputs,
-                                       MSFS_ShaderNodes, MSFS_ShaderNodesTypes)
+from .utils.msfs_material_enum import (
+    MSFS_FrameNodes,
+    MSFS_PrincipledBSDFInputs,
+    MSFS_ShaderNodes,
+    MSFS_ShaderNodesTypes
+)
 
 
 class MSFS_Parallax(MSFS_Material):
@@ -22,7 +25,7 @@ class MSFS_Parallax(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Parallax, self).defaultShadersTree()
+        super().defaultShadersTree()
         self.parallaxShaderTree()
 
     def parallaxShaderTree(self):
@@ -64,5 +67,11 @@ class MSFS_Parallax(MSFS_Material):
         self.updateColorLinks()
         
         ## TODO - check if this is good
-        self.link(nodeBaseColorMulRGB.outputs[0], nodeAlbedoDetailMix.inputs[1])
-        self.link(nodeAlbedoDetailMix.outputs[0], nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value])
+        self.link(
+            nodeBaseColorMulRGB.outputs[0],
+            nodeAlbedoDetailMix.inputs[1]
+        )
+        self.link(
+            nodeAlbedoDetailMix.outputs[0],
+            nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value]
+        )

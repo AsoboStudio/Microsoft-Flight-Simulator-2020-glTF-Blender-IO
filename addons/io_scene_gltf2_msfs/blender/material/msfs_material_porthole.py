@@ -20,4 +20,4 @@ class MSFS_Porthole(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Porthole, self).defaultShadersTree()
+        super().defaultShadersTree()

@@ -20,4 +20,4 @@ class MSFS_Fresnel_Fade(MSFS_Material):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
-        super(MSFS_Fresnel_Fade, self).defaultShadersTree()
+        super().defaultShadersTree()

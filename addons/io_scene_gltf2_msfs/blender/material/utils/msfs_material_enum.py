@@ -1,3 +1,6 @@
+
+import bpy
+
 from enum import Enum
 
 
@@ -139,14 +142,18 @@ class MSFS_AnisotropicNodes(Enum):
 
 class MSFS_PrincipledBSDFInputs(Enum):
     baseColor = "Base Color"
-    subsurfaceColor = "Subsurface Color"
     metallic = "Metallic"
     roughness = "Roughness"
     anisotropic = "Anisotropic"
     anisotropicRotation = "Anisotropic Rotation"
     clearcoat = "Clearcoat"
     clearcoatRoughness = "Clearcoat Roughness"
-    emission = "Emission"
     emissionStrength = "Emission Strength"
     alpha = "Alpha"
     normal = "Normal"
+    if bpy.app.version < (4, 2, 0):
+        emission = "Emission"
+        subsurfaceColor = "Subsurface Color"
+    else:
+        emission = "Emission Color"
+    

@@ -18,75 +18,59 @@ import bpy
 class MSFS_PT_BoneProperties(bpy.types.Panel):
     bl_label = "MSFS Properties"
     bl_idname = "BONE_PT_msfs_properties"
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = 'bone'
-    
+    bl_space_type = "PROPERTIES"
+    bl_region_type = "WINDOW"
+    bl_context = "bone"
+
     def draw(self, context):
         layout = self.layout
 
-        if context.mode != 'EDIT_ARMATURE':
-            active_bone = context.active_bone
-            box = layout.box()
-            box.prop(active_bone,"msfs_override_unique_id")
-            if active_bone.msfs_override_unique_id:
-                box.prop(active_bone, "msfs_unique_id")
+        if context.mode == "EDIT_ARMATURE":
+            return
+        
+        box = layout.box()
+        active_bone = context.active_bone
+        box.prop(active_bone, "msfs_override_unique_id")
+        if active_bone.msfs_override_unique_id:
+            box.prop(active_bone, "msfs_unique_id")
 
-
-        box.label(text = "Behavior list", icon = 'ANIM')
-        box.template_list('MSFS_UL_object_behaviorListItem', "", context.object, 'msfs_behavior', context.object, 'msfs_active_behavior')
-
-        if len(context.object.msfs_behavior) > context.object.msfs_active_behavior:
-            behavior = context.object.msfs_behavior[context.object.msfs_active_behavior]
-
-            subbox=box.box()
-            subbox.label(text=behavior.name,icon='OUTLINER_DATA_GP_LAYER')
-            if behavior.source_file != "":
-                subbox.label(text="XML: %s"%behavior.source_filename,icon='FILE')
-            split=subbox.split(factor=0.75)
-            split.label(text="Keyframes start: %i"%behavior.kf_start,icon='DECORATE_KEYFRAME')
-            split.label(text="end: %i"%behavior.kf_end)
-            subbox.operator('msfs.behavior_remove_selected_from_object',text="Remove selected behavior",icon='TRASH')
 
 class MSFS_PT_ObjectProperties(bpy.types.Panel):
     bl_label = "MSFS Properties"
     bl_idname = "OBJECT_PT_msfs_properties"
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
+    bl_space_type = "PROPERTIES"
+    bl_region_type = "WINDOW"
     bl_context = "object"
 
     @classmethod
     def poll(cls, context):
         return context.object.type
-    
+
     def draw(self, context):
         layout = self.layout
 
         active_object = context.object
 
         box = layout.box()
-        box.prop(active_object,"msfs_override_unique_id")
+        box.prop(active_object, "msfs_override_unique_id")
+        
         if active_object.msfs_override_unique_id:
             box.prop(active_object, "msfs_unique_id")
-            
 
-        if active_object.type == 'LIGHT':
+        if active_object.type == "LIGHT":
             box = layout.box()
-            box.label(text = "MSFS Light Parameters", icon='LIGHT')
-            box.prop(active_object, 'msfs_light_has_symmetry')
-            box.prop(active_object, 'msfs_light_flash_frequency')
-            box.prop(active_object, 'msfs_light_flash_duration')
-            box.prop(active_object, 'msfs_light_flash_phase')
-            box.prop(active_object, 'msfs_light_rotation_speed')
-            box.prop(active_object, 'msfs_light_day_night_cycle')
+            box.label(text="MSFS Light Parameters", icon="LIGHT")
+            box.prop(active_object, "msfs_light_has_symmetry")
+            box.prop(active_object, "msfs_light_flash_frequency")
+            box.prop(active_object, "msfs_light_flash_duration")
+            box.prop(active_object, "msfs_light_flash_phase")
+            box.prop(active_object, "msfs_light_rotation_speed")
+            box.prop(active_object, "msfs_light_day_night_cycle")
 
-        elif active_object.type == 'EMPTY':
+        elif active_object.type == "EMPTY":
             box = layout.box()
-            box.label(text="MSFS Collision Parameters", icon='SHADING_BBOX')
+            box.label(text="MSFS Collision Parameters", icon="SHADING_BBOX")
             box.prop(active_object, "msfs_gizmo_type")
+            
             if active_object.msfs_gizmo_type != "NONE":
                 box.prop(active_object, "msfs_collision_is_road_collider")
-        
-
-
-
