@@ -75,7 +75,7 @@ class MSFS2020_ExporterProperties(bpy.types.PropertyGroup):
 # region MSFS2020 Importer/Exporter Panels
 if bpy.app.version < (4, 2, 0):
 
-    class GLTF_PT_MSFSImporterExtensionPanel(bpy.types.Panel):
+    class GLTF_PT_MSFS2020_ImporterExtensionPanel(bpy.types.Panel):
         bl_space_type = "FILE_BROWSER"
         bl_region_type = "TOOL_PROPS"
         bl_label = ""
@@ -103,7 +103,7 @@ if bpy.app.version < (4, 2, 0):
 
             layout.prop(props, "enable_msfs_extension", text="Enabled")
 
-    class GLTF_PT_MSFSExporterExtensionPanel(bpy.types.Panel):
+    class GLTF_PT_MSFS2020_ExporterExtensionPanel(bpy.types.Panel):
         bl_space_type = "FILE_BROWSER"
         bl_region_type = "TOOL_PROPS"
         bl_label = ""
@@ -269,8 +269,8 @@ def unregister():
 extension_panels = []
 if bpy.app.version < (4, 2, 0):
     extension_panels = [
-        GLTF_PT_MSFSImporterExtensionPanel,
-        GLTF_PT_MSFSExporterExtensionPanel,
+        GLTF_PT_MSFS2020_ImporterExtensionPanel,
+        GLTF_PT_MSFS2020_ExporterExtensionPanel,
     ]
           
 def register_panel():
