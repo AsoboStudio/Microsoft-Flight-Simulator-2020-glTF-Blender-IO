@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,15 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from ..msfs_material_function import MSFS_Material
+from ..msfs_material_function import MSFS2020_Material
 from .utils.msfs_material_enum import (
-    MSFS_AnisotropicNodes,
-    MSFS_FrameNodes,
-    MSFS_ShaderNodesTypes
+    MSFS2020_AnisotropicNodes,
+    MSFS2020_FrameNodes,
+    MSFS2020_ShaderNodesTypes
 )
 
 
-class MSFS_Anisotropic(MSFS_Material):
+class MSFS2020_Anisotropic(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
         super().__init__(material, buildTree)
 
@@ -29,14 +29,14 @@ class MSFS_Anisotropic(MSFS_Material):
     
     def anisotropicShaderTree(self):
         anisotropicFrame = self.addNode(
-            name = MSFS_FrameNodes.anisotropicFrame.value,
-            typeNode = MSFS_ShaderNodesTypes.nodeFrame.value,
+            name = MSFS2020_FrameNodes.anisotropicFrame.value,
+            typeNode = MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color = (0.35, 0.6, 0.1)
         )
         ## Anisotropic Texture
         # Out[0] : Separate Anisotrpic -> In[0]
         anisotropicTexNode = self.addNode(
-            name = MSFS_AnisotropicNodes.anisotropicTex.value,
+            name = MSFS2020_AnisotropicNodes.anisotropicTex.value,
             typeNode = "ShaderNodeTexImage",
             location = (-500.0, -800.0),
             width = 300.0,
@@ -45,7 +45,7 @@ class MSFS_Anisotropic(MSFS_Material):
         ## Separate Anisotropic
         # In[0] : Anisotropic Texture -> Out[0]
         separateAnisotropicNode = self.addNode(
-            name = MSFS_AnisotropicNodes.separateAnisotropic.value,
+            name = MSFS2020_AnisotropicNodes.separateAnisotropic.value,
             typeNode = "ShaderNodeSeparateRGB",
             location = (-100.0, -800.0),
             width = 300.0,

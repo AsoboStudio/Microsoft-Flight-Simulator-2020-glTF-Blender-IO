@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,16 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from ..msfs_material_function import MSFS_Material
+from ..msfs_material_function import MSFS2020_Material
 from .utils.msfs_material_enum import (
-    MSFS_FrameNodes,
-    MSFS_PrincipledBSDFInputs,
-    MSFS_ShaderNodes,
-    MSFS_ShaderNodesTypes
+    MSFS2020_FrameNodes,
+    MSFS2020_PrincipledBSDFInputs,
+    MSFS2020_ShaderNodes,
+    MSFS2020_ShaderNodesTypes
 )
 
 
-class MSFS_Parallax(MSFS_Material):
+class MSFS2020_Parallax(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
         super().__init__(material, buildTree)
 
@@ -31,16 +31,16 @@ class MSFS_Parallax(MSFS_Material):
     def parallaxShaderTree(self):
         ## Parallax Frame
         parallaxFrame = self.addNode(
-            name = MSFS_FrameNodes.parallaxFrame.value,
-            typeNode = MSFS_ShaderNodesTypes.nodeFrame.value,
+            name = MSFS2020_FrameNodes.parallaxFrame.value,
+            typeNode = MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color = (0.5, 0.1, 0.3)
         )
 
         ## Behind Glass Texture
         # Out[0] : Albedo Detail Mix -> In[2]
         behindGlassTexNode = self.addNode(
-            name = MSFS_ShaderNodes.behindGlassTex.value,
-            typeNode = MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name = MSFS2020_ShaderNodes.behindGlassTex.value,
+            typeNode = MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location = (500, 500.0),
             frame = parallaxFrame
         )
@@ -48,8 +48,8 @@ class MSFS_Parallax(MSFS_Material):
         ## Albedo Detail Mix
         # In[2] :  Behind Glass Texture -> Out[0]
         albedoDetailMixNode = self.addNode(
-            name = MSFS_ShaderNodes.albedoDetailMix.value,
-            typeNode = MSFS_ShaderNodesTypes.shaderNodeMixRGB.value,
+            name = MSFS2020_ShaderNodes.albedoDetailMix.value,
+            typeNode = MSFS2020_ShaderNodesTypes.shaderNodeMixRGB.value,
             blend_type = "MIX",
             location = (800.0, 500.0),
             frame = parallaxFrame
@@ -58,10 +58,10 @@ class MSFS_Parallax(MSFS_Material):
         self.link(behindGlassTexNode.outputs[0], albedoDetailMixNode.inputs[2])
 
     def setDetailColorTex(self, tex):
-        nodeAlbedoDetailMix = self.getNodeByName(MSFS_ShaderNodes.albedoDetailMix.value)
-        nodeBehindGlassTex = self.getNodeByName(MSFS_ShaderNodes.behindGlassTex.value)
-        nodeBaseColorMulRGB = self.getNodeByName(MSFS_ShaderNodes.baseColorMulRGB.value)
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodeAlbedoDetailMix = self.getNodeByName(MSFS2020_ShaderNodes.albedoDetailMix.value)
+        nodeBehindGlassTex = self.getNodeByName(MSFS2020_ShaderNodes.behindGlassTex.value)
+        nodeBaseColorMulRGB = self.getNodeByName(MSFS2020_ShaderNodes.baseColorMulRGB.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
 
         nodeBehindGlassTex.image = tex
         self.updateColorLinks()
@@ -73,5 +73,5 @@ class MSFS_Parallax(MSFS_Material):
         )
         self.link(
             nodeAlbedoDetailMix.outputs[0],
-            nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value]
+            nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.baseColor.value]
         )

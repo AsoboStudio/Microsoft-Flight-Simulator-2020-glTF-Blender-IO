@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ..msfs_material_function import MSFS_Material, MSFS_ShaderNodes
+from ..msfs_material_function import MSFS2020_Material, MSFS2020_ShaderNodes
 
 
-class MSFS_Invisible(MSFS_Material):
+class MSFS2020_Invisible(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
         super().defaultShadersTree()
-        nodeBaseColorA = self.getNodeByName(MSFS_ShaderNodes.baseColorA.value)
+        nodeBaseColorA = self.getNodeByName(MSFS2020_ShaderNodes.baseColorA.value)
         nodeBaseColorA.outputs[0].default_value = 0.0

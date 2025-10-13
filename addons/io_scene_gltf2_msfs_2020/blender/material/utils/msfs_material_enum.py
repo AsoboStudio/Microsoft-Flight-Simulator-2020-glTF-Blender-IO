@@ -4,7 +4,7 @@ import bpy
 from enum import Enum
 
 
-class MSFS_MaterialProperties(Enum):
+class MSFS2020_MaterialProperties(Enum):
     baseColor = 0, "Base Color"
     emissive = 1, "Emissive"
     metallic = 2, "Metallic"
@@ -49,7 +49,7 @@ class MSFS_MaterialProperties(Enum):
     def name(self):
         return self.value[1]
 
-class MSFS_ShaderNodesTypes(Enum):
+class MSFS2020_ShaderNodesTypes(Enum):
     shaderNodeGroup = "ShaderNodeGroup"
     shaderNodeTree = "ShaderNodeTree"
     shaderNodeOutputMaterial = "ShaderNodeOutputMaterial"
@@ -72,7 +72,7 @@ class MSFS_ShaderNodesTypes(Enum):
     shaderNodeRGBCurve = "ShaderNodeRGBCurve"
     shaderNodeMapRange = "ShaderNodeMapRange"
 
-class MSFS_FrameNodes(Enum):
+class MSFS2020_FrameNodes(Enum):
     baseColorFrame = "Base Color Frame"
     texturesFrame = "Textures Frame"
     uvFrame = "UVs Frame"
@@ -83,7 +83,7 @@ class MSFS_FrameNodes(Enum):
     parallaxFrame = "Parallax Frame"
     clearcoatFrame = "Clearcoat Frame"
 
-class MSFS_ShaderNodes(Enum):
+class MSFS2020_ShaderNodes(Enum):
     glTFSettings = "glTF Settings"
     baseColorTex = "Base Color Texture"
     baseColorRGB = "Base Color RGB"
@@ -136,11 +136,11 @@ class MSFS_ShaderNodes(Enum):
     ShaderOutputMaterial = "Shader Output Material"
     principledBSDF = "Principled BSDF"
 
-class MSFS_AnisotropicNodes(Enum):
+class MSFS2020_AnisotropicNodes(Enum):
     anisotropicTex = "Anisotropic Texture"
     separateAnisotropic = "Separate Anisotropic"
 
-class MSFS_PrincipledBSDFInputs(Enum):
+class MSFS2020_PrincipledBSDFInputs(Enum):
     baseColor = "Base Color"
     metallic = "Metallic"
     roughness = "Roughness"

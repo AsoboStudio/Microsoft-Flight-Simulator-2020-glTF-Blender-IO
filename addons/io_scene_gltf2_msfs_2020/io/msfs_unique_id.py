@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ import bpy
 from io_scene_gltf2.io.com.gltf2_io_extensions import Extension
 
 
-class MSFS_unique_id:
+class MSFS2020_unique_id:
     bl_options = {"UNDO"}
 
     extension_name = "ASOBO_unique_id"
@@ -40,8 +40,8 @@ class MSFS_unique_id:
             uniqueID = blender_object.msfs_unique_id
         extension["id"] = uniqueID
 
-        gltf2_object.extensions[MSFS_unique_id.extension_name] = Extension(
-            name=MSFS_unique_id.extension_name,
+        gltf2_object.extensions[MSFS2020_unique_id.extension_name] = Extension(
+            name=MSFS2020_unique_id.extension_name,
             extension=extension,
             required=False
         )

@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ class MultiExporterLODGroup(bpy.types.PropertyGroup):
     )
 
 
-class MSFS_LODGroupUtility:
+class MSFS2020_LODGroupUtility:
     @staticmethod
     def lod_is_visible(context, lod):
         sort_by_collection = context.scene.multi_exporter_grouped_by_collections
@@ -105,14 +105,14 @@ class MSFS_LODGroupUtility:
         return True
 
 
-class MSFS_OT_ReloadLODGroups(bpy.types.Operator):
-    bl_idname = "msfs.reload_lod_groups"
+class MSFS2020_OT_ReloadLODGroups(bpy.types.Operator):
+    bl_idname = "msfs2020.reload_lod_groups"
     bl_label = "Reload LOD groups"
 
     @staticmethod
     def update_grouped_by(self, context):
         context.scene.msfs_multi_exporter_lod_groups.clear()
-        MSFS_OT_ReloadLODGroups.reload_lod_groups(self, context)
+        MSFS2020_OT_ReloadLODGroups.reload_lod_groups(self, context)
 
     @staticmethod
     def get_group_from_name(name):
@@ -142,7 +142,7 @@ class MSFS_OT_ReloadLODGroups(bpy.types.Operator):
                 if sort_by_collection:
                     if (
                         not lod.collection in list(bpy.data.collections)
-                        or not MSFS_OT_ReloadLODGroups.get_group_from_name(
+                        or not MSFS2020_OT_ReloadLODGroups.get_group_from_name(
                             lod.collection.name
                         )
                         == lod_group.group_name
@@ -152,7 +152,7 @@ class MSFS_OT_ReloadLODGroups(bpy.types.Operator):
                 else:
                     if (
                         not lod.objectLOD in list(context.scene.objects)
-                        or not MSFS_OT_ReloadLODGroups.get_group_from_name(
+                        or not MSFS2020_OT_ReloadLODGroups.get_group_from_name(
                             lod.objectLOD.name
                         )
                         == lod_group.group_name
@@ -167,26 +167,26 @@ class MSFS_OT_ReloadLODGroups(bpy.types.Operator):
         found_lod_groups = {}
         if sort_by_collection:
             for collection in bpy.data.collections:
-                lod_group = MSFS_OT_ReloadLODGroups.get_group_from_name(collection.name)
+                lod_group = MSFS2020_OT_ReloadLODGroups.get_group_from_name(collection.name)
                 if lod_group not in found_lod_groups:
                     found_lod_groups[lod_group] = []
                 found_lod_groups[lod_group].append(collection)
         else:
             for blender_object in context.scene.objects:
                 if blender_object.parent is None:
-                    lod_group = MSFS_OT_ReloadLODGroups.get_group_from_name(blender_object.name)
+                    lod_group = MSFS2020_OT_ReloadLODGroups.get_group_from_name(blender_object.name)
                     if lod_group not in found_lod_groups:
                         found_lod_groups[lod_group] = []
                     found_lod_groups[lod_group].append(blender_object)
 
         # Add to object groups
         for lod_group, blender_objects in found_lod_groups.items():
-            if lod_group not in MSFS_OT_ReloadLODGroups.get_lod_group_names(lod_groups):
+            if lod_group not in MSFS2020_OT_ReloadLODGroups.get_lod_group_names(lod_groups):
                 # Create LOD group
                 created_lod_group = lod_groups.add()
                 created_lod_group.group_name = lod_group
 
-            lod_group_index = MSFS_OT_ReloadLODGroups.get_lod_group_names(
+            lod_group_index = MSFS2020_OT_ReloadLODGroups.get_lod_group_names(
                 lod_groups
             ).index(lod_group)
 
@@ -208,11 +208,11 @@ class MSFS_OT_ReloadLODGroups(bpy.types.Operator):
                         lod.file_name = obj.name
 
     def execute(self, context):
-        MSFS_OT_ReloadLODGroups.reload_lod_groups(self, context)
+        MSFS2020_OT_ReloadLODGroups.reload_lod_groups(self, context)
         return {"FINISHED"}
 
 
-class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
+class MSFS2020_PT_MultiExporterObjectsView(bpy.types.Panel):
     bl_label = ""
     bl_parent_id = "MSFS_PT_MultiExporter"
     bl_space_type = "VIEW_3D"
@@ -227,7 +227,7 @@ class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        layout.operator(MSFS_OT_ReloadLODGroups.bl_idname, text="Reload LODs")
+        layout.operator(MSFS2020_OT_ReloadLODGroups.bl_idname, text="Reload LODs")
         layout.prop(context.scene, "multi_exporter_show_hidden_objects")
         layout.prop(context.scene, "multi_exporter_grouped_by_collections")
 
@@ -237,7 +237,7 @@ class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
         total_lods = 0
         for lod_group in lod_groups:
             for lod in lod_group.lods:
-                if not MSFS_LODGroupUtility.lod_is_visible(context, lod):
+                if not MSFS2020_LODGroupUtility.lod_is_visible(context, lod):
                     continue
 
                 total_lods += 1
@@ -249,7 +249,7 @@ class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
             for lod_group in lod_groups:
                 # If we only have one LOD in the group, and it is hidden, then don't render the group
                 if len(lod_group.lods) == 1:
-                    if not MSFS_LODGroupUtility.lod_is_visible(
+                    if not MSFS2020_LODGroupUtility.lod_is_visible(
                         context, lod_group.lods[0]
                     ):
                         continue
@@ -276,7 +276,7 @@ class MSFS_PT_MultiExporterObjectsView(bpy.types.Panel):
 
                         col = box.column()
                         for lod in lod_group.lods:
-                            if not MSFS_LODGroupUtility.lod_is_visible(context, lod):
+                            if not MSFS2020_LODGroupUtility.lod_is_visible(context, lod):
                                 continue
 
                             row = col.row()
@@ -305,5 +305,5 @@ def register():
     bpy.types.Scene.multi_exporter_grouped_by_collections = bpy.props.BoolProperty(
         name="Grouped by collections",
         default=False,
-        update=MSFS_OT_ReloadLODGroups.update_grouped_by,
+        update=MSFS2020_OT_ReloadLODGroups.update_grouped_by,
     )

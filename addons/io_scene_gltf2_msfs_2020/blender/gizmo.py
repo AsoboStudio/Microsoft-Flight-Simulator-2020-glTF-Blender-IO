@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ from gpu_extras.batch import batch_for_shader
 from mathutils import Matrix
 
 
-class MSFSGizmoProperties:
+class MSFS2020GizmoProperties:
     def msfs_gizmo_type_update(self, context):
-        empties = MSFSCollisionGizmoGroup.empties
+        empties = MSFS2020CollisionGizmoGroup.empties
         active_object = context.object
         if active_object not in empties:
             return
@@ -51,7 +51,7 @@ class MSFSGizmoProperties:
 
 class AddGizmo(bpy.types.Operator):
     bl_idname = "msfs_collision_gizmo.add_gizmo"
-    bl_label = "Add MSFS Collision Gizmo"
+    bl_label = "Add MSFS2020 Collision Gizmo"
     bl_options = {"REGISTER", "UNDO"}
 
     msfs_gizmo_type: bpy.types.Object.msfs_gizmo_type
@@ -83,9 +83,9 @@ class AddGizmo(bpy.types.Operator):
         return {"FINISHED"}
         
 
-class MSFSCollisionGizmo(bpy.types.Gizmo):
+class MSFS2020CollisionGizmo(bpy.types.Gizmo):
     bl_idname = "VIEW3D_GT_msfs_collision_gizmo"
-    bl_label = "MSFS Collision Gizmo"
+    bl_label = "MSFS2020 Collision Gizmo"
     bl_options = {"UNDO"}
 
     __slots__ = (
@@ -240,9 +240,9 @@ class MSFSCollisionGizmo(bpy.types.Gizmo):
         return multiplied_matrix[:-1].tolist()
 
 
-class MSFSCollisionGizmoGroup(bpy.types.GizmoGroup):
+class MSFS2020CollisionGizmoGroup(bpy.types.GizmoGroup):
     bl_idname = "VIEW3D_GT_msfs_collision_gizmo_group"
-    bl_label = "MSFS Collision Gizmo Group"
+    bl_label = "MSFS2020 Collision Gizmo Group"
     bl_space_type = "VIEW_3D"
     bl_region_type = "WINDOW"
     bl_options = {"3D", "PERSISTENT", "SHOW_MODAL_ALL", "SELECT"}
@@ -267,7 +267,7 @@ class MSFSCollisionGizmoGroup(bpy.types.GizmoGroup):
                 and blender_object.msfs_gizmo_type != "NONE"
                 and blender_object not in self.__class__.empties
             ):
-                gz = self.gizmos.new(MSFSCollisionGizmo.bl_idname)
+                gz = self.gizmos.new(MSFS2020CollisionGizmo.bl_idname)
 
                 gz.msfs_gizmo_type = blender_object.msfs_gizmo_type
                 gz.empty = blender_object
@@ -304,7 +304,7 @@ class MSFSCollisionGizmoGroup(bpy.types.GizmoGroup):
                     self.setup(context)
 
 
-class MSFSCollisionAddMenu(bpy.types.Menu):
+class MSFS2020CollisionAddMenu(bpy.types.Menu):
     bl_idname = "VIEW3D_MT_msfs_collision_add_menu"
     bl_label = "Microsoft Flight Simulator 2020 Collision"
 
@@ -329,7 +329,7 @@ class MSFSCollisionAddMenu(bpy.types.Menu):
 
 
 def draw_menu(self, context):
-    self.layout.menu(menu=MSFSCollisionAddMenu.bl_idname, icon="SHADING_BBOX")
+    self.layout.menu(menu=MSFS2020CollisionAddMenu.bl_idname, icon="SHADING_BBOX")
 
 
 def register():

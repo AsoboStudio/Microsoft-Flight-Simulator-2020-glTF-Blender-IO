@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@ import os
 import urllib
 
 from .. import get_version_string
-from .msfs_gizmo import MSFSGizmo
-from .msfs_light import MSFSLight
-from .msfs_material import MSFSMaterial
-from .msfs_unique_id import MSFS_unique_id
+from .msfs_gizmo import MSFS2020Gizmo
+from .msfs_light import MSFS2020Light
+from .msfs_material import MSFS2020Material
+from .msfs_unique_id import MSFS2020_unique_id
 
 
 class Export:
@@ -48,7 +48,7 @@ class Export:
             required=False
         )
 
-        gltf2_asset.generator += " and Asobo Studio MSFS Blender I/O v" + get_version_string()
+        gltf2_asset.generator += " and Asobo Studio MSFS2020 Blender I/O v" + get_version_string()
 
     def gather_gltf_extensions_hook(
         self,
@@ -74,10 +74,10 @@ class Export:
             gltf2_object.extensions = {}
 
         if self.properties.use_unique_id:
-            MSFS_unique_id.export(gltf2_object, blender_object)
+            MSFS2020_unique_id.export(gltf2_object, blender_object)
 
         if blender_object.type == "LIGHT":
-            MSFSLight.export(gltf2_object, blender_object)
+            MSFS2020Light.export(gltf2_object, blender_object)
     
     def gather_joint_hook(
         self,
@@ -92,7 +92,7 @@ class Export:
             gltf2_node.extensions = {}
 
         if self.properties.use_unique_id:
-            MSFS_unique_id.export(gltf2_node, blender_bone)
+            MSFS2020_unique_id.export(gltf2_node, blender_bone)
 
     def gather_scene_hook(
         self,
@@ -103,7 +103,7 @@ class Export:
         if not self.properties.enable_msfs_extension:
             return
         
-        MSFSGizmo.export(
+        MSFS2020Gizmo.export(
             gltf2_scene.nodes,
             blender_scene,
             export_settings
@@ -118,7 +118,7 @@ class Export:
         if not self.properties.enable_msfs_extension:
             return
         
-        MSFSMaterial.export(
+        MSFS2020Material.export(
             gltf2_material,
             blender_material,
             export_settings

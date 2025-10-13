@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ from mathutils import Quaternion
 
 from io_scene_gltf2.io.com.gltf2_io_extensions import Extension
 
-class MSFSLight:
+class MSFS2020Light:
     bl_options = {"UNDO"}
 
     extension_name = "ASOBO_macro_light"
@@ -32,7 +32,7 @@ class MSFSLight:
         if not gltf_node.extensions:
             return
 
-        extension = gltf_node.extensions.get(MSFSLight.extension_name)
+        extension = gltf_node.extensions.get(MSFS2020Light.extension_name)
         if not extension:
             return
 
@@ -55,7 +55,7 @@ class MSFSLight:
         blender_node.rotation_quaternion = rot
         blender_node.scale = scale
 
-        # Set MSFS light properties
+        # Set MSFS2020 light properties
         blender_node.msfs_light_has_symmetry = extension.get("has_symmetry")
         blender_node.msfs_light_flash_frequency = extension.get("flash_frequency")
         blender_node.msfs_light_flash_duration = extension.get("flash_duration")
@@ -70,7 +70,7 @@ class MSFSLight:
         if not gltf2_node.extensions:
             return
         
-        extension = gltf2_node.extensions.get(MSFSLight.extension_name)
+        extension = gltf2_node.extensions.get(MSFS2020Light.extension_name)
         if not extension:
             return
         
@@ -138,8 +138,8 @@ class MSFSLight:
         gltf2_object.rotation = [r.x, r.y, r.z, r.w]
         # end quick fix
 
-        gltf2_object.extensions[MSFSLight.extension_name] = Extension(
-            name=MSFSLight.extension_name, 
+        gltf2_object.extensions[MSFS2020Light.extension_name] = Extension(
+            name=MSFS2020Light.extension_name, 
             extension=extension, 
             required=False
         )

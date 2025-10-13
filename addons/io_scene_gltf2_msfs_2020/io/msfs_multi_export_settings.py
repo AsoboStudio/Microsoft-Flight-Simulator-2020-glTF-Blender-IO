@@ -1,6 +1,4 @@
-# glTF-Blender-IO-MSFS
-# Copyright 2018-2021 The glTF-Blender-IO authors
-# Copyright 2022 The glTF-Blender-IO-MSFS authors
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 import bpy
 
 from ..com.msfs_constants import (
@@ -57,7 +56,7 @@ def get_influence_nb(self):
     return self.get("export_influence_nb", 4)
 
 # region Properties Group
-class MSFS_MultiExporterSettings(bpy.types.PropertyGroup):
+class MSFS2020_MultiExporterSettings(bpy.types.PropertyGroup):
     # region General Options
     name: bpy.props.StringProperty(name="Name")
 
@@ -812,7 +811,7 @@ class MSFS_MultiExporterSettings(bpy.types.PropertyGroup):
 # endregion
 
 # region Panels
-class MSFS_PT_export_main(bpy.types.Panel):
+class MSFS2020_PT_export_main(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "General"
@@ -833,7 +832,7 @@ class MSFS_PT_export_main(bpy.types.Panel):
         return context.scene.msfs_multi_exporter_current_tab == "SETTINGS"
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -842,7 +841,7 @@ class MSFS_PT_export_main(bpy.types.Panel):
         layout.prop(settings, "export_copyright")
         layout.prop(settings, "will_save_settings")
 
-class MSFS_PT_export_texture(bpy.types.Panel):
+class MSFS2020_PT_export_texture(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Textures"
@@ -851,14 +850,14 @@ class MSFS_PT_export_texture(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw_header(self, context):
         self.layout.label(icon="FILE_IMAGE")
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -879,7 +878,7 @@ class MSFS_PT_export_texture(bpy.types.Panel):
         )
 
 # region MSFS2024
-class MSFS_PT_MSFS_export(bpy.types.Panel):
+class MSFS2020_PT_MSFS_export(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Microsoft Flight Simulator 2020"
@@ -888,11 +887,11 @@ class MSFS_PT_MSFS_export(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw_header(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         self.layout.label(icon='TOOL_SETTINGS')
         self.layout.prop(settings, "enable_msfs_extension", text="")
@@ -900,7 +899,7 @@ class MSFS_PT_MSFS_export(bpy.types.Panel):
     def draw(self, context):
         return
 
-class MSFS_PT_MSFS_extension(bpy.types.Panel):
+class MSFS2020_PT_MSFS_extension(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Extensions"
@@ -909,11 +908,11 @@ class MSFS_PT_MSFS_extension(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         layout = self.layout
         layout.use_property_split = True
@@ -928,7 +927,7 @@ class MSFS_PT_MSFS_extension(bpy.types.Panel):
 
 # endregion
 
-class MSFS_PT_export_include(bpy.types.Panel):
+class MSFS2020_PT_export_include(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Include"
@@ -937,11 +936,11 @@ class MSFS_PT_export_include(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -963,7 +962,7 @@ class MSFS_PT_export_include(bpy.types.Panel):
         col.prop(settings, "export_cameras")
         col.prop(settings, "export_lights")
 
-class MSFS_PT_export_transform(bpy.types.Panel):
+class MSFS2020_PT_export_transform(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Transform"
@@ -972,11 +971,11 @@ class MSFS_PT_export_transform(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -984,7 +983,7 @@ class MSFS_PT_export_transform(bpy.types.Panel):
 
         layout.prop(settings, "export_yup")
 
-class MSFS_PT_export_scene_graph(bpy.types.Panel):
+class MSFS2020_PT_export_scene_graph(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Scene Graph"
@@ -993,8 +992,8 @@ class MSFS_PT_export_scene_graph(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
 
         return (
             current_tab == "SETTINGS"
@@ -1006,7 +1005,7 @@ class MSFS_PT_export_scene_graph(bpy.types.Panel):
         if bpy.app.version < (4, 2, 0):
             return
         
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         layout = self.layout
         layout.use_property_split = True
@@ -1017,7 +1016,7 @@ class MSFS_PT_export_scene_graph(bpy.types.Panel):
         layout.prop(settings, "export_hierarchy_flatten_objs")
         layout.prop(settings, "export_hierarchy_full_collections")
 
-class MSFS_PT_export_geometry(bpy.types.Panel):
+class MSFS2020_PT_export_geometry(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Mesh"
@@ -1026,17 +1025,17 @@ class MSFS_PT_export_geometry(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw_header(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         self.layout.label(icon="MESH_DATA")
         self.layout.prop(settings, "export_mesh", text="")
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1071,7 +1070,7 @@ class MSFS_PT_export_geometry(bpy.types.Panel):
                 body.prop(settings, "export_all_vertex_colors")
                 body.prop(settings, "export_active_vertex_color_when_no_material")
 
-class MSFS_PT_export_material(bpy.types.Panel):
+class MSFS2020_PT_export_material(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Material"
@@ -1080,14 +1079,14 @@ class MSFS_PT_export_material(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw_header(self, context):
         self.layout.label(icon="MATERIAL_DATA")
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1118,7 +1117,7 @@ class MSFS_PT_export_material(bpy.types.Panel):
                 body.prop(settings, "export_unused_images")
                 body.prop(settings, "export_unused_textures")
 
-class MSFS_PT_export_shapekeys(bpy.types.Panel):
+class MSFS2020_PT_export_shapekeys(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_label = "Shape Keys"
@@ -1127,11 +1126,11 @@ class MSFS_PT_export_shapekeys(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw_header(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         self.layout.label(icon="SHAPEKEY_DATA")
         self.layout.prop(
@@ -1141,7 +1140,7 @@ class MSFS_PT_export_shapekeys(bpy.types.Panel):
         )
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1173,7 +1172,7 @@ class MSFS_PT_export_shapekeys(bpy.types.Panel):
         col.active = settings.export_try_sparse_sk
         col.prop(settings, "export_try_omit_sparse_sk")
 
-class MSFS_PT_export_armature(bpy.types.Panel):
+class MSFS2020_PT_export_armature(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Armature"
@@ -1182,7 +1181,7 @@ class MSFS_PT_export_armature(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return (
             bpy.app.version >= (3, 3, 0)
             and current_tab == "SETTINGS"
@@ -1192,7 +1191,7 @@ class MSFS_PT_export_armature(bpy.types.Panel):
         self.layout.label(icon="ARMATURE_DATA")
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1226,7 +1225,7 @@ class MSFS_PT_export_armature(bpy.types.Panel):
         if bpy.app.version >= (3, 6, 0):
             layout.prop(settings, "export_hierarchy_flatten_bones")
 
-class MSFS_PT_export_skinning(bpy.types.Panel):
+class MSFS2020_PT_export_skinning(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Skinning"
@@ -1235,17 +1234,17 @@ class MSFS_PT_export_skinning(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw_header(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         self.layout.label(icon="MOD_SKIN")
         self.layout.prop(settings, "export_skins", text="")
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         layout = self.layout
         layout.use_property_split = True
@@ -1258,7 +1257,7 @@ class MSFS_PT_export_skinning(bpy.types.Panel):
         if not settings.enable_msfs_extension:
             layout.prop(settings, "export_all_influences")
 
-class MSFS_PT_export_Lighting(bpy.types.Panel):
+class MSFS2020_PT_export_Lighting(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Lighting"
@@ -1267,8 +1266,8 @@ class MSFS_PT_export_Lighting(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         
         return (
             current_tab == "SETTINGS"
@@ -1280,7 +1279,7 @@ class MSFS_PT_export_Lighting(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
 
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1288,7 +1287,7 @@ class MSFS_PT_export_Lighting(bpy.types.Panel):
 
         layout.prop(settings, "export_import_convert_lighting_mode")
 
-class MSFS_PT_export_geometry_compression(bpy.types.Panel):
+class MSFS2020_PT_export_geometry_compression(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_label = "Compression"
@@ -1296,13 +1295,13 @@ class MSFS_PT_export_geometry_compression(bpy.types.Panel):
     bl_options = {'DEFAULT_CLOSED'}
 
     def __init__(self):
-        super(MSFS_PT_export_main).__init__()
+        super(MSFS2020_PT_export_main).__init__()
         self.is_draco_available = gltf2_io_draco_compression_extension.dll_exists(quiet=True)
 
     @classmethod
     def poll(cls, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
 
         return (
             current_tab == "SETTINGS"
@@ -1310,11 +1309,11 @@ class MSFS_PT_export_geometry_compression(bpy.types.Panel):
         )
 
     def draw_header(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         self.layout.prop(settings, "export_draco_mesh_compression_enable", text="")
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1330,7 +1329,7 @@ class MSFS_PT_export_geometry_compression(bpy.types.Panel):
         col.prop(settings, "export_draco_color_quantization", text="Color")
         col.prop(settings, "export_draco_generic_quantization", text="Generic")
 
-class MSFS_PT_export_animation(bpy.types.Panel):
+class MSFS2020_PT_export_animation(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Animation"
@@ -1339,17 +1338,17 @@ class MSFS_PT_export_animation(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return current_tab == "SETTINGS"
 
     def draw_header(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         self.layout.label(icon="ANIM")
         self.layout.prop(settings, "export_animations", text="")
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1396,7 +1395,7 @@ class MSFS_PT_export_animation(bpy.types.Panel):
         else:
             layout.prop(settings, 'export_def_bones')
 
-class MSFS_PT_export_animation_notes(bpy.types.Panel):
+class MSFS2020_PT_export_animation_notes(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Notes"
@@ -1405,8 +1404,8 @@ class MSFS_PT_export_animation_notes(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
 
         return (
             current_tab == "SETTINGS"
@@ -1418,7 +1417,7 @@ class MSFS_PT_export_animation_notes(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
 
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1434,7 +1433,7 @@ class MSFS_PT_export_animation_notes(bpy.types.Panel):
             layout.label(text="- sampling is active")
             layout.label(text="- baking all objects is active")
 
-class MSFS_PT_export_animation_ranges(bpy.types.Panel):
+class MSFS2020_PT_export_animation_ranges(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Rest & Ranges"
@@ -1452,7 +1451,7 @@ class MSFS_PT_export_animation_ranges(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
         
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         layout = self.layout
         layout.use_property_split = True
@@ -1467,7 +1466,7 @@ class MSFS_PT_export_animation_ranges(bpy.types.Panel):
         row.active = settings.export_animation_mode in ['ACTIONS', 'ACTIVE_ACTIONS', 'NLA_TRACKS']
         layout.prop(settings, 'export_negative_frame')
 
-class MSFS_PT_export_animation_armature(bpy.types.Panel):
+class MSFS2020_PT_export_animation_armature(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Armature"
@@ -1476,7 +1475,7 @@ class MSFS_PT_export_animation_armature(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return (
             current_tab == "SETTINGS"
             and bpy.app.version >= (3, 6, 0)
@@ -1486,7 +1485,7 @@ class MSFS_PT_export_animation_armature(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
         
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         layout = self.layout
         layout.use_property_split = True
@@ -1497,7 +1496,7 @@ class MSFS_PT_export_animation_armature(bpy.types.Panel):
         layout.prop(settings, 'export_anim_single_armature')
         layout.prop(settings, 'export_reset_pose_bones')
 
-class MSFS_PT_export_animation_shapekeys(bpy.types.Panel):
+class MSFS2020_PT_export_animation_shapekeys(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Shape keys Animation"
@@ -1506,7 +1505,7 @@ class MSFS_PT_export_animation_shapekeys(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return (
             current_tab == "SETTINGS"
             and bpy.app.version >= (3, 6, 0)
@@ -1516,7 +1515,7 @@ class MSFS_PT_export_animation_shapekeys(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
 
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         self.layout.active = (
             settings.export_animations
@@ -1528,7 +1527,7 @@ class MSFS_PT_export_animation_shapekeys(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
         
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1537,7 +1536,7 @@ class MSFS_PT_export_animation_shapekeys(bpy.types.Panel):
         layout.active = settings.export_animations
         layout.prop(settings, "export_morph_reset_sk_data")
 
-class MSFS_PT_export_animation_sampling(bpy.types.Panel):
+class MSFS2020_PT_export_animation_sampling(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Sampling Animations"
@@ -1546,7 +1545,7 @@ class MSFS_PT_export_animation_sampling(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return (
             current_tab == "SETTINGS"
             and bpy.app.version >= (3, 6, 0)
@@ -1556,7 +1555,7 @@ class MSFS_PT_export_animation_sampling(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
 
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
 
         self.layout.active = (
             settings.export_animations
@@ -1568,7 +1567,7 @@ class MSFS_PT_export_animation_sampling(bpy.types.Panel):
         if bpy.app.version < (3, 6, 0):
             return
         
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1577,7 +1576,7 @@ class MSFS_PT_export_animation_sampling(bpy.types.Panel):
         layout.active = settings.export_animations
         layout.prop(settings, 'export_frame_step')
 
-class MSFS_PT_export_animation_optimize(bpy.types.Panel):
+class MSFS2020_PT_export_animation_optimize(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Optimize Animations"
@@ -1586,14 +1585,14 @@ class MSFS_PT_export_animation_optimize(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        current_tab = MSFS_PT_export_main.get_multi_exporter_current_tab(context)
+        current_tab = MSFS2020_PT_export_main.get_multi_exporter_current_tab(context)
         return (
             current_tab == "SETTINGS"
             and bpy.app.version >= (3, 6, 0)
         )
 
     def draw(self, context):
-        settings = MSFS_PT_export_main.get_multi_exporter_settings(context)
+        settings = MSFS2020_PT_export_main.get_multi_exporter_settings(context)
         
         layout = self.layout
         layout.use_property_split = True
@@ -1614,4 +1613,4 @@ class MSFS_PT_export_animation_optimize(bpy.types.Panel):
             row.prop(settings, "export_optimize_disable_viewport")
 
 def register():
-    bpy.types.Scene.msfs_multi_exporter_settings = bpy.props.PointerProperty(type=MSFS_MultiExporterSettings)
+    bpy.types.Scene.msfs_multi_exporter_settings = bpy.props.PointerProperty(type=MSFS2020_MultiExporterSettings)

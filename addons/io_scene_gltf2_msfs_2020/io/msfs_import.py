@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,9 +13,9 @@
 # limitations under the License.
 import bpy
 
-from .msfs_gizmo import MSFSGizmo
-from .msfs_light import MSFSLight
-from .msfs_material import MSFSMaterial
+from .msfs_gizmo import MSFS2020Gizmo
+from .msfs_light import MSFS2020Light
+from .msfs_material import MSFS2020Material
 
 
 class Import:
@@ -31,7 +31,7 @@ class Import:
         blender_light, 
         import_settings
     ):
-        MSFSLight.create(
+        MSFS2020Light.create(
             gltf2_node, 
             blender_node, 
             import_settings
@@ -44,7 +44,7 @@ class Import:
         blender_scene, 
         import_settings
     ):
-        MSFSGizmo.create(
+        MSFS2020Gizmo.create(
             gltf_scene, 
             blender_scene, 
             import_settings
@@ -57,7 +57,7 @@ class Import:
         gltf_node,
         gltf
     ):
-        MSFSLight.create(
+        MSFS2020Light.create(
             vnode,
             gltf_node,
             gltf
@@ -71,8 +71,8 @@ class Import:
         blender_object,
         import_settings
     ):
-        MSFSGizmo.set_blender_data(gltf2_node, blender_object, import_settings)
-        MSFSLight.removeLightObject(vnode, gltf2_node, blender_object)
+        MSFS2020Gizmo.set_blender_data(gltf2_node, blender_object, import_settings)
+        MSFS2020Light.removeLightObject(vnode, gltf2_node, blender_object)
 
     # Create materials
     def gather_import_material_after_hook(
@@ -82,4 +82,4 @@ class Import:
         blender_material,
         import_settings
     ):
-        MSFSMaterial.create(gltf2_material, blender_material, import_settings)
+        MSFS2020Material.create(gltf2_material, blender_material, import_settings)

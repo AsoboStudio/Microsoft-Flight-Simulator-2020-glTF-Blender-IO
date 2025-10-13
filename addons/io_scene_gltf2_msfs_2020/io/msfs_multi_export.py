@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ def export_blender_3_3(file_path, settings):
         export_draco_generic_quantization=settings.export_draco_generic_quantization,
         export_tangents=settings.export_tangents,
         export_materials=settings.export_materials,
-        export_original_specular=False,  ## No need to add option for MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
+        export_original_specular=False,
         export_colors=settings.export_colors,
         use_mesh_edges=settings.use_mesh_edges,
         use_mesh_vertices=settings.use_mesh_vertices,
@@ -140,7 +140,7 @@ def export_blender_3_6(file_path, settings):
         export_draco_generic_quantization=settings.export_draco_generic_quantization,
         export_tangents=settings.export_tangents,
         export_materials=settings.export_materials,
-        export_original_specular=False,  ## No need to add option for MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
+        export_original_specular=False,
         export_colors=settings.export_colors,
         export_attributes=settings.export_attributes,
         use_mesh_edges=settings.use_mesh_edges,
@@ -203,7 +203,6 @@ def export_blender_4_2(file_path, settings):
         export_draco_generic_quantization=settings.export_draco_generic_quantization,
         export_tangents=settings.export_tangents,
         export_materials=settings.export_materials,
-        ## No need to add option for that MSFS uses PBR materials with comp texture for Roughness/Metallic/Occlusion
         export_original_specular=False,
         export_attributes=settings.export_attributes,
         use_mesh_edges=settings.use_mesh_edges,
@@ -263,7 +262,7 @@ def export_blender_4_2(file_path, settings):
 
 
 # Scene Properties
-class MSFSMultiExporterProperties:
+class MSFS2020MultiExporterProperties:
     bpy.types.Scene.msfs_multi_exporter_current_tab = bpy.props.EnumProperty(
         items=(
             ("OBJECTS", "Objects", ""),
@@ -274,7 +273,7 @@ class MSFSMultiExporterProperties:
 
 
 # Operators
-class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
+class MSFS2020_OT_MultiExportGLTF2(bpy.types.Operator):
     bl_idname = "export_scene.multi_export_gltf"
     bl_label = "Multi-Export glTF 2.0"
 
@@ -392,7 +391,7 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
                                 ),
                                 ".gltf",
                             )
-                            MSFS_OT_MultiExportGLTF2.export(exportPath)
+                            MSFS2020_OT_MultiExportGLTF2.export(exportPath)
                         else:
                             self.report(
                                 {"ERROR"},
@@ -424,7 +423,7 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
                         exportPath = bpy.path.ensure_ext(
                             os.path.join(export_folder_path, preset.name), ".gltf"
                         )
-                        MSFS_OT_MultiExportGLTF2.export(exportPath)
+                        MSFS2020_OT_MultiExportGLTF2.export(exportPath)
                     else:
                         self.report(
                             {"ERROR"},
@@ -436,8 +435,8 @@ class MSFS_OT_MultiExportGLTF2(bpy.types.Operator):
         return {"FINISHED"}
 
 
-class MSFS_OT_ChangeTab(bpy.types.Operator):
-    bl_idname = "msfs.multi_export_change_tab"
+class MSFS2020_OT_ChangeTab(bpy.types.Operator):
+    bl_idname = "msfs2020.multi_export_change_tab"
     bl_label = "Change tab"
 
     current_tab: bpy.types.Scene.msfs_multi_exporter_current_tab
@@ -448,7 +447,7 @@ class MSFS_OT_ChangeTab(bpy.types.Operator):
 
 
 # Panels
-class MSFS_PT_MultiExporter(bpy.types.Panel):
+class MSFS2020_PT_MultiExporter(bpy.types.Panel):
     bl_label = "Multi-Export glTF 2.0"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -467,17 +466,17 @@ class MSFS_PT_MultiExporter(bpy.types.Panel):
 
         row = layout.row(align=True)
         row.operator(
-            MSFS_OT_ChangeTab.bl_idname,
+            MSFS2020_OT_ChangeTab.bl_idname,
             text="Objects",
             depress=(current_tab == "OBJECTS"),
         ).current_tab = "OBJECTS"
         row.operator(
-            MSFS_OT_ChangeTab.bl_idname,
+            MSFS2020_OT_ChangeTab.bl_idname,
             text="Presets",
             depress=(current_tab == "PRESETS"),
         ).current_tab = "PRESETS"
         row.operator(
-            MSFS_OT_ChangeTab.bl_idname,
+            MSFS2020_OT_ChangeTab.bl_idname,
             text="Settings",
             depress=(current_tab == "SETTINGS"),
         ).current_tab = "SETTINGS"
@@ -488,7 +487,7 @@ def register_panel():
     # This is necessary because the panel is a child of the extensions panel,
     # which may not be registered when we try to register this extension
     try:
-        bpy.utils.register_class(MSFS_PT_MultiExporter)
+        bpy.utils.register_class(MSFS2020_PT_MultiExporter)
     except Exception:
         pass
 
@@ -499,6 +498,6 @@ def register_panel():
 
 def unregister_panel():
     try:
-        bpy.utils.unregister_class(MSFS_PT_MultiExporter)
+        bpy.utils.unregister_class(MSFS2020_PT_MultiExporter)
     except Exception:
         pass

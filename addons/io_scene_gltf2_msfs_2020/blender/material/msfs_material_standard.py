@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ..msfs_material_function import MSFS_Material
+from ..msfs_material_function import MSFS2020_Material
 
 
-class MSFS_Standard(MSFS_Material):
+class MSFS2020_Standard(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
         super().__init__(material, buildTree)
 

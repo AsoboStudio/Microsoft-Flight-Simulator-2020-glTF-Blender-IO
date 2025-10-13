@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,15 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from ..msfs_material_function import MSFS_Material
-from .msfs_material_anisotropic import MSFS_Anisotropic
+from ..msfs_material_function import MSFS2020_Material
+from .msfs_material_anisotropic import MSFS2020_Anisotropic
 
 
-class MSFS_Hair(MSFS_Material):
+class MSFS2020_Hair(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
         super().__init__(material, buildTree)
 
     def customShaderTree(self):
         super().defaultShadersTree()
-        MSFS_Anisotropic.anisotropicShaderTree(self)
+        MSFS2020_Anisotropic.anisotropicShaderTree(self)
     

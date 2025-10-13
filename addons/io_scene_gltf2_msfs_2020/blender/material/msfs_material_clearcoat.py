@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,16 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ..msfs_material_function import MSFS_Material
+from ..msfs_material_function import MSFS2020_Material
 from .utils.msfs_material_enum import (
-    MSFS_FrameNodes,
-    MSFS_PrincipledBSDFInputs,
-    MSFS_ShaderNodes,
-    MSFS_ShaderNodesTypes
+    MSFS2020_FrameNodes,
+    MSFS2020_PrincipledBSDFInputs,
+    MSFS2020_ShaderNodes,
+    MSFS2020_ShaderNodesTypes
 )
 
 
-class MSFS_Clearcoat(MSFS_Material):
+class MSFS2020_Clearcoat(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
         super().__init__(material, buildTree)
 
@@ -32,16 +32,16 @@ class MSFS_Clearcoat(MSFS_Material):
     def clearcoatShaderTree(self):
         ## Clearcoat Frame
         clearcoatFrame = self.addNode(
-            name = MSFS_FrameNodes.clearcoatFrame.value,
-            typeNode = MSFS_ShaderNodesTypes.nodeFrame.value,
+            name = MSFS2020_FrameNodes.clearcoatFrame.value,
+            typeNode = MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color = (0.6, 0.2, 0.1)
         )
 
         ## Clearcoat Texture
         # Out[0] : ClearcoatSeparate -> In[0]
         clearcoatTexNode = self.addNode(
-            name = MSFS_ShaderNodes.clearcoatTex.value,
-            typeNode = MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name = MSFS2020_ShaderNodes.clearcoatTex.value,
+            typeNode = MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location = (-1000.0, -500.0),
             frame = clearcoatFrame
         )
@@ -49,8 +49,8 @@ class MSFS_Clearcoat(MSFS_Material):
         ## Clearcoat separate
         # In[0] : ClearcoatTexture -> Out[0]
         clearcoatSeparateNode = self.addNode(
-            name = MSFS_ShaderNodes.clearcoatSeparate.value,
-            typeNode = MSFS_ShaderNodesTypes.shaderNodeSeparateColor.value,
+            name = MSFS2020_ShaderNodes.clearcoatSeparate.value,
+            typeNode = MSFS2020_ShaderNodesTypes.shaderNodeSeparateColor.value,
             location = (-800.0, -500.0),
             frame = clearcoatFrame
         )
@@ -58,9 +58,9 @@ class MSFS_Clearcoat(MSFS_Material):
         self.link(clearcoatTexNode.outputs[0], clearcoatSeparateNode.inputs[0])
 
     def setClearcoatDirtTexture(self, tex):
-        nodeClearcoat = self.getNodeByName(MSFS_ShaderNodes.clearcoatTex.value)
-        nodeClearcoatSeparate = self.getNodeByName(MSFS_ShaderNodes.clearcoatSeparate.value)
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodeClearcoat = self.getNodeByName(MSFS2020_ShaderNodes.clearcoatTex.value)
+        nodeClearcoatSeparate = self.getNodeByName(MSFS2020_ShaderNodes.clearcoatSeparate.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
 
         if tex:
             nodeClearcoat.image = tex
@@ -68,19 +68,19 @@ class MSFS_Clearcoat(MSFS_Material):
 
             self.link(
                 nodeClearcoatSeparate.outputs[0], 
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.clearcoat.value]
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.clearcoat.value]
             )
             self.link(
                 nodeClearcoatSeparate.outputs[1], 
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.clearcoatRoughness.value]
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.clearcoatRoughness.value]
             )
             return
         
         self.unLinkNodeInput(
             nodePrincipledBSDF,
-            MSFS_PrincipledBSDFInputs.clearcoat.value
+            MSFS2020_PrincipledBSDFInputs.clearcoat.value
         )
         self.unLinkNodeInput(
             nodePrincipledBSDF,
-            MSFS_PrincipledBSDFInputs.clearcoatRoughness.value
+            MSFS2020_PrincipledBSDFInputs.clearcoatRoughness.value
         )

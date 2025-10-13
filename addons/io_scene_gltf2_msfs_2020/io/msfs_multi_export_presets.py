@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 import bpy
 
-from .msfs_multi_export import MSFS_OT_MultiExportGLTF2
+from .msfs_multi_export import MSFS2020_OT_MultiExportGLTF2
 
 
 class MultiExporterPresetLayer(bpy.types.PropertyGroup):
@@ -37,8 +37,8 @@ class MultiExporterPreset(bpy.types.PropertyGroup):
     expanded: bpy.props.BoolProperty(name="", default=True, description="Expand/Collapse preset.")
     layers: bpy.props.CollectionProperty(type=MultiExporterPresetLayer)
 
-class MSFS_OT_AddPreset(bpy.types.Operator):
-    bl_idname = "msfs.multi_export_add_preset"
+class MSFS2020_OT_AddPreset(bpy.types.Operator):
+    bl_idname = "msfs2020.multi_export_add_preset"
     bl_label = "Add preset"
 
     def execute(self, context):
@@ -49,8 +49,8 @@ class MSFS_OT_AddPreset(bpy.types.Operator):
 
         return {"FINISHED"}
 
-class MSFS_OT_RemovePreset(bpy.types.Operator):
-    bl_idname = "msfs.multi_export_remove_preset"
+class MSFS2020_OT_RemovePreset(bpy.types.Operator):
+    bl_idname = "msfs2020.multi_export_remove_preset"
     bl_label = "Remove preset"
     bl_description = "Remove the preset from the preset list"
 
@@ -62,8 +62,8 @@ class MSFS_OT_RemovePreset(bpy.types.Operator):
 
         return {"FINISHED"}
 
-class MSFS_OT_EditLayers(bpy.types.Operator):
-    bl_idname = "msfs.multi_export_edit_layers"
+class MSFS2020_OT_EditLayers(bpy.types.Operator):
+    bl_idname = "msfs2020.multi_export_edit_layers"
     bl_label = "Edit layers"
     bl_description = "Edit layers to be enabled or disabled for the preset"
 
@@ -132,7 +132,7 @@ class MSFS_OT_EditLayers(bpy.types.Operator):
 
         drawTree(layout, self.collection_tree[bpy.context.scene.collection])
 
-class MSFS_PT_MultiExporterPresetsView(bpy.types.Panel):
+class MSFS2020_PT_MultiExporterPresetsView(bpy.types.Panel):
     bl_label = ""
     bl_parent_id = "MSFS_PT_MultiExporter"
     bl_space_type = "VIEW_3D"
@@ -147,7 +147,7 @@ class MSFS_PT_MultiExporterPresetsView(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        layout.operator(MSFS_OT_AddPreset.bl_idname, text="Add Preset")
+        layout.operator(MSFS2020_OT_AddPreset.bl_idname, text="Add Preset")
 
         presets = bpy.context.scene.msfs_multi_exporter_presets
         for i, preset in enumerate(presets):
@@ -166,11 +166,11 @@ class MSFS_PT_MultiExporterPresetsView(bpy.types.Panel):
                 box.prop(preset, "enabled", text="Enabled")
                 box.prop(preset, "name", text="Name")
                 box.prop(preset, "folder_path", text="Export Path")
-                box.operator(MSFS_OT_EditLayers.bl_idname, text="Edit Layers").preset_index = i
-                box.operator(MSFS_OT_RemovePreset.bl_idname, text="Remove").preset_index = i
+                box.operator(MSFS2020_OT_EditLayers.bl_idname, text="Edit Layers").preset_index = i
+                box.operator(MSFS2020_OT_RemovePreset.bl_idname, text="Remove").preset_index = i
 
         row = layout.row()
-        row.operator(MSFS_OT_MultiExportGLTF2.bl_idname, text="Export")
+        row.operator(MSFS2020_OT_MultiExportGLTF2.bl_idname, text="Export")
 
 
 def register():

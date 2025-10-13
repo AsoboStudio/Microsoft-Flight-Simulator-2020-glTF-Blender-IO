@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 import bpy
 
 
-class MSFS_LI_object_properties:
+class MSFS2020_LI_object_properties:
 
     bpy.types.Object.msfs_override_unique_id = bpy.props.BoolProperty(
         name="Override Unique ID",

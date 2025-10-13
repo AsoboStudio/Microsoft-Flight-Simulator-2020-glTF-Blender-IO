@@ -1,6 +1,6 @@
 <!-- [![MSFS](../misc/Logos/msfs_logo.png)](https://www.flightsimulator.com/)[![ASOBO](../misc/Logos/asobo_logo.png)](https://www.asobostudio.com/) <img src="../misc/Logos/glTF_logo.png" width="180" height="90"> -->
 
-# Documentation for Microsoft Flight Simulator glTF 2.0 Importer and Exporter for Blender
+# Documentation for Microsoft Flight Simulator 2020 glTF 2.0 Importer and Exporter for Blender
 
 First of all, this addon adds some panels and options needed to have a correct model export ready to be used in the sim.
 
@@ -15,11 +15,11 @@ First of all, this addon adds some panels and options needed to have a correct m
 - When you select an object in Blender, you can access the material properties from the Object Ribbon on the right, under the Material Properties button. 
 
 ![Material Propreties](../misc/Materials/Material_Propreties.png)
-- When you want to export a model dedicated to Microsoft Flight Simulator, you need to set a Flight Simulator material to it:  
+- When you want to export a model dedicated to Microsoft Flight Simulator 2020, you need to set a Flight Simulator material to it:  
 
 ![Set Material Type](../misc/Materials/Set_Material_Type.png)
 
-- When you set a Flight Simulator Material, you have to edit the material propreties from the MSFS Material Params only, if you edit the shader nodes it will break the export :
+- When you set a Flight Simulator Material, you have to edit the material propreties from the MSFS2020 Material Params only, if you edit the shader nodes it will break the export :
 
 ![Edit Material](../misc/Materials/Edit_Material.png)
 
@@ -95,6 +95,6 @@ When all your presets are set up you can click on "Export" Button:
 ![Export Preset](../misc/MultiExporter/Preset_Export.png)
 
 ## Settings View :
-Here you can find the various export settings (geometry, animations, materials...etc) from the glTF export in Blender. You can disable the Microsoft Flight Simulator Extensions if you want to export your models as pure glTF(s) following the Khronos Schemas.
+Here you can find the various export settings (geometry, animations, materials...etc) from the glTF export in Blender. You can disable the Microsoft Flight Simulator 2020 Extensions if you want to export your models as pure glTF(s) following the Khronos Schemas.
 
 ![Settings](../misc/MultiExporter/Settings.png)

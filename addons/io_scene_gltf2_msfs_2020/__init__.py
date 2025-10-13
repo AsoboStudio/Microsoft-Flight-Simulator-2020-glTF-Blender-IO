@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ import bpy
 bl_info = {
     "name": "Microsoft Flight Simulator 2020: glTF Extension",
     "author": "Asobo Studio",
-    "description": "This toolkit prepares your 3D assets to be used for Microsoft Flight Simulator",
+    "description": "This toolkit prepares your 3D assets to be used for Microsoft Flight Simulator 2020",
     "blender": (3, 3, 0),
     "version": (2, 3, 0),
     "location": "File > Import-Export",
     "category": "Import-Export",
-    "tracker_url": "https://github.com/AsoboStudio/glTF-Blender-IO-MSFS",
+    "tracker_url": "https://github.com/AsoboStudio/glTF-Blender-IO-MSFS-2020",
 }
 
 
@@ -41,26 +41,24 @@ def get_version_string():
     )
 
 
-# region MSFS Importer/Exporter Properties
-
-
-class MSFS_ImporterProperties(bpy.types.PropertyGroup):
+# region MSFS2020 Importer/Exporter Properties
+class MSFS2020_ImporterProperties(bpy.types.PropertyGroup):
     enable_msfs_extension: bpy.props.BoolProperty(
-        name="Microsoft Flight Simulator Extensions",
-        description="Enable MSFS glTF import extensions",
+        name="Microsoft Flight Simulator 2020 Extensions",
+        description="Enable MSFS2020 glTF import extensions",
         default=True,
     )
 
 
-class MSFS_ExporterProperties(bpy.types.PropertyGroup):
+class MSFS2020_ExporterProperties(bpy.types.PropertyGroup):
     def msfs_enable_msfs_extension_update(self, context):
         props = bpy.context.scene.msfs_exporter_settings
         settings = bpy.context.scene.msfs_multi_exporter_settings
         settings.enable_msfs_extension = props.enable_msfs_extension
 
     enable_msfs_extension: bpy.props.BoolProperty(
-        name="Microsoft Flight Simulator Extensions",
-        description="Enable MSFS glTF export extensions",
+        name="Microsoft Flight Simulator 2020 Extensions",
+        description="Enable MSFS2020 glTF export extensions",
         default=True,
         update=msfs_enable_msfs_extension_update,
     )
@@ -74,9 +72,7 @@ class MSFS_ExporterProperties(bpy.types.PropertyGroup):
 
 # endregion
 
-# region MSFS Importer/Exporter Panels
-
-
+# region MSFS2020 Importer/Exporter Panels
 if bpy.app.version < (4, 2, 0):
 
     class GLTF_PT_MSFSImporterExtensionPanel(bpy.types.Panel):
@@ -213,8 +209,8 @@ def update_class_list():
 
 def register():
     try:
-        bpy.utils.register_class(MSFS_ImporterProperties)
-        bpy.utils.register_class(MSFS_ExporterProperties)
+        bpy.utils.register_class(MSFS2020_ImporterProperties)
+        bpy.utils.register_class(MSFS2020_ExporterProperties)
     except (ValueError, RuntimeError):
         pass
     global modules
@@ -242,16 +238,16 @@ def register():
             module.register()
         
     bpy.types.Scene.msfs_importer_properties = bpy.props.PointerProperty(
-        type=MSFS_ImporterProperties
+        type=MSFS2020_ImporterProperties
     )
     bpy.types.Scene.msfs_exporter_settings = bpy.props.PointerProperty(
-        type=MSFS_ExporterProperties
+        type=MSFS2020_ExporterProperties
     )
 
 def unregister():
     try:
-        bpy.utils.unregister_class(MSFS_ImporterProperties)
-        bpy.utils.unregister_class(MSFS_ExporterProperties)
+        bpy.utils.unregister_class(MSFS2020_ImporterProperties)
+        bpy.utils.unregister_class(MSFS2020_ExporterProperties)
         
         del bpy.types.Scene.msfs_importer_properties
         del bpy.types.Scene.msfs_exporter_settings

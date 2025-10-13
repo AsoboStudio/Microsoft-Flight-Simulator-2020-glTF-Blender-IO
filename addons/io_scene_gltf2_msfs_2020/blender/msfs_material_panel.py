@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@ import bpy
 from .msfs_material_prop_update import MSFS_Material_Property_Update
 
 # TODO: Remove eventually
-class MSFS_OT_MigrateMaterialData(bpy.types.Operator): 
+class MSFS2020_OT_MigrateMaterialData(bpy.types.Operator): 
     """
     This addon changes some of the internal property names. 
     This current material has older properties, and is able to be migrated.\n
     WARNING: This removes all the old properties from the material
     """
 
-    bl_idname = "msfs.migrate_material_data"
+    bl_idname = "msfs2020.migrate_material_data"
     bl_label = "Migrate Material Data"
 
     old_property_to_new_mapping = {
@@ -162,8 +162,8 @@ class MSFS_OT_MigrateMaterialData(bpy.types.Operator):
         return {"FINISHED"}
 
 
-class MSFS_PT_Material(bpy.types.Panel):
-    bl_label = "MSFS 2020 Material Params"
+class MSFS2020_PT_Material(bpy.types.Panel):
+    bl_label = "MSFS2020 Material Params"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "material"

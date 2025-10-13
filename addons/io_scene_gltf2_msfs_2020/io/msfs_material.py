@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ from io_scene_gltf2.blender.imp.gltf2_blender_image import BlenderImage
 from ..com import msfs_material_props as MSFSMaterialExtensions
 
 
-class MSFSMaterial:
+class MSFS2020Material:
     bl_options = {"UNDO"}
 
     extensions = [
@@ -187,10 +187,10 @@ class MSFSMaterial:
 
     @staticmethod
     def create(gltf2_material, blender_material, import_settings):
-        for extension in MSFSMaterial.extensions:
+        for extension in MSFS2020Material.extensions:
             extension.from_dict(blender_material, gltf2_material, import_settings)
 
     @staticmethod
     def export(gltf2_material, blender_material, export_settings):
-        for extension in MSFSMaterial.extensions:
+        for extension in MSFS2020Material.extensions:
             extension.to_extension(blender_material, gltf2_material, export_settings)

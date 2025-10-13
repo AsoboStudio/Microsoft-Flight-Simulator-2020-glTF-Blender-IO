@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 import bpy
 
 
-class MSFS_PT_BoneProperties(bpy.types.Panel):
-    bl_label = "MSFS Properties"
+class MSFS2020_PT_BoneProperties(bpy.types.Panel):
+    bl_label = "MSFS2020 Properties"
     bl_idname = "BONE_PT_msfs_properties"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
@@ -35,8 +35,8 @@ class MSFS_PT_BoneProperties(bpy.types.Panel):
             box.prop(active_bone, "msfs_unique_id")
 
 
-class MSFS_PT_ObjectProperties(bpy.types.Panel):
-    bl_label = "MSFS Properties"
+class MSFS2020_PT_ObjectProperties(bpy.types.Panel):
+    bl_label = "MSFS2020 Properties"
     bl_idname = "OBJECT_PT_msfs_properties"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
@@ -59,7 +59,7 @@ class MSFS_PT_ObjectProperties(bpy.types.Panel):
 
         if active_object.type == "LIGHT":
             box = layout.box()
-            box.label(text="MSFS Light Parameters", icon="LIGHT")
+            box.label(text="MSFS2020 Light Parameters", icon="LIGHT")
             box.prop(active_object, "msfs_light_has_symmetry")
             box.prop(active_object, "msfs_light_flash_frequency")
             box.prop(active_object, "msfs_light_flash_duration")
@@ -69,7 +69,7 @@ class MSFS_PT_ObjectProperties(bpy.types.Panel):
 
         elif active_object.type == "EMPTY":
             box = layout.box()
-            box.label(text="MSFS Collision Parameters", icon="SHADING_BBOX")
+            box.label(text="MSFS2020 Collision Parameters", icon="SHADING_BBOX")
             box.prop(active_object, "msfs_gizmo_type")
             
             if active_object.msfs_gizmo_type != "NONE":

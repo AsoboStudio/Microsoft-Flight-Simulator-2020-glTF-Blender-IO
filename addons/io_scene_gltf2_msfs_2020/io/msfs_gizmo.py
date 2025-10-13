@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ from io_scene_gltf2.io.com.gltf2_io import Node
 from io_scene_gltf2.io.com.gltf2_io_extensions import Extension
 
 
-class MSFSGizmo:
+class MSFS2020Gizmo:
     bl_options = {"UNDO"}
 
     extension_name = "ASOBO_gizmo_object"
@@ -43,7 +43,7 @@ class MSFSGizmo:
             if not mesh.extensions:
                 continue
             
-            extension = mesh.extensions.get(MSFSGizmo.extension_name)
+            extension = mesh.extensions.get(MSFS2020Gizmo.extension_name)
             if extension is None:
                 continue
 
@@ -65,7 +65,7 @@ class MSFSGizmo:
                     scale[1] = params.get("radius")**(1./2.)
                     scale[2] = params.get("height")
 
-                # Flip scale to convert from MSFS gizmo scale system
+                # Flip scale to convert from gizmo scale system
                 scale = [scale[1], scale[2], scale[0]]
 
                 placeholder_extension = {
@@ -164,7 +164,7 @@ class MSFSGizmo:
                     if child.scale is None: # If the scale is default, it will be exported as None which will raise an error here
                         child.scale = [1.0, 1.0, 1.0]
 
-                    # Flip scale to match MSFS gizmo scale system
+                    # Flip scale to match MSFS2020 gizmo scale system
                     if export_settings["gltf_yup"]:
                         child.scale = [child.scale[2], child.scale[0], child.scale[1]]
                     else:
@@ -203,10 +203,10 @@ class MSFSGizmo:
                     node.children.remove(child)
 
             if collisions:
-                node.mesh.extensions[MSFSGizmo.extension_name] = Extension(
-                    name=MSFSGizmo.extension_name,
+                node.mesh.extensions[MSFS2020Gizmo.extension_name] = Extension(
+                    name=MSFS2020Gizmo.extension_name,
                     extension={"gizmo_objects": collisions},
                     required=False,
                 )
 
-            MSFSGizmo.export(node.children, blender_scene, export_settings)
+            MSFS2020Gizmo.export(node.children, blender_scene, export_settings)

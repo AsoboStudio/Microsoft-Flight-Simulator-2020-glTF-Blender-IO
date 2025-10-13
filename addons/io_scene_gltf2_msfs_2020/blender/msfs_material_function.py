@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,15 +15,15 @@
 import bpy
 
 from .material.utils.msfs_material_enum import (
-    MSFS_AnisotropicNodes,
-    MSFS_FrameNodes,
-    MSFS_PrincipledBSDFInputs,
-    MSFS_ShaderNodes,
-    MSFS_ShaderNodesTypes,
+    MSFS2020_AnisotropicNodes,
+    MSFS2020_FrameNodes,
+    MSFS2020_PrincipledBSDFInputs,
+    MSFS2020_ShaderNodes,
+    MSFS2020_ShaderNodesTypes,
 )
 
 
-class MSFS_Material:
+class MSFS2020_Material:
     bl_idname = "MSFS_ShaderNodeTree"
     bl_label = "MSFS Shader Node Tree"
     bl_icon = "SOUND"
@@ -78,14 +78,14 @@ class MSFS_Material:
 
     def __createPBRTree(self):
         nodeOutputMaterial = self.addNode(
-            name=MSFS_ShaderNodes.ShaderOutputMaterial.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeOutputMaterial.value,
+            name=MSFS2020_ShaderNodes.ShaderOutputMaterial.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeOutputMaterial.value,
             location=(1200.0, 50.0),
             hidden=False,
         )
         principledBSDF = self.addNode(
-            name=MSFS_ShaderNodes.principledBSDF.value,
-            typeNode=MSFS_ShaderNodesTypes.shadeNodeBsdfPrincipled.value,
+            name=MSFS2020_ShaderNodes.principledBSDF.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shadeNodeBsdfPrincipled.value,
             location=(1000.0, 0.0),
             hidden=False,
         )
@@ -94,20 +94,20 @@ class MSFS_Material:
 
     def createNodetree(self):
         nodeOutputMaterial = self.addNode(
-            name=MSFS_ShaderNodes.ShaderOutputMaterial.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeOutputMaterial.value,
+            name=MSFS2020_ShaderNodes.ShaderOutputMaterial.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeOutputMaterial.value,
             location=(1500.0, 625.0),
             hidden=False,
         )
 
         principledBSDF = self.addNode(
-            name=MSFS_ShaderNodes.principledBSDF.value,
-            typeNode=MSFS_ShaderNodesTypes.shadeNodeBsdfPrincipled.value,
+            name=MSFS2020_ShaderNodes.principledBSDF.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shadeNodeBsdfPrincipled.value,
             location=(1250.0, 600.0),
             hidden=False,
         )
 
-        gltfSettingsNodeTree, newGroup = self.get_or_create_group_by_name(MSFS_ShaderNodes.glTFSettings.value)   
+        gltfSettingsNodeTree, newGroup = self.get_or_create_group_by_name(MSFS2020_ShaderNodes.glTFSettings.value)   
         if newGroup:   
             if bpy.app.version >= (4, 2, 0):
                 interface = gltfSettingsNodeTree.interface
@@ -121,8 +121,8 @@ class MSFS_Material:
                 gltfSettingsNodeTree.inputs.new("NodeSocketFloat", "Occlusion")
      
         nodeglTFSettings = self.addNode(
-            name=MSFS_ShaderNodes.glTFSettings.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeGroup.value,
+            name=MSFS2020_ShaderNodes.glTFSettings.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeGroup.value,
             location=(1250.0, -100.0),
             hidden=False,
         )
@@ -139,20 +139,20 @@ class MSFS_Material:
         raise NotImplementedError()
 
     def defaultShadersTree(self):
-        principledBSDFNode = self.getNodesByClassName(MSFS_ShaderNodesTypes.shadeNodeBsdfPrincipled.value)[0]
+        principledBSDFNode = self.getNodesByClassName(MSFS2020_ShaderNodesTypes.shadeNodeBsdfPrincipled.value)[0]
         # region Textures
         ## Texture Frame
         textureFrame = self.addNode(
-            name=MSFS_FrameNodes.texturesFrame.value,
-            typeNode=MSFS_ShaderNodesTypes.nodeFrame.value,
+            name=MSFS2020_FrameNodes.texturesFrame.value,
+            typeNode=MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color=(0.4, 0.5, 0.1),
         )
         ## Base Color Texture
         # Out[0] : Blend Color Map -> In[1]
         # Out[1] : Blend Alpha Map -> In[0]
         baseColorTexNode = self.addNode(
-            name=MSFS_ShaderNodes.baseColorTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.baseColorTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 500),
             width=300.0,
             frame=textureFrame,
@@ -163,8 +163,8 @@ class MSFS_Material:
         # Out[0] : Blend Color Map -> In[2]
         # Out[1] : Blend Alpha Map -> In[1]
         detailColorTexNode = self.addNode(
-            name=MSFS_ShaderNodes.detailColorTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.detailColorTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 450),
             width=300.0,
             frame=textureFrame,
@@ -173,8 +173,8 @@ class MSFS_Material:
         ## Comp Texture
         # Out[0] : Blend Comp Occlusion Metallic Roughness -> In[1]
         compTexNode = self.addNode(
-            name=MSFS_ShaderNodes.compTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.compTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 400),
             width=300.0,
             frame=textureFrame,
@@ -184,8 +184,8 @@ class MSFS_Material:
         # In[0] : Multiply UV Offset
         # Out[0] : Blend Occlusion
         detailCompTexNode = self.addNode(
-            name=MSFS_ShaderNodes.detailCompTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.detailCompTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 350),
             width=300.0,
             frame=textureFrame,
@@ -194,8 +194,8 @@ class MSFS_Material:
         ## Emissive Texture
         # Out[0] : Emissive Multiplier -> In[1]
         emissiveTexNode = self.addNode(
-            name=MSFS_ShaderNodes.emissiveTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.emissiveTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 300),
             width=300.0,
             frame=textureFrame,
@@ -204,8 +204,8 @@ class MSFS_Material:
         ## Normal Texture
         # Out[0] : Normal Map Sampler -> In[1]
         normalTexNode = self.addNode(
-            name=MSFS_ShaderNodes.normalTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.normalTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 250),
             width=300.0,
             frame=textureFrame,
@@ -215,8 +215,8 @@ class MSFS_Material:
         # Out[0] : Detail Normal Map Sampler -> In[1]
         # In[0] : Add UV Offset -> Out[0]
         detailNormalTexNode = self.addNode(
-            name=MSFS_ShaderNodes.detailNormalTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.detailNormalTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 200),
             width=300.0,
             frame=textureFrame,
@@ -224,8 +224,8 @@ class MSFS_Material:
 
         ## Blend Mask
         _ = self.addNode(
-            name=MSFS_ShaderNodes.blendMaskTex.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeTexImage.value,
+            name=MSFS2020_ShaderNodes.blendMaskTex.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeTexImage.value,
             location=(-1000, 150),
             width=300.0,
             frame=textureFrame,
@@ -235,8 +235,8 @@ class MSFS_Material:
         # region Vertex color
         # Out : Blend Color Map / Blend Occlusion(R) / Blend Normal Map
         vertexColorNode = self.addNode(
-            name=MSFS_ShaderNodes.vertexColor.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeVertexColor.value,
+            name=MSFS2020_ShaderNodes.vertexColor.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeVertexColor.value,
             location=(-800.0, 800.0),
         )
         # endregion
@@ -244,8 +244,8 @@ class MSFS_Material:
         # region Base Color
         ## Base color frame
         baseColorFrame = self.addNode(
-            name=MSFS_FrameNodes.baseColorFrame.value,
-            typeNode=MSFS_ShaderNodesTypes.nodeFrame.value,
+            name=MSFS2020_FrameNodes.baseColorFrame.value,
+            typeNode=MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color=(0.5, 0.1, 0.0),
         )
 
@@ -253,8 +253,8 @@ class MSFS_Material:
         # In: Vertex Color / Base Color Texture / Detail color (RGBA)
         # Out: Base Color Multiplier
         blendColorMapNode = self.addNode(
-            name=MSFS_ShaderNodes.blendColorMap.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMixRGB.value,
+            name=MSFS2020_ShaderNodes.blendColorMap.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMixRGB.value,
             blend_type="MULTIPLY",
             location=(-200, 450.0),
             width=200.0,
@@ -271,8 +271,8 @@ class MSFS_Material:
         # Out[0] : Base Color Multiplier -> In[0]
         # Out[0] : PrincipledBSDF -> In[0]
         baseColorRGBNode = self.addNode(
-            name=MSFS_ShaderNodes.baseColorRGB.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeRGB.value,
+            name=MSFS2020_ShaderNodes.baseColorRGB.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeRGB.value,
             location=(-200.0, 500.0),
             width=200.0,
             frame=baseColorFrame,
@@ -281,8 +281,8 @@ class MSFS_Material:
         ## Base color A
         # Out[0] : Base Color Multiplier A
         baseColorANode = self.addNode(
-            name=MSFS_ShaderNodes.baseColorA.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.baseColorA.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-200.0, 350.0),
             width=200.0,
             frame=baseColorFrame,
@@ -294,8 +294,8 @@ class MSFS_Material:
         # In[1] : Base Color RGB
         # In[2] : Blend Color Map
         mulBaseColorRGBNode = self.addNode(
-            name=MSFS_ShaderNodes.baseColorMulRGB.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMixRGB.value,
+            name=MSFS2020_ShaderNodes.baseColorMulRGB.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMixRGB.value,
             blend_type="MULTIPLY",
             location=(50.0, 450.0),
             width=200.0,
@@ -311,8 +311,8 @@ class MSFS_Material:
         # In[0] : Alpha Base Color Texture
         # In[1] : Alpha Detail color (RGBA) Texture
         blendAlphaMapNode = self.addNode(
-            name=MSFS_ShaderNodes.blendAlphaMap.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMath.value,
+            name=MSFS2020_ShaderNodes.blendAlphaMap.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMath.value,
             location=(50.0, 400.0),
             width=200.0,
             frame=baseColorFrame,
@@ -326,8 +326,8 @@ class MSFS_Material:
         ## Base Color Multiplier
         # In[1]: Base Color Alpha -> GroupInput[2]
         mulBaseColorANode = self.addNode(
-            name=MSFS_ShaderNodes.baseColorMulA.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMath.value,
+            name=MSFS2020_ShaderNodes.baseColorMulA.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMath.value,
             operation="MULTIPLY",
             location=(50.0, 350.0),
             width=200.0,
@@ -341,16 +341,16 @@ class MSFS_Material:
         # region UV MAPS
         ## UV Frame
         uvFrame = self.addNode(
-            name=MSFS_FrameNodes.uvFrame.value,
-            typeNode=MSFS_ShaderNodesTypes.nodeFrame.value,
+            name=MSFS2020_FrameNodes.uvFrame.value,
+            typeNode=MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color=(0.3, 0.3, 0.5),
         )
 
         ## UV Map
         # Out[0] : Multiply UV Scale -> In[0]
         uvMapNode = self.addNode(
-            name=MSFS_ShaderNodes.uvMap.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeUVMap.value,
+            name=MSFS2020_ShaderNodes.uvMap.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeUVMap.value,
             location=(-2000.0, 500.0),
             frame=uvFrame,
         )
@@ -358,8 +358,8 @@ class MSFS_Material:
         ## Detail UV scale
         # Out[0] : Combine UV Scale -> In[0][1][2]
         detailUVScaleNode = self.addNode(
-            name=MSFS_ShaderNodes.detailUVScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.detailUVScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-2000.0, 400.0),
             frame=uvFrame,
         )
@@ -367,8 +367,8 @@ class MSFS_Material:
         ## Detail UV Offset U
         # Out[0] : Combine UV offset -> In[0]
         detailUVOffsetUNode = self.addNode(
-            name=MSFS_ShaderNodes.detailUVOffsetU.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.detailUVOffsetU.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-2000.0, 300.0),
             frame=uvFrame,
         )
@@ -376,8 +376,8 @@ class MSFS_Material:
         ## Detail UV Offset V
         # Out[0] : Combine UV offset -> In[1]
         detailUVOffsetVNode = self.addNode(
-            name=MSFS_ShaderNodes.detailUVOffsetV.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.detailUVOffsetV.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-2000.0, 250.0),
             frame=uvFrame,
         )
@@ -387,8 +387,8 @@ class MSFS_Material:
         # In[1] : Detail UV Scale -> Out[0]
         # In[2] : Detail UV Scale -> Out[0]
         combineUVScaleNode = self.addNode(
-            name=MSFS_ShaderNodes.combineUVScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeCombineXYZ.value,
+            name=MSFS2020_ShaderNodes.combineUVScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeCombineXYZ.value,
             location=(-1750.0, 400.0),
             frame=uvFrame,
         )
@@ -402,8 +402,8 @@ class MSFS_Material:
         # In[0] : Detail UV Offset U -> Out[0]
         # In[1] : Detail UV Offset V -> Out[0]
         combineUVOffsetNode = self.addNode(
-            name=MSFS_ShaderNodes.combineUVOffset.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeCombineXYZ.value,
+            name=MSFS2020_ShaderNodes.combineUVOffset.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeCombineXYZ.value,
             location=(-1750.0, 300.0),
             frame=uvFrame,
         )
@@ -416,8 +416,8 @@ class MSFS_Material:
         # In[0] : UV Map -> Out[0]
         # In[1] : Combine UV Offset -> Out[0]
         mulUVScaleNode = self.addNode(
-            name=MSFS_ShaderNodes.mulUVScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeVectorMath.value,
+            name=MSFS2020_ShaderNodes.mulUVScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeVectorMath.value,
             operation="MULTIPLY",
             location=(-1500.0, 400.0),
             frame=uvFrame,
@@ -431,8 +431,8 @@ class MSFS_Material:
         # In[0] : Multiply UV Scale -> Out[0]
         # In[1] : Combine UV Offset -> Out[0]
         addUVOffsetNode = self.addNode(
-            name=MSFS_ShaderNodes.addUVOffset.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeVectorMath.value,
+            name=MSFS2020_ShaderNodes.addUVOffset.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeVectorMath.value,
             operation="ADD",
             location=(-1250.0, 300.0),
             frame=uvFrame,
@@ -450,8 +450,8 @@ class MSFS_Material:
         # region OMR
         ## OMR Frame
         omrFrame = self.addNode(
-            name=MSFS_FrameNodes.omrFrame.value,
-            typeNode=MSFS_ShaderNodesTypes.nodeFrame.value,
+            name=MSFS2020_FrameNodes.omrFrame.value,
+            typeNode=MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color=(0.1, 0.4, 0.6),
         )
 
@@ -459,8 +459,8 @@ class MSFS_Material:
         # In[0] : Detail OMR texture
         # Out[0] : Substract Detail OMR
         multiplyDetailOMR = self.addNode(
-            name=MSFS_ShaderNodes.detailOMRMul.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeVectorMath.value,
+            name=MSFS2020_ShaderNodes.detailOMRMul.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeVectorMath.value,
             operation="MULTIPLY",
             location=(-500.0, 200.0),
             width=200.0,
@@ -475,8 +475,8 @@ class MSFS_Material:
         # In[0] : Multiply Detail OMR
         # Out[0] : Clamp Detail OMR
         subtractDetailOMR = self.addNode(
-            name=MSFS_ShaderNodes.detailOMRSubtract.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeVectorMath.value,
+            name=MSFS2020_ShaderNodes.detailOMRSubtract.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeVectorMath.value,
             operation="SUBTRACT",
             location=(-500.0, 150.0),
             width=200.0,
@@ -491,8 +491,8 @@ class MSFS_Material:
         # In[0] : Substract Detail OMR
         # Out[0] : Add Detail comp
         clampDetailOMR = self.addNode(
-            name=MSFS_ShaderNodes.detailOMRClamp.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMapRange.value,
+            name=MSFS2020_ShaderNodes.detailOMRClamp.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMapRange.value,
             location=(-500.0, 100.0),
             width=200.0,
             frame=omrFrame,
@@ -509,8 +509,8 @@ class MSFS_Material:
         # Out[0] : Metallic Multiplier -> In[0]
         # Out[0] : PrincipledBSDF -> In["Metallic"]
         _ = self.addNode(
-            name=MSFS_ShaderNodes.metallicScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.metallicScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-150.0, 100.0),
             frame=omrFrame,
         )
@@ -519,8 +519,8 @@ class MSFS_Material:
         # Out[0] : Roughness Multiplier -> In[0]
         # Out[0] : PrincipledBSDF -> In["Roughness"]
         _ = self.addNode(
-            name=MSFS_ShaderNodes.roughnessScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.roughnessScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-150.0, 150.0),
             frame=omrFrame,
         )
@@ -531,8 +531,8 @@ class MSFS_Material:
         # In[1] : Comp Texture -> Out[0]
         # In[2] : Detail Comp Texture -> Out[0]
         blendCompMapNode = self.addNode(
-            name=MSFS_ShaderNodes.blendCompMap.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeVectorMath.value,
+            name=MSFS2020_ShaderNodes.blendCompMap.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeVectorMath.value,
             operation="ADD",
             location=(-150.0, 200.0),
             width=300.0,
@@ -550,16 +550,16 @@ class MSFS_Material:
         # Out[2] : Metallic Multiplier -> In[1]
         if bpy.app.version < (3, 3, 0):
             splitOccMetalRoughNode = self.addNode(
-                name=MSFS_ShaderNodes.compSeparate.value,
-                typeNode=MSFS_ShaderNodesTypes.shaderNodeSeparateRGB.value,
+                name=MSFS2020_ShaderNodes.compSeparate.value,
+                typeNode=MSFS2020_ShaderNodesTypes.shaderNodeSeparateRGB.value,
                 location=(200.0, 200.0),
                 width=200.0,
                 frame=omrFrame,
             )
         else:
             splitOccMetalRoughNode = self.addNode(
-                name=MSFS_ShaderNodes.compSeparate.value,
-                typeNode=MSFS_ShaderNodesTypes.shaderNodeSeparateColor.value,
+                name=MSFS2020_ShaderNodes.compSeparate.value,
+                typeNode=MSFS2020_ShaderNodesTypes.shaderNodeSeparateColor.value,
                 location=(200.0, 200.0),
                 width=200.0,
                 frame=omrFrame,
@@ -571,8 +571,8 @@ class MSFS_Material:
         ## Roughness Multiplier
         # In[1] : Split Occ Metal Rough -> Out[1]
         roughnessMulNode = self.addNode(
-            name=MSFS_ShaderNodes.roughnessMul.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMath.value,
+            name=MSFS2020_ShaderNodes.roughnessMul.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMath.value,
             operation="MULTIPLY",
             location=(500.0, 150.0),
             width=200.0,
@@ -586,8 +586,8 @@ class MSFS_Material:
         ## Metallic Multiplier
         # In[1] : Split Occ Metal Rough -> Out[1]
         metallicMulNode = self.addNode(
-            name=MSFS_ShaderNodes.metallicMul.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMath.value,
+            name=MSFS2020_ShaderNodes.metallicMul.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMath.value,
             operation="MULTIPLY",
             location=(500.0, 100.0),
             width=200.0,
@@ -603,8 +603,8 @@ class MSFS_Material:
         # region Emissive
         ## Emissive Frame
         emissiveFrame = self.addNode(
-            name=MSFS_FrameNodes.emissiveFrame.value,
-            typeNode=MSFS_ShaderNodesTypes.nodeFrame.value,
+            name=MSFS2020_FrameNodes.emissiveFrame.value,
+            typeNode=MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color=(0.1, 0.5, 0.3),
         )
 
@@ -613,8 +613,8 @@ class MSFS_Material:
         # In[2] : Emissive Color -> Out[0]
         # Out[0] : Emissive Multiplier Scale -> In[0]
         emissiveMulNode = self.addNode(
-            name=MSFS_ShaderNodes.emissiveMul.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMixRGB.value,
+            name=MSFS2020_ShaderNodes.emissiveMul.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMixRGB.value,
             blend_type="MULTIPLY",
             location=(250.0, -50.0),
             frame=emissiveFrame,
@@ -622,16 +622,16 @@ class MSFS_Material:
 
         ## Emissive Color
         emissiveColorNode = self.addNode(
-            name=MSFS_ShaderNodes.emissiveColor.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeRGB.value,
+            name=MSFS2020_ShaderNodes.emissiveColor.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeRGB.value,
             location=(0.0, -50.0),
             frame=emissiveFrame,
         )
 
         ## Emissive Scale
         emissiveScaleNode = self.addNode(
-            name=MSFS_ShaderNodes.emissiveScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.emissiveScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(0.0, -100.0),
             frame=emissiveFrame,
         )
@@ -640,27 +640,27 @@ class MSFS_Material:
         self.link(emissiveTexNode.outputs[0], emissiveMulNode.inputs[1])
         self.link(
             emissiveColorNode.outputs[0],
-            principledBSDFNode.inputs[MSFS_PrincipledBSDFInputs.emission.value],
+            principledBSDFNode.inputs[MSFS2020_PrincipledBSDFInputs.emission.value],
         )
         self.link(
             emissiveScaleNode.outputs[0],
-            principledBSDFNode.inputs[MSFS_PrincipledBSDFInputs.emissionStrength.value],
+            principledBSDFNode.inputs[MSFS2020_PrincipledBSDFInputs.emissionStrength.value],
         )
         # endregion
         
         # region Normal
         ## Normal Frame
         normalFrame = self.addNode(
-            name=MSFS_FrameNodes.normalFrame.value,
-            typeNode=MSFS_ShaderNodesTypes.nodeFrame.value,
+            name=MSFS2020_FrameNodes.normalFrame.value,
+            typeNode=MSFS2020_ShaderNodesTypes.nodeFrame.value,
             color=(0.5, 0.25, 0.25),
         )
 
         ## Normal scale
         # Out[0] : Normap Map Sampler -> In[0]
         normalScaleNode = self.addNode(
-            name=MSFS_ShaderNodes.normalScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.normalScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-300.0, -350.0),
             frame=normalFrame,
         )
@@ -670,8 +670,8 @@ class MSFS_Material:
         # Fix the normal view by reversing the green channel
         # since blender can only render openGL normal textures
         RGBCurvesNode = self.addNode(
-            name=MSFS_ShaderNodes.RGBCurves.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeRGBCurve.value,
+            name=MSFS2020_ShaderNodes.RGBCurves.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeRGBCurve.value,
             location=(-300.0, -400.0),
             frame=normalFrame,
         )
@@ -683,8 +683,8 @@ class MSFS_Material:
         # In[1] : Normal Texture -> Out[0]
         # Out[0] : Blend Normal Map -> In[1]
         normalMapSamplerNode = self.addNode(
-            name=MSFS_ShaderNodes.normalMapSampler.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeNormalMap.value,
+            name=MSFS2020_ShaderNodes.normalMapSampler.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeNormalMap.value,
             location=(0.0, -400.0),
             frame=normalFrame,
         )
@@ -698,16 +698,16 @@ class MSFS_Material:
         # In[1] : Detail Normal Texture -> Out[0]
         # Out[0] : Blend Normal Map -> In[2]
         detailNormalMapSamplerNode = self.addNode(
-            name=MSFS_ShaderNodes.detailNormalMapSampler.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeNormalMap.value,
+            name=MSFS2020_ShaderNodes.detailNormalMapSampler.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeNormalMap.value,
             location=(0.0, -450.0),
             frame=normalFrame,
         )
 
         ## Emissive Scale
         detailNormalScaleNode = self.addNode(
-            name=MSFS_ShaderNodes.detailNormalScale.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeValue.value,
+            name=MSFS2020_ShaderNodes.detailNormalScale.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeValue.value,
             location=(-300.0, -450.0),
             frame=normalFrame,
         )
@@ -720,8 +720,8 @@ class MSFS_Material:
         # In[1] : Normal Map Sampler -> Out[0]
         # In[2] : Detail Normal Map Sampler -> Out[0]
         blendNormalMapNode = self.addNode(
-            name=MSFS_ShaderNodes.blendNormalMap.value,
-            typeNode=MSFS_ShaderNodesTypes.shaderNodeMixRGB.value,
+            name=MSFS2020_ShaderNodes.blendNormalMap.value,
+            typeNode=MSFS2020_ShaderNodesTypes.shaderNodeMixRGB.value,
             blend_type="ADD",
             location=(200.0, -400.0),
             frame=normalFrame,
@@ -744,37 +744,37 @@ class MSFS_Material:
 
     def setAnisotropicTex(self, tex):
         nodeAnisotropicTex = self.getNodeByName(
-            MSFS_AnisotropicNodes.anisotropicTex.value
+            MSFS2020_AnisotropicNodes.anisotropicTex.value
         )
         nodeAnisotropicTex.image = tex
 
         nodeSeparateAnisotropic = self.getNodeByName(
-            MSFS_AnisotropicNodes.separateAnisotropic.value
+            MSFS2020_AnisotropicNodes.separateAnisotropic.value
         )
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
 
         if nodeAnisotropicTex.image:
             self.link(
                 nodeSeparateAnisotropic.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.anisotropic.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.anisotropic.value],
             )
             self.link(
                 nodeSeparateAnisotropic.outputs[2],
                 nodePrincipledBSDF.inputs[
-                    MSFS_PrincipledBSDFInputs.anisotropicRotation.value
+                    MSFS2020_PrincipledBSDFInputs.anisotropicRotation.value
                 ],
             )
         else:
             self.unLinkNodeInput(
-                nodePrincipledBSDF, MSFS_PrincipledBSDFInputs.anisotropic.value
+                nodePrincipledBSDF, MSFS2020_PrincipledBSDFInputs.anisotropic.value
             )
             self.unLinkNodeInput(
-                nodePrincipledBSDF, MSFS_PrincipledBSDFInputs.anisotropicRotation.value
+                nodePrincipledBSDF, MSFS2020_PrincipledBSDFInputs.anisotropicRotation.value
             )
 
     def setBaseColor(self, color):
-        nodeBaseColorRGB = self.getNodeByName(MSFS_ShaderNodes.baseColorRGB.value)
-        nodeBaseColorA = self.getNodeByName(MSFS_ShaderNodes.baseColorA.value)
+        nodeBaseColorRGB = self.getNodeByName(MSFS2020_ShaderNodes.baseColorRGB.value)
+        nodeBaseColorA = self.getNodeByName(MSFS2020_ShaderNodes.baseColorA.value)
 
         nodeBaseColorRGB.outputs[0].default_value[0] = color[0]
         nodeBaseColorRGB.outputs[0].default_value[1] = color[1]
@@ -783,53 +783,53 @@ class MSFS_Material:
         self.updateColorLinks()
 
     def setBaseColorTex(self, tex):
-        nodeBaseColorTex = self.getNodeByName(MSFS_ShaderNodes.baseColorTex.value)
+        nodeBaseColorTex = self.getNodeByName(MSFS2020_ShaderNodes.baseColorTex.value)
         nodeBaseColorTex.image = tex
         self.updateColorLinks()
 
     def setDetailColorTex(self, tex):
-        nodeDetailColor = self.getNodeByName(MSFS_ShaderNodes.detailColorTex.value)
+        nodeDetailColor = self.getNodeByName(MSFS2020_ShaderNodes.detailColorTex.value)
         nodeDetailColor.image = tex
         self.updateColorLinks()
 
     def setCompTex(self, tex):
-        nodeCompTex = self.getNodeByName(MSFS_ShaderNodes.compTex.value)
+        nodeCompTex = self.getNodeByName(MSFS2020_ShaderNodes.compTex.value)
         nodeCompTex.image = tex
         if tex is not None:
             nodeCompTex.image.colorspace_settings.name = "Non-Color"
         self.updateCompLinks()
 
     def setDetailCompTex(self, tex):
-        nodeDetailCompTex = self.getNodeByName(MSFS_ShaderNodes.detailCompTex.value)
+        nodeDetailCompTex = self.getNodeByName(MSFS2020_ShaderNodes.detailCompTex.value)
         nodeDetailCompTex.image = tex
         if tex is not None:
             nodeDetailCompTex.image.colorspace_settings.name = "Non-Color"
         self.updateCompLinks()
 
     def setRoughnessScale(self, scale):
-        nodeRoughnessScale = self.getNodeByName(MSFS_ShaderNodes.roughnessScale.value)
+        nodeRoughnessScale = self.getNodeByName(MSFS2020_ShaderNodes.roughnessScale.value)
         nodeRoughnessScale.outputs[0].default_value = scale
         self.updateCompLinks()
 
     def setMetallicScale(self, scale):
-        nodeMetallicScale = self.getNodeByName(MSFS_ShaderNodes.metallicScale.value)
+        nodeMetallicScale = self.getNodeByName(MSFS2020_ShaderNodes.metallicScale.value)
         nodeMetallicScale.outputs[0].default_value = scale
         self.updateCompLinks()
 
     def setEmissiveTexture(self, tex):
-        nodeEmissiveTex = self.getNodeByName(MSFS_ShaderNodes.emissiveTex.value)
+        nodeEmissiveTex = self.getNodeByName(MSFS2020_ShaderNodes.emissiveTex.value)
         nodeEmissiveTex.image = tex
         if tex is not None:
             nodeEmissiveTex.image.colorspace_settings.name = "Non-Color"
         self.updateEmissiveLinks()
 
     def setEmissiveScale(self, scale):
-        nodeEmissiveScale = self.getNodeByName(MSFS_ShaderNodes.emissiveScale.value)
+        nodeEmissiveScale = self.getNodeByName(MSFS2020_ShaderNodes.emissiveScale.value)
         nodeEmissiveScale.outputs[0].default_value = scale
         self.updateEmissiveLinks()
 
     def setEmissiveColor(self, color):
-        nodeEmissiveColor = self.getNodeByName(MSFS_ShaderNodes.emissiveColor.value)
+        nodeEmissiveColor = self.getNodeByName(MSFS2020_ShaderNodes.emissiveColor.value)
         emissiveValue = nodeEmissiveColor.outputs[0].default_value
         emissiveValue[0] = color[0]
         emissiveValue[1] = color[1]
@@ -838,34 +838,34 @@ class MSFS_Material:
         self.updateEmissiveLinks()
 
     def setNormalScale(self, scale):
-        nodeNormalScale = self.getNodeByName(MSFS_ShaderNodes.normalScale.value)
+        nodeNormalScale = self.getNodeByName(MSFS2020_ShaderNodes.normalScale.value)
         nodeNormalScale.outputs[0].default_value = scale
         self.updateNormalLinks()
 
     def setDetailNormalTex(self, tex):
-        nodeDetailNormalTex = self.getNodeByName(MSFS_ShaderNodes.detailNormalTex.value)
+        nodeDetailNormalTex = self.getNodeByName(MSFS2020_ShaderNodes.detailNormalTex.value)
         nodeDetailNormalTex.image = tex
         if tex is not None:
             nodeDetailNormalTex.image.colorspace_settings.name = "Non-Color"
         self.updateNormalLinks()
 
     def setNormalTex(self, tex):
-        nodeNormalTex = self.getNodeByName(MSFS_ShaderNodes.normalTex.value)
+        nodeNormalTex = self.getNodeByName(MSFS2020_ShaderNodes.normalTex.value)
         nodeNormalTex.image = tex
         if tex is not None:
             nodeNormalTex.image.colorspace_settings.name = "Non-Color"
         self.updateNormalLinks()
 
     def setBlendMaskTex(self, tex):
-        nodeBlendMaskTex = self.getNodeByName(MSFS_ShaderNodes.blendMaskTex.value)
+        nodeBlendMaskTex = self.getNodeByName(MSFS2020_ShaderNodes.blendMaskTex.value)
         nodeBlendMaskTex.image = tex
 
     def setUV(self, uvScale, offset_u, offset_v, normalScale):
-        nodeDetailUvScale = self.getNodeByName(MSFS_ShaderNodes.detailUVScale.value)
-        nodeDetailUvOffsetU = self.getNodeByName(MSFS_ShaderNodes.detailUVOffsetU.value)
-        nodeDetailUvOffsetV = self.getNodeByName(MSFS_ShaderNodes.detailUVOffsetV.value)
+        nodeDetailUvScale = self.getNodeByName(MSFS2020_ShaderNodes.detailUVScale.value)
+        nodeDetailUvOffsetU = self.getNodeByName(MSFS2020_ShaderNodes.detailUVOffsetU.value)
+        nodeDetailUvOffsetV = self.getNodeByName(MSFS2020_ShaderNodes.detailUVOffsetV.value)
         nodeDetailNormalScale = self.getNodeByName(
-            MSFS_ShaderNodes.detailNormalScale.value
+            MSFS2020_ShaderNodes.detailNormalScale.value
         )
 
         if (
@@ -883,15 +883,15 @@ class MSFS_Material:
     ##############################################
     def updateColorLinks(self):
         # relink nodes
-        nodeBaseColorRGB = self.getNodeByName(MSFS_ShaderNodes.baseColorRGB.value)
-        nodeBaseColorA = self.getNodeByName(MSFS_ShaderNodes.baseColorA.value)
-        nodeBaseColorTex = self.getNodeByName(MSFS_ShaderNodes.baseColorTex.value)
-        nodeDetailColorTex = self.getNodeByName(MSFS_ShaderNodes.detailColorTex.value)
-        nodeMulBaseColorRGB = self.getNodeByName(MSFS_ShaderNodes.baseColorMulRGB.value)
-        nodeMulBaseColorA = self.getNodeByName(MSFS_ShaderNodes.baseColorMulA.value)
-        nodeBlendColorMap = self.getNodeByName(MSFS_ShaderNodes.blendColorMap.value)
-        nodeBlendAlphaMap = self.getNodeByName(MSFS_ShaderNodes.blendAlphaMap.value)
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodeBaseColorRGB = self.getNodeByName(MSFS2020_ShaderNodes.baseColorRGB.value)
+        nodeBaseColorA = self.getNodeByName(MSFS2020_ShaderNodes.baseColorA.value)
+        nodeBaseColorTex = self.getNodeByName(MSFS2020_ShaderNodes.baseColorTex.value)
+        nodeDetailColorTex = self.getNodeByName(MSFS2020_ShaderNodes.detailColorTex.value)
+        nodeMulBaseColorRGB = self.getNodeByName(MSFS2020_ShaderNodes.baseColorMulRGB.value)
+        nodeMulBaseColorA = self.getNodeByName(MSFS2020_ShaderNodes.baseColorMulA.value)
+        nodeBlendColorMap = self.getNodeByName(MSFS2020_ShaderNodes.blendColorMap.value)
+        nodeBlendAlphaMap = self.getNodeByName(MSFS2020_ShaderNodes.blendAlphaMap.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
 
         # !!!! input orders matters for the exporter here
         self.link(nodeBaseColorTex.outputs[0], nodeBlendColorMap.inputs[1])
@@ -905,60 +905,60 @@ class MSFS_Material:
         if not nodeBaseColorTex.image and not nodeDetailColorTex.image:
             self.link(
                 nodeBaseColorRGB.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.baseColor.value],
             )
             self.link(
                 nodeBaseColorA.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.alpha.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.alpha.value],
             )
 
         elif nodeBaseColorTex.image and not nodeDetailColorTex.image:
             nodeBlendColorMap.blend_type = "ADD"
             self.link(
                 nodeMulBaseColorRGB.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.baseColor.value],
             )
             self.link(nodeBaseColorTex.outputs[1], nodeMulBaseColorA.inputs[0])
             self.link(
                 nodeMulBaseColorA.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.alpha.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.alpha.value],
             )
 
         elif not nodeBaseColorTex.image and nodeDetailColorTex.image:
             nodeBlendColorMap.blend_type = "ADD"
             self.link(
                 nodeMulBaseColorRGB.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.baseColor.value],
             )
             self.link(nodeDetailColorTex.outputs[1], nodeMulBaseColorA.inputs[0])
             self.link(
                 nodeMulBaseColorA.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.alpha.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.alpha.value],
             )
 
         else:
             nodeBlendColorMap.blend_type = "MULTIPLY"
             self.link(
                 nodeMulBaseColorRGB.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.baseColor.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.baseColor.value],
             )
             self.link(nodeBlendAlphaMap.outputs[0], nodeMulBaseColorA.inputs[0])
 
     def updateNormalLinks(self):
-        nodeNormalTex = self.getNodeByName(MSFS_ShaderNodes.normalTex.value)
-        nodeDetailNormalTex = self.getNodeByName(MSFS_ShaderNodes.detailNormalTex.value)
+        nodeNormalTex = self.getNodeByName(MSFS2020_ShaderNodes.normalTex.value)
+        nodeDetailNormalTex = self.getNodeByName(MSFS2020_ShaderNodes.detailNormalTex.value)
         nodeNormalMapSampler = self.getNodeByName(
-            MSFS_ShaderNodes.normalMapSampler.value
+            MSFS2020_ShaderNodes.normalMapSampler.value
         )
-        nodeRGBCurves = self.getNodeByName(MSFS_ShaderNodes.RGBCurves.value)
+        nodeRGBCurves = self.getNodeByName(MSFS2020_ShaderNodes.RGBCurves.value)
         nodeDetailNormalMapSampler = self.getNodeByName(
-            MSFS_ShaderNodes.detailNormalMapSampler.value
+            MSFS2020_ShaderNodes.detailNormalMapSampler.value
         )
-        nodeBlendNormalMap = self.getNodeByName(MSFS_ShaderNodes.blendNormalMap.value)
+        nodeBlendNormalMap = self.getNodeByName(MSFS2020_ShaderNodes.blendNormalMap.value)
         nodeDetailNormalScale = self.getNodeByName(
-            MSFS_ShaderNodes.detailNormalScale.value
+            MSFS2020_ShaderNodes.detailNormalScale.value
         )
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
 
         # Normal
         self.link(nodeNormalTex.outputs[0], nodeRGBCurves.inputs[1])
@@ -973,24 +973,24 @@ class MSFS_Material:
         if nodeNormalTex.image and not nodeDetailNormalTex.image:
             self.link(
                 nodeNormalMapSampler.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.normal.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.normal.value],
             )
         elif nodeNormalTex.image and nodeDetailNormalTex.image:
             self.link(
                 nodeBlendNormalMap.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.normal.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.normal.value],
             )
         else:
             self.unLinkNodeInput(
-                nodePrincipledBSDF, MSFS_PrincipledBSDFInputs.normal.value
+                nodePrincipledBSDF, MSFS2020_PrincipledBSDFInputs.normal.value
             )
 
     def updateEmissiveLinks(self):
-        nodeEmissiveTex = self.getNodeByName(MSFS_ShaderNodes.emissiveTex.value)
-        nodeEmissiveScale = self.getNodeByName(MSFS_ShaderNodes.emissiveScale.value)
-        nodeEmissiveColor = self.getNodeByName(MSFS_ShaderNodes.emissiveColor.value)
-        nodeMulEmissive = self.getNodeByName(MSFS_ShaderNodes.emissiveMul.value)
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodeEmissiveTex = self.getNodeByName(MSFS2020_ShaderNodes.emissiveTex.value)
+        nodeEmissiveScale = self.getNodeByName(MSFS2020_ShaderNodes.emissiveScale.value)
+        nodeEmissiveColor = self.getNodeByName(MSFS2020_ShaderNodes.emissiveColor.value)
+        nodeMulEmissive = self.getNodeByName(MSFS2020_ShaderNodes.emissiveMul.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
 
         # emissive
         if nodeEmissiveTex.image:
@@ -999,32 +999,32 @@ class MSFS_Material:
             self.link(nodeEmissiveTex.outputs[0], nodeMulEmissive.inputs[2])
             self.link(
                 nodeMulEmissive.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.emission.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.emission.value],
             )
         else:
             self.link(
                 nodeEmissiveColor.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.emission.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.emission.value],
             )
             self.unLinkNodeInput(nodeMulEmissive, 0)
             self.unLinkNodeInput(nodeMulEmissive, 1)
 
         self.link(
             nodeEmissiveScale.outputs[0],
-            nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.emissionStrength.value],
+            nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.emissionStrength.value],
         )
 
     def updateCompLinks(self):
-        nodeCompTex = self.getNodeByName(MSFS_ShaderNodes.compTex.value)
-        nodeDetailCompTex = self.getNodeByName(MSFS_ShaderNodes.detailCompTex.value)
-        nodeRoughnessScale = self.getNodeByName(MSFS_ShaderNodes.roughnessScale.value)
-        nodeMetallicScale = self.getNodeByName(MSFS_ShaderNodes.metallicScale.value)
-        nodeBlendCompMap = self.getNodeByName(MSFS_ShaderNodes.blendCompMap.value)
-        nodeSeparateComp = self.getNodeByName(MSFS_ShaderNodes.compSeparate.value)
-        nodeMulMetallic = self.getNodeByName(MSFS_ShaderNodes.metallicMul.value)
-        nodeMulRoughness = self.getNodeByName(MSFS_ShaderNodes.roughnessMul.value)
-        nodeGltfSettings = self.getNodeByName(MSFS_ShaderNodes.glTFSettings.value)
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodeCompTex = self.getNodeByName(MSFS2020_ShaderNodes.compTex.value)
+        nodeDetailCompTex = self.getNodeByName(MSFS2020_ShaderNodes.detailCompTex.value)
+        nodeRoughnessScale = self.getNodeByName(MSFS2020_ShaderNodes.roughnessScale.value)
+        nodeMetallicScale = self.getNodeByName(MSFS2020_ShaderNodes.metallicScale.value)
+        nodeBlendCompMap = self.getNodeByName(MSFS2020_ShaderNodes.blendCompMap.value)
+        nodeSeparateComp = self.getNodeByName(MSFS2020_ShaderNodes.compSeparate.value)
+        nodeMulMetallic = self.getNodeByName(MSFS2020_ShaderNodes.metallicMul.value)
+        nodeMulRoughness = self.getNodeByName(MSFS2020_ShaderNodes.roughnessMul.value)
+        nodeGltfSettings = self.getNodeByName(MSFS2020_ShaderNodes.glTFSettings.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
 
         # occlMetalRough
         self.link(nodeBlendCompMap.outputs[0], nodeSeparateComp.inputs[0])
@@ -1036,11 +1036,11 @@ class MSFS_Material:
         if not nodeCompTex.image and not nodeDetailCompTex.image:
             self.link(
                 nodeRoughnessScale.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.roughness.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.roughness.value],
             )
             self.link(
                 nodeMetallicScale.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.metallic.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.metallic.value],
             )
             self.unLinkNodeInput(nodeGltfSettings, 0)
         else:  # nodeCompTex.image or nodeDetailCompTex.image (if we have both images or only one of them)
@@ -1048,12 +1048,12 @@ class MSFS_Material:
             
             self.link(
                 nodeMulRoughness.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.roughness.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.roughness.value],
             )
             
             self.link(
                 nodeMulMetallic.outputs[0],
-                nodePrincipledBSDF.inputs[MSFS_PrincipledBSDFInputs.metallic.value],
+                nodePrincipledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.metallic.value],
             )
 
     def setBlendMode(self, blendMode):
@@ -1067,10 +1067,10 @@ class MSFS_Material:
             self.makeOpaque()
 
     def toggleVertexBlendMapMask(self, useVertex=True):
-        nodeVertexColor = self.getNodeByName(MSFS_ShaderNodes.vertexColor.value)
-        nodeBlendColorMap = self.getNodeByName(MSFS_ShaderNodes.blendColorMap.value)
-        nodeBlendNormalMap = self.getNodeByName(MSFS_ShaderNodes.blendNormalMap.value)
-        nodeBlendMaskTex = self.getNodeByName(MSFS_ShaderNodes.blendMaskTex.value)
+        nodeVertexColor = self.getNodeByName(MSFS2020_ShaderNodes.vertexColor.value)
+        nodeBlendColorMap = self.getNodeByName(MSFS2020_ShaderNodes.blendColorMap.value)
+        nodeBlendNormalMap = self.getNodeByName(MSFS2020_ShaderNodes.blendNormalMap.value)
+        nodeBlendMaskTex = self.getNodeByName(MSFS2020_ShaderNodes.blendMaskTex.value)
         # vertexcolor mask
         if useVertex:
             self.link(nodeVertexColor.outputs[1], nodeBlendColorMap.inputs[0])
@@ -1130,14 +1130,14 @@ class MSFS_Material:
             node.hide = hidden
             node.width = width
             node.parent = frame
-            if typeNode == MSFS_ShaderNodesTypes.nodeFrame.value:
+            if typeNode == MSFS2020_ShaderNodesTypes.nodeFrame.value:
                 node.use_custom_color = True
                 node.color = color
-            elif typeNode == MSFS_ShaderNodesTypes.shaderNodeMixRGB.value:
+            elif typeNode == MSFS2020_ShaderNodesTypes.shaderNodeMixRGB.value:
                 node.blend_type = blend_type
             elif (
-                typeNode == MSFS_ShaderNodesTypes.shaderNodeMath.value
-                or typeNode == MSFS_ShaderNodesTypes.shaderNodeVectorMath.value
+                typeNode == MSFS2020_ShaderNodesTypes.shaderNodeMath.value
+                or typeNode == MSFS2020_ShaderNodesTypes.shaderNodeVectorMath.value
             ):
                 node.operation = operation
             return node
@@ -1182,5 +1182,5 @@ class MSFS_Material:
         if group_name in groups:
             return (groups[group_name], False)
         
-        groups.new(group_name, MSFS_ShaderNodesTypes.shaderNodeTree.value)
+        groups.new(group_name, MSFS2020_ShaderNodesTypes.shaderNodeTree.value)
         return (groups[group_name], True)

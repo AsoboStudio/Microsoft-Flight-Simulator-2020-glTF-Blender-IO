@@ -1,4 +1,4 @@
-# Copyright 2021-2022 The glTF-Blender-IO-MSFS authors.
+# Copyright 2021-2022 The glTF-Blender-IO-MSFS-2020 authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,14 +13,14 @@
 # limitations under the License.
 import bpy
 
-from ..msfs_material_function import MSFS_Material
+from ..msfs_material_function import MSFS2020_Material
 from .utils.msfs_material_enum import (
-    MSFS_PrincipledBSDFInputs,
-    MSFS_ShaderNodes
+    MSFS2020_PrincipledBSDFInputs,
+    MSFS2020_ShaderNodes
 )
 
 
-class MSFS_SSS(MSFS_Material):
+class MSFS2020_SSS(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
         super().__init__(material, buildTree)
 
@@ -31,7 +31,7 @@ class MSFS_SSS(MSFS_Material):
         if bpy.app.version >= (4, 2, 0):
             return
         
-        nodePrincipledBSDF = self.getNodeByName(MSFS_ShaderNodes.principledBSDF.value)
+        nodePrincipledBSDF = self.getNodeByName(MSFS2020_ShaderNodes.principledBSDF.value)
         nodePrincipledBSDF.inputs[
-            MSFS_PrincipledBSDFInputs.subsurfaceColor.value
+            MSFS2020_PrincipledBSDFInputs.subsurfaceColor.value
         ].default_value = color
