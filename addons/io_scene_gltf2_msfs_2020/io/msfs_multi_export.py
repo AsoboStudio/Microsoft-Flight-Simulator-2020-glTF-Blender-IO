@@ -296,7 +296,7 @@ class MSFS2020_OT_MultiExportGLTF2(bpy.types.Operator):
 
     def execute(self, context):
         if context.scene.msfs_multi_exporter_current_tab == "OBJECTS":
-            from .msfs_multi_export_objects import MSFS_LODGroupUtility
+            from .msfs_multi_export_objects import MSFS2020_LODGroupUtility
 
             lod_groups = context.scene.msfs_multi_exporter_lod_groups
             sort_by_collection = context.scene.multi_exporter_grouped_by_collections
@@ -333,7 +333,7 @@ class MSFS2020_OT_MultiExportGLTF2(bpy.types.Operator):
                     lod_files = {}
 
                     for lod in lod_group.lods:
-                        if not MSFS_LODGroupUtility.lod_is_visible(context, lod):
+                        if not MSFS2020_LODGroupUtility.lod_is_visible(context, lod):
                             continue
 
                         if lod.enabled:
@@ -363,7 +363,7 @@ class MSFS2020_OT_MultiExportGLTF2(bpy.types.Operator):
 
                 # Export glTF
                 for lod in lod_group.lods:
-                    if not MSFS_LODGroupUtility.lod_is_visible(context, lod):
+                    if not MSFS2020_LODGroupUtility.lod_is_visible(context, lod):
                         continue
 
                     if lod.enabled:

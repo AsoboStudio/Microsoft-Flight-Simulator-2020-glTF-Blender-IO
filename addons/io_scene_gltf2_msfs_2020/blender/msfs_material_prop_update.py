@@ -12,23 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .material.msfs_material_anisotropic import MSFS_Anisotropic
-from .material.msfs_material_clearcoat import MSFS_Clearcoat
-from .material.msfs_material_environment_occluder import \
-    MSFS_Environment_Occluder
-from .material.msfs_material_fake_terrain import MSFS_Fake_Terrain
-from .material.msfs_material_fresnel_fade import MSFS_Fresnel_Fade
-from .material.msfs_material_geo_decal import MSFS_Geo_Decal
-from .material.msfs_material_geo_decal_frosted import MSFS_Geo_Decal_Frosted
-from .material.msfs_material_ghost import MSFS_Ghost
-from .material.msfs_material_glass import MSFS_Glass
-from .material.msfs_material_hair import MSFS_Hair
-from .material.msfs_material_invisible import MSFS_Invisible
-from .material.msfs_material_parallax import MSFS_Parallax
-from .material.msfs_material_porthole import MSFS_Porthole
-from .material.msfs_material_sss import MSFS_SSS
-from .material.msfs_material_standard import MSFS_Standard
-from .material.msfs_material_windshield import MSFS_Windshield
+from .material.msfs_material_anisotropic import MSFS2020_Anisotropic
+from .material.msfs_material_clearcoat import MSFS2020_Clearcoat
+from .material.msfs_material_environment_occluder import MSFS2020_Environment_Occluder
+from .material.msfs_material_fake_terrain import MSFS2020_Fake_Terrain
+from .material.msfs_material_fresnel_fade import MSFS2020_Fresnel_Fade
+from .material.msfs_material_geo_decal import MSFS2020_Geo_Decal
+from .material.msfs_material_geo_decal_frosted import MSFS2020_Geo_Decal_Frosted
+from .material.msfs_material_ghost import MSFS2020_Ghost
+from .material.msfs_material_glass import MSFS2020_Glass
+from .material.msfs_material_hair import MSFS2020_Hair
+from .material.msfs_material_invisible import MSFS2020_Invisible
+from .material.msfs_material_parallax import MSFS2020_Parallax
+from .material.msfs_material_porthole import MSFS2020_Porthole
+from .material.msfs_material_sss import MSFS2020_SSS
+from .material.msfs_material_standard import MSFS2020_Standard
+from .material.msfs_material_windshield import MSFS2020_Windshield
 from .msfs_material_function import MSFS2020_Material
 
 
@@ -37,96 +36,96 @@ class MSFS2020_Material_Property_Update:
     @staticmethod
     def getMaterial(material):
         if material.msfs_material_type == "msfs_standard":
-            return MSFS_Standard(material)
+            return MSFS2020_Standard(material)
         elif material.msfs_material_type == "msfs_geo_decal":
-            return MSFS_Geo_Decal(material)
+            return MSFS2020_Geo_Decal(material)
         elif material.msfs_material_type == "msfs_geo_decal_frosted":
-            return MSFS_Geo_Decal_Frosted(material)
+            return MSFS2020_Geo_Decal_Frosted(material)
         elif material.msfs_material_type == "msfs_windshield":
-            return MSFS_Windshield(material)
+            return MSFS2020_Windshield(material)
         elif material.msfs_material_type == "msfs_porthole":
-            return MSFS_Porthole(material)
+            return MSFS2020_Porthole(material)
         elif material.msfs_material_type == "msfs_glass":
-            return MSFS_Glass(material)
+            return MSFS2020_Glass(material)
         elif material.msfs_material_type == "msfs_clearcoat":
-            return MSFS_Clearcoat(material)
+            return MSFS2020_Clearcoat(material)
         elif material.msfs_material_type == "msfs_parallax":
-            return MSFS_Parallax(material)
+            return MSFS2020_Parallax(material)
         elif material.msfs_material_type == "msfs_anisotropic":
-            return MSFS_Anisotropic(material)
+            return MSFS2020_Anisotropic(material)
         elif material.msfs_material_type == "msfs_hair":
-            return MSFS_Hair(material)
+            return MSFS2020_Hair(material)
         elif material.msfs_material_type == "msfs_sss":
-            return MSFS_SSS(material)
+            return MSFS2020_SSS(material)
         elif material.msfs_material_type == "msfs_invisible":
-            return MSFS_Invisible(material)
+            return MSFS2020_Invisible(material)
         elif material.msfs_material_type == "msfs_fake_terrain":
-            return MSFS_Fake_Terrain(material)
+            return MSFS2020_Fake_Terrain(material)
         elif material.msfs_material_type == "msfs_fresnel_fade":
-            return MSFS_Fresnel_Fade(material)
+            return MSFS2020_Fresnel_Fade(material)
         elif material.msfs_material_type == "msfs_environment_occluder":
-            return MSFS_Environment_Occluder(material)
+            return MSFS2020_Environment_Occluder(material)
         elif material.msfs_material_type == "msfs_ghost":
-            return MSFS_Ghost(material)
+            return MSFS2020_Ghost(material)
 
     @staticmethod
     def update_msfs_material_type(self, context):
         material = None
         if self.msfs_material_type == "msfs_standard":
-            material = MSFS_Standard(self, buildTree=True)
+            material = MSFS2020_Standard(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
         elif self.msfs_material_type == "msfs_geo_decal":
-            material = MSFS_Geo_Decal(self, buildTree=True)
+            material = MSFS2020_Geo_Decal(self, buildTree=True)
             self.msfs_alpha_mode = "BLEND"
         elif self.msfs_material_type == "msfs_geo_decal_frosted":
-            material = MSFS_Geo_Decal_Frosted(self, buildTree=True)
+            material = MSFS2020_Geo_Decal_Frosted(self, buildTree=True)
             self.msfs_alpha_mode = "BLEND"
         elif self.msfs_material_type == "msfs_windshield":
-            material = MSFS_Windshield(self, buildTree=True)
+            material = MSFS2020_Windshield(self, buildTree=True)
             self.msfs_alpha_mode = "BLEND"
             self.msfs_metallic_factor = 0.0
         elif self.msfs_material_type == "msfs_porthole":
-            material = MSFS_Porthole(self, buildTree=True)
+            material = MSFS2020_Porthole(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
         elif self.msfs_material_type == "msfs_glass":
-            material = MSFS_Glass(self, buildTree=True)
+            material = MSFS2020_Glass(self, buildTree=True)
             self.msfs_alpha_mode = "BLEND"
             self.msfs_metallic_factor = 0.0
         elif self.msfs_material_type == "msfs_clearcoat":
-            material = MSFS_Clearcoat(self, buildTree=True)
+            material = MSFS2020_Clearcoat(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
         elif self.msfs_material_type == "msfs_parallax":
-            material = MSFS_Parallax(self, buildTree=True)
+            material = MSFS2020_Parallax(self, buildTree=True)
             self.msfs_alpha_mode = "MASK"
         elif self.msfs_material_type == "msfs_anisotropic":
-            material = MSFS_Anisotropic(self, buildTree=True)
+            material = MSFS2020_Anisotropic(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
         elif self.msfs_material_type == "msfs_hair":
-            material = MSFS_Hair(self, buildTree=True)
+            material = MSFS2020_Hair(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
         elif self.msfs_material_type == "msfs_sss":
-            material = MSFS_SSS(self, buildTree=True)
+            material = MSFS2020_SSS(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
         elif self.msfs_material_type == "msfs_invisible":
-            material = MSFS_Invisible(self, buildTree=True)
+            material = MSFS2020_Invisible(self, buildTree=True)
             self.msfs_no_cast_shadow = True
             self.msfs_alpha_mode = "BLEND"
         elif self.msfs_material_type == "msfs_fake_terrain":
-            material = MSFS_Fake_Terrain(self, buildTree=True)
+            material = MSFS2020_Fake_Terrain(self, buildTree=True)
             self.msfs_alpha_mode = "OPAQUE"
         elif self.msfs_material_type == "msfs_fresnel_fade":
-            material = MSFS_Fresnel_Fade(self, buildTree=True)
+            material = MSFS2020_Fresnel_Fade(self, buildTree=True)
             self.msfs_alpha_mode = "BLEND"
         elif self.msfs_material_type == "msfs_environment_occluder":
-            material = MSFS_Environment_Occluder(self, buildTree=True)
+            material = MSFS2020_Environment_Occluder(self, buildTree=True)
             self.msfs_no_cast_shadow = True
             self.msfs_alpha_mode = "BLEND"
         elif self.msfs_material_type == "msfs_ghost":
-            material = MSFS_Ghost(self, buildTree=True)
+            material = MSFS2020_Ghost(self, buildTree=True)
             self.msfs_no_cast_shadow = True
             self.msfs_alpha_mode = "BLEND"
         else:
-            MSFS_Material_Property_Update.reset_material_prop_object(self)
+            MSFS2020_Material_Property_Update.reset_material_prop_object(self)
             material = MSFS2020_Material(self)
             material.revertToPBRShaderTree()
             self.msfs_alpha_mode = "OPAQUE"
@@ -204,63 +203,63 @@ class MSFS2020_Material_Property_Update:
 
     @staticmethod
     def update_base_color_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS_Invisible:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is not MSFS2020_Invisible:
             material.setBaseColorTex(self.msfs_base_color_texture)
 
     @staticmethod
     def update_comp_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS_Invisible:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is not MSFS2020_Invisible:
             material.setCompTex(self.msfs_occlusion_metallic_roughness_texture)
 
     @staticmethod
     def update_normal_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS_Invisible:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is not MSFS2020_Invisible:
             material.setNormalTex(self.msfs_normal_texture)
 
     @staticmethod
     def update_emissive_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS_Invisible:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is not MSFS2020_Invisible:
             material.setEmissiveTexture(self.msfs_emissive_texture)
 
     @staticmethod
     def update_detail_color_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS_Invisible:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is not MSFS2020_Invisible:
             material.setDetailColorTex(self.msfs_detail_color_texture)
 
     @staticmethod
     def update_detail_comp_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS_Invisible:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is not MSFS2020_Invisible:
             material.setDetailCompTex(self.msfs_detail_occlusion_metallic_roughness_texture)
 
     @staticmethod
     def update_detail_normal_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS_Invisible:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is not MSFS2020_Invisible:
             material.setDetailNormalTex(self.msfs_detail_normal_texture)
 
     @staticmethod
     def update_blend_mask_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is MSFS_Standard:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is MSFS2020_Standard:
             material.setBlendMaskTex(self.msfs_blend_mask_texture)
             material.toggleVertexBlendMapMask(self.msfs_blend_mask_texture is None)
 
     @staticmethod
     def update_extra_slot1_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and (type(material) is MSFS_Anisotropic or type(material) is MSFS_Hair):
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and (type(material) is MSFS2020_Anisotropic or type(material) is MSFS2020_Hair):
             material.setAnisotropicTex(self.msfs_extra_slot1_texture)
 
     @staticmethod
     def update_dirt_texture(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is MSFS_Clearcoat:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is MSFS2020_Clearcoat:
             material.setClearcoatDirtTexture(self.msfs_dirt_texture)
 
     @staticmethod
@@ -271,44 +270,44 @@ class MSFS2020_Material_Property_Update:
     # Update functions for the "tint" parameters:
     @staticmethod
     def update_base_color(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
         if material is not None:
             material.setBaseColor(self.msfs_base_color_factor)
 
     @staticmethod
     def update_emissive_color(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
         if material is not None:
             material.setEmissiveColor(self.msfs_emissive_factor)
 
     @staticmethod
     def update_emissive_scale(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
         if material is not None:
             material.setEmissiveScale(self.msfs_emissive_scale)
 
     @staticmethod
     def update_metallic_scale(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
         if material is not None:
             material.setMetallicScale(self.msfs_metallic_factor)
 
     @staticmethod
     def update_roughness_scale(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
         if material is not None:
             material.setRoughnessScale(self.msfs_roughness_factor)
 
     @staticmethod
     def update_normal_scale(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
         if material is not None:
             material.setNormalScale(self.msfs_normal_scale)
 
     @staticmethod
     def update_color_sss(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is MSFS_SSS:
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
+        if material is not None and type(material) is MSFS2020_SSS:
             material.setSSSColor(self.msfs_sss_color)
 
     @staticmethod
@@ -321,7 +320,7 @@ class MSFS2020_Material_Property_Update:
         
     @staticmethod
     def update_detail_uv(self, context):
-        material = MSFS_Material_Property_Update.getMaterial(self)
+        material = MSFS2020_Material_Property_Update.getMaterial(self)
         if material is None:
             return
         

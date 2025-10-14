@@ -15,7 +15,7 @@
 import bpy
 from io_scene_gltf2.io.com.gltf2_io_extensions import Extension
 
-from ..blender.msfs_material_prop_update import MSFS_Material_Property_Update
+from ..blender.msfs_material_prop_update import MSFS2020_Material_Property_Update
 
 
 class AsoboMaterialCommon:
@@ -53,7 +53,7 @@ class AsoboMaterialCommon:
             ("msfs_ghost", "Ghost", ""),
         ),
         default="NONE",
-        update=MSFS_Material_Property_Update.update_msfs_material_type,
+        update=MSFS2020_Material_Property_Update.update_msfs_material_type,
         options=set(),  # ANIMATABLE is a default item in options, so for properties that shouldn't be animatable, we have to overwrite this.
     )
 
@@ -65,7 +65,7 @@ class AsoboMaterialCommon:
         max=1.0,
         size=4,
         default=Defaults.BaseColorFactor,
-        update=MSFS_Material_Property_Update.update_base_color,
+        update=MSFS2020_Material_Property_Update.update_base_color,
         options={"ANIMATABLE"}
     )
 
@@ -77,7 +77,7 @@ class AsoboMaterialCommon:
         max=1.0,
         size=3,
         default=Defaults.EmissiveFactor,
-        update=MSFS_Material_Property_Update.update_emissive_color,
+        update=MSFS2020_Material_Property_Update.update_emissive_color,
         options={"ANIMATABLE"},
     )
 
@@ -87,7 +87,7 @@ class AsoboMaterialCommon:
         min=0.0,
         max=1.0,
         default=Defaults.MetallicFactor,
-        update=MSFS_Material_Property_Update.update_metallic_scale,
+        update=MSFS2020_Material_Property_Update.update_metallic_scale,
         options={"ANIMATABLE"},
     )
 
@@ -97,7 +97,7 @@ class AsoboMaterialCommon:
         min=0.0,
         max=1.0,
         default=Defaults.RoughnessFactor,
-        update=MSFS_Material_Property_Update.update_roughness_scale,
+        update=MSFS2020_Material_Property_Update.update_roughness_scale,
         options={"ANIMATABLE"},
     )
 
@@ -107,7 +107,7 @@ class AsoboMaterialCommon:
         min=0.0,
         max=1.0,
         default=Defaults.NormalScale,
-        update=MSFS_Material_Property_Update.update_normal_scale,
+        update=MSFS2020_Material_Property_Update.update_normal_scale,
         options=set(),
     )
 
@@ -117,7 +117,7 @@ class AsoboMaterialCommon:
         min=0.0,
         max=100.0,
         default=Defaults.EmissiveScale,
-        update=MSFS_Material_Property_Update.update_emissive_scale,
+        update=MSFS2020_Material_Property_Update.update_emissive_scale,
         options=set(),
     )
 
@@ -146,7 +146,7 @@ class AsoboMaterialCommon:
             ),
         ),
         default=Defaults.AlphaMode,
-        update=MSFS_Material_Property_Update.update_alpha_mode,
+        update=MSFS2020_Material_Property_Update.update_alpha_mode,
         options=set(),
     )
 
@@ -156,7 +156,7 @@ class AsoboMaterialCommon:
         min=0.0,
         max=1.0,
         default=Defaults.AlphaCutoff,
-        update=MSFS_Material_Property_Update.update_alpha_cutoff,
+        update=MSFS2020_Material_Property_Update.update_alpha_cutoff,
         options=set(),
     )
 
@@ -164,7 +164,7 @@ class AsoboMaterialCommon:
         name="Double Sided",
         description="The doubleSided property specifies whether the material is double sided. When this value is false, back-face culling is enabled. When this value is true, back-face culling is disabled and double sided lighting is enabled. The back-face must have its normals reversed before the lighting equation is evaluated",
         default=Defaults.DoubleSided,
-        update=MSFS_Material_Property_Update.update_double_sided,
+        update=MSFS2020_Material_Property_Update.update_double_sided,
         options=set(),
     )
 
@@ -172,36 +172,36 @@ class AsoboMaterialCommon:
     bpy.types.Material.msfs_base_color_texture = bpy.props.PointerProperty(
         name="Base Color Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_base_color_texture,
+        update=MSFS2020_Material_Property_Update.update_base_color_texture,
     )
     bpy.types.Material.msfs_occlusion_metallic_roughness_texture = (
         bpy.props.PointerProperty(
             name="Occlusion Metallic Roughness Texture",
             type=bpy.types.Image,
-            update=MSFS_Material_Property_Update.update_comp_texture,
+            update=MSFS2020_Material_Property_Update.update_comp_texture,
         )
     )
 
     bpy.types.Material.msfs_normal_texture = bpy.props.PointerProperty(
         name="Normal Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_normal_texture,
+        update=MSFS2020_Material_Property_Update.update_normal_texture,
     )
     bpy.types.Material.msfs_blend_mask_texture = bpy.props.PointerProperty(
         name="Blend Mask Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_blend_mask_texture,
+        update=MSFS2020_Material_Property_Update.update_blend_mask_texture,
     )
     bpy.types.Material.msfs_dirt_texture = bpy.props.PointerProperty(
         name="Dirt Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_dirt_texture,
+        update=MSFS2020_Material_Property_Update.update_dirt_texture,
     )
     
     bpy.types.Material.msfs_extra_slot1_texture = bpy.props.PointerProperty(
         name="Extra Slot 1 Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_extra_slot1_texture,
+        update=MSFS2020_Material_Property_Update.update_extra_slot1_texture,
     )
 
     bpy.types.Material.msfs_opacity_texture = bpy.props.PointerProperty(
@@ -211,32 +211,32 @@ class AsoboMaterialCommon:
     bpy.types.Material.msfs_emissive_texture = bpy.props.PointerProperty(
         name="Emissive Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_emissive_texture,
+        update=MSFS2020_Material_Property_Update.update_emissive_texture,
     )
 
     bpy.types.Material.msfs_detail_color_texture = bpy.props.PointerProperty(
         name="Detail Color Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_detail_color_texture,
+        update=MSFS2020_Material_Property_Update.update_detail_color_texture,
     )
 
     bpy.types.Material.msfs_detail_occlusion_metallic_roughness_texture = bpy.props.PointerProperty(
             name="Detail Occlusion Metallic Roughness Texture",
             type=bpy.types.Image,
-            update=MSFS_Material_Property_Update.update_detail_comp_texture,
+            update=MSFS2020_Material_Property_Update.update_detail_comp_texture,
     )
 
     bpy.types.Material.msfs_detail_normal_texture = bpy.props.PointerProperty(
         name="Detail Normal Texture",
         type=bpy.types.Image,
-        update=MSFS_Material_Property_Update.update_detail_normal_texture,
+        update=MSFS2020_Material_Property_Update.update_detail_normal_texture,
     )
 
     @staticmethod
     def from_dict(
         blender_material, gltf2_material, import_settings
     ):  # This must be called first, as it sets a few parameters that the rest of the extensions might rely on
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         # Every flight sim asset has ASOBO_normal_map_convention, so we check if it's being used to set material. We set blender_material to standard. If the blender_material is another type, it will get changed later.
         if "ASOBO_normal_map_convention" in import_settings.data.extensions_used:
@@ -264,19 +264,19 @@ class AsoboMaterialCommon:
             # Textures
             if gltf2_material.pbr_metallic_roughness:
                 if gltf2_material.pbr_metallic_roughness.base_color_texture is not None:
-                    blender_material.msfs_base_color_texture = MSFSMaterial.create_image(
+                    blender_material.msfs_base_color_texture = MSFS2020_Material_IO.create_image(
                         gltf2_material.pbr_metallic_roughness.base_color_texture.index, import_settings
                     )
                 if gltf2_material.pbr_metallic_roughness.metallic_roughness_texture is not None:
-                    blender_material.msfs_occlusion_metallic_roughness_texture = MSFSMaterial.create_image(
+                    blender_material.msfs_occlusion_metallic_roughness_texture = MSFS2020_Material_IO.create_image(
                         gltf2_material.pbr_metallic_roughness.metallic_roughness_texture.index, import_settings
                     )
             if gltf2_material.normal_texture is not None:
-                blender_material.msfs_normal_texture = MSFSMaterial.create_image(
+                blender_material.msfs_normal_texture = MSFS2020_Material_IO.create_image(
                     gltf2_material.normal_texture.index, import_settings
                 )
             if gltf2_material.emissive_texture is not None:
-                blender_material.msfs_emissive_texture = MSFSMaterial.create_image(
+                blender_material.msfs_emissive_texture = MSFS2020_Material_IO.create_image(
                     gltf2_material.emissive_texture.index, import_settings
                 )
 
@@ -988,7 +988,7 @@ class AsoboMaterialDetail:
         min=0.01,
         max=100,
         default=Defaults.UVScale,
-        update=MSFS_Material_Property_Update.update_detail_uv,
+        update=MSFS2020_Material_Property_Update.update_detail_uv,
         options=set(),
     )
 
@@ -997,7 +997,7 @@ class AsoboMaterialDetail:
         min=-10.0,
         max=10.0,
         default=Defaults.UVOffset[0],
-        update=MSFS_Material_Property_Update.update_detail_uv,
+        update=MSFS2020_Material_Property_Update.update_detail_uv,
         options=set(),
     )
 
@@ -1006,7 +1006,7 @@ class AsoboMaterialDetail:
         min=-10.0,
         max=10.0,
         default=Defaults.UVOffset[1],
-        update=MSFS_Material_Property_Update.update_detail_uv,
+        update=MSFS2020_Material_Property_Update.update_detail_uv,
         options=set(),
     )
 
@@ -1023,13 +1023,13 @@ class AsoboMaterialDetail:
         min=0.0,
         max=1.0,
         default=Defaults.NormalScale,
-        update=MSFS_Material_Property_Update.update_detail_uv,
+        update=MSFS2020_Material_Property_Update.update_detail_uv,
         options=set(),
     )
 
     @staticmethod
     def from_dict(blender_material, gltf2_material, import_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         extensions = gltf2_material.extensions
         if extensions is None:
@@ -1048,19 +1048,19 @@ class AsoboMaterialDetail:
         if extension.get("blendThreshold"):
             blender_material.msfs_detail_blend_threshold = extension.get("blendThreshold")
         if extension.get("detailColorTexture"):
-            blender_material.msfs_detail_color_texture = MSFSMaterial.create_image(extension.get("detailColorTexture", {}).get("index"), import_settings)
+            blender_material.msfs_detail_color_texture = MSFS2020_Material_IO.create_image(extension.get("detailColorTexture", {}).get("index"), import_settings)
         if extension.get("detailNormalTexture"):
-            blender_material.msfs_detail_normal_texture = MSFSMaterial.create_image(extension.get("detailNormalTexture", {}).get("index"), import_settings)
+            blender_material.msfs_detail_normal_texture = MSFS2020_Material_IO.create_image(extension.get("detailNormalTexture", {}).get("index"), import_settings)
             if extension.get("detailNormalTexture").get("scale"): # TODO:  check that this works properly
                 blender_material.msfs_detail_normal_scale = extension.get("detailNormalTexture").get("scale")
         if extension.get("detailMetalRoughAOTexture"):
-            blender_material.msfs_detail_occlusion_metallic_roughness_texture = MSFSMaterial.create_image(extension.get("detailMetalRoughAOTexture", {}).get("index"), import_settings)
+            blender_material.msfs_detail_occlusion_metallic_roughness_texture = MSFS2020_Material_IO.create_image(extension.get("detailMetalRoughAOTexture", {}).get("index"), import_settings)
         if extension.get("blendMaskTexture"):
-            blender_material.msfs_blend_mask_texture = MSFSMaterial.create_image(extension.get("blendMaskTexture", {}).get("index"), import_settings)
+            blender_material.msfs_blend_mask_texture = MSFS2020_Material_IO.create_image(extension.get("blendMaskTexture", {}).get("index"), import_settings)
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
         hasTexture = False
         result = {}
         if (
@@ -1073,7 +1073,7 @@ class AsoboMaterialDetail:
         ):
 
             if blender_material.msfs_detail_color_texture is not None:
-                result["detailColorTexture"] = MSFSMaterial.export_image(
+                result["detailColorTexture"] = MSFS2020_Material_IO.export_image(
                     blender_material,
                     blender_material.msfs_detail_color_texture,
                     "DEFAULT",
@@ -1082,7 +1082,7 @@ class AsoboMaterialDetail:
                 hasTexture = True
 
             if blender_material.msfs_detail_normal_texture is not None:
-                result["detailNormalTexture"] = MSFSMaterial.export_image(
+                result["detailNormalTexture"] = MSFS2020_Material_IO.export_image(
                     blender_material,
                     blender_material.msfs_detail_normal_texture,
                     "NORMAL",
@@ -1092,7 +1092,7 @@ class AsoboMaterialDetail:
                 result["detailNormalTexture"].scale = blender_material.msfs_detail_normal_scale
 
             if blender_material.msfs_detail_occlusion_metallic_roughness_texture is not None:
-                result["detailMetalRoughAOTexture"] = MSFSMaterial.export_image(
+                result["detailMetalRoughAOTexture"] = MSFS2020_Material_IO.export_image(
                     blender_material,
                     blender_material.msfs_detail_occlusion_metallic_roughness_texture,
                     "DEFAULT",
@@ -1101,7 +1101,7 @@ class AsoboMaterialDetail:
                 hasTexture = True
 
             if blender_material.msfs_blend_mask_texture is not None:
-                result["blendMaskTexture"] = MSFSMaterial.export_image(
+                result["blendMaskTexture"] = MSFS2020_Material_IO.export_image(
                     blender_material,
                     blender_material.msfs_blend_mask_texture,
                     "DEFAULT",
@@ -1233,13 +1233,13 @@ class AsoboSSS:
         max=1.0,
         size=4,
         default=Defaults.SSSColor,
-        update=MSFS_Material_Property_Update.update_color_sss,
+        update=MSFS2020_Material_Property_Update.update_color_sss,
         options=set(),
     )
 
     @staticmethod
     def from_dict(blender_material, gltf2_material, import_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         extensions = gltf2_material.extensions
         if extensions is None:
@@ -1255,13 +1255,13 @@ class AsoboSSS:
         if extension.get("SSSColor"):
             blender_material.msfs_sss_color = extension.get("SSSColor")
         if extension.get("opacityTexture"):
-            blender_material.msfs_opacity_texture = MSFSMaterial.create_image(
+            blender_material.msfs_opacity_texture = MSFS2020_Material_IO.create_image(
                 extension.get("opacityTexture", {}).get("index"), import_settings
             )
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         result = {}
         if blender_material.msfs_material_type not in ("msfs_sss", "msfs_hair"):
@@ -1269,7 +1269,7 @@ class AsoboSSS:
                 result["SSSColor"] = list(blender_material.msfs_sss_color)
 
             if blender_material.msfs_opacity_texture is not None:
-                result["opacityTexture"] = MSFSMaterial.export_image(
+                result["opacityTexture"] = MSFS2020_Material_IO.export_image(
                     blender_material,
                     blender_material.msfs_opacity_texture,
                     "DEFAULT",
@@ -1288,7 +1288,7 @@ class AsoboAnisotropic:
 
     @staticmethod
     def from_dict(blender_material, gltf2_material, import_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         extensions = gltf2_material.extensions
         if extensions is None:
@@ -1306,21 +1306,21 @@ class AsoboAnisotropic:
         else:
             blender_material.msfs_material_type = "msfs_anisotropic"
         if extension.get("anisotropicTexture"):
-            blender_material.msfs_extra_slot1_texture = MSFSMaterial.create_image(
+            blender_material.msfs_extra_slot1_texture = MSFS2020_Material_IO.create_image(
                 extension.get("anisotropicTexture", {}).get("index"),
                 import_settings
             )
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         result = {}
         if blender_material.msfs_material_type not in ("msfs_anisotropic", "msfs_hair"):
             return
         
         if blender_material.msfs_extra_slot1_texture is not None:
-            result["anisotropicTexture"] = MSFSMaterial.export_image(
+            result["anisotropicTexture"] = MSFS2020_Material_IO.export_image(
                 blender_material,
                 blender_material.msfs_extra_slot1_texture,
                 "DEFAULT",
@@ -1385,7 +1385,7 @@ class AsoboWindshield:
 
     @staticmethod
     def from_dict(blender_material, gltf2_material, import_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         extensions = gltf2_material.extensions
         if extensions is None:
@@ -1409,13 +1409,13 @@ class AsoboWindshield:
         if extension.get("wiper4State"):
             blender_material.msfs_wiper_4_state = extension.get("wiper4State")
         if extension.get("wiperMaskTexture"):
-            blender_material.msfs_extra_slot1_texture = MSFSMaterial.create_image(
+            blender_material.msfs_extra_slot1_texture = MSFS2020_Material_IO.create_image(
                 extension.get("wiperMaskTexture", {}).get("index"), import_settings
             )
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         result = {}
         if blender_material.msfs_material_type != "msfs_windshield":
@@ -1428,7 +1428,7 @@ class AsoboWindshield:
         result["wiper4State"] = blender_material.msfs_wiper_4_state
         
         if blender_material.msfs_extra_slot1_texture is not None:
-            result["wiperMaskTexture"] = MSFSMaterial.export_image(
+            result["wiperMaskTexture"] = MSFS2020_Material_IO.export_image(
                 blender_material,
                 blender_material.msfs_extra_slot1_texture,
                 "DEFAULT",
@@ -1446,7 +1446,7 @@ class AsoboClearCoat:
 
     @staticmethod
     def from_dict(blender_material, gltf2_material, import_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         extensions = gltf2_material.extensions
         if extensions is None:
@@ -1462,21 +1462,21 @@ class AsoboClearCoat:
         if not extension.get("dirtTexture"):
             return
         
-        blender_material.msfs_dirt_texture = MSFSMaterial.create_image(
+        blender_material.msfs_dirt_texture = MSFS2020_Material_IO.create_image(
             extension.get("dirtTexture", {}).get("index"), 
             import_settings
         )
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         result = {}
         if (
             blender_material.msfs_material_type == "msfs_clearcoat"
             and blender_material.msfs_dirt_texture
         ):
-            result["dirtTexture"] = MSFSMaterial.export_image(
+            result["dirtTexture"] = MSFS2020_Material_IO.export_image(
                 blender_material,
                 blender_material.msfs_dirt_texture,
                 "DEFAULT",
@@ -1539,7 +1539,7 @@ class AsoboParallaxWindow:
 
     @staticmethod
     def from_dict(blender_material, gltf2_material, import_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         extensions = gltf2_material.extensions
         if extensions is None:
@@ -1562,14 +1562,14 @@ class AsoboParallaxWindow:
         if extension.get("corridor"):
             blender_material.msfs_parallax_corridor = extension.get("corridor")
         if extension.get("behindWindowMapTexture"):
-            blender_material.msfs_detail_color_texture = MSFSMaterial.create_image(
+            blender_material.msfs_detail_color_texture = MSFS2020_Material_IO.create_image(
                 extension.get("behindWindowMapTexture", {}).get("index"),
                 import_settings
             )
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
-        from ..io.msfs_material import MSFSMaterial
+        from ..io.msfs_material import MSFS2020_Material_IO
 
         result = {}
         if blender_material.msfs_material_type != "msfs_parallax":
@@ -1582,7 +1582,7 @@ class AsoboParallaxWindow:
         result["corridor"] = blender_material.msfs_parallax_corridor
 
         if blender_material.msfs_detail_color_texture is not None:
-            result["behindWindowMapTexture"] = MSFSMaterial.export_image(
+            result["behindWindowMapTexture"] = MSFS2020_Material_IO.export_image(
                 blender_material,
                 blender_material.msfs_detail_color_texture,
                 "DEFAULT",

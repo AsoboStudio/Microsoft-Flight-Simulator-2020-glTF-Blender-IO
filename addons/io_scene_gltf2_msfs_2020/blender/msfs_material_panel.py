@@ -14,7 +14,7 @@
 
 import bpy
 
-from .msfs_material_prop_update import MSFS_Material_Property_Update
+from .msfs_material_prop_update import MSFS2020_Material_Property_Update
 
 # TODO: Remove eventually
 class MSFS2020_OT_MigrateMaterialData(bpy.types.Operator): 
@@ -69,7 +69,7 @@ class MSFS2020_OT_MigrateMaterialData(bpy.types.Operator):
         if len(active_material.keys()) <= 0: 
             return False
         
-        for old_property in MSFS_OT_MigrateMaterialData.old_property_to_new_mapping:
+        for old_property in MSFS2020_OT_MigrateMaterialData.old_property_to_new_mapping:
             if active_material.get(old_property) is not None:
                 return True
             
@@ -80,7 +80,7 @@ class MSFS2020_OT_MigrateMaterialData(bpy.types.Operator):
         for (
             old_property,
             new_property,
-        ) in MSFS_OT_MigrateMaterialData.old_property_to_new_mapping.items():
+        ) in MSFS2020_OT_MigrateMaterialData.old_property_to_new_mapping.items():
             if active_material.get(old_property) is None:
                 continue
             
@@ -157,7 +157,7 @@ class MSFS2020_OT_MigrateMaterialData(bpy.types.Operator):
 
             del active_material["msfs_material_mode"]
 
-        MSFS_Material_Property_Update.update_msfs_material_type(active_material, context)
+        MSFS2020_Material_Property_Update.update_msfs_material_type(active_material, context)
 
         return {"FINISHED"}
 
@@ -223,8 +223,8 @@ class MSFS2020_PT_Material(bpy.types.Panel):
         if not active_material:
             return
         
-        if MSFS_OT_MigrateMaterialData.old_properties_present(active_material):
-            layout.operator(MSFS_OT_MigrateMaterialData.bl_idname)
+        if MSFS2020_OT_MigrateMaterialData.old_properties_present(active_material):
+            layout.operator(MSFS2020_OT_MigrateMaterialData.bl_idname)
 
         self.draw_prop(layout, active_material, "msfs_material_type")
 

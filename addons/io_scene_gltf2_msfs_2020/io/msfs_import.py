@@ -15,7 +15,7 @@ import bpy
 
 from .msfs_gizmo import MSFS2020Gizmo
 from .msfs_light import MSFS2020Light
-from .msfs_material import MSFS2020Material
+from .msfs_material import MSFS2020_Material_IO
 
 
 class Import:
@@ -82,4 +82,4 @@ class Import:
         blender_material,
         import_settings
     ):
-        MSFS2020Material.create(gltf2_material, blender_material, import_settings)
+        MSFS2020_Material_IO.create(gltf2_material, blender_material, import_settings)

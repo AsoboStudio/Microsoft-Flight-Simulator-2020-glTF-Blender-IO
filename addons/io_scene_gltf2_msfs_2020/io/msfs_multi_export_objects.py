@@ -16,7 +16,7 @@ import re
 
 import bpy
 
-from .msfs_multi_export import MSFS_OT_MultiExportGLTF2
+from .msfs_multi_export import MSFS2020_OT_MultiExportGLTF2
 
 
 class MultiExporterLOD(bpy.types.PropertyGroup):
@@ -214,7 +214,7 @@ class MSFS2020_OT_ReloadLODGroups(bpy.types.Operator):
 
 class MSFS2020_PT_MultiExporterObjectsView(bpy.types.Panel):
     bl_label = ""
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Multi-Export glTF 2.0"
@@ -289,7 +289,7 @@ class MSFS2020_PT_MultiExporterObjectsView(bpy.types.Panel):
                             subrow.prop(lod, "file_name", text="File Name")
 
         row = layout.row(align=True)
-        row.operator(MSFS_OT_MultiExportGLTF2.bl_idname, text="Export")
+        row.operator(MSFS2020_OT_MultiExportGLTF2.bl_idname, text="Export")
 
 
 def register():

@@ -33,37 +33,37 @@ else:
     
 from io_scene_gltf2.blender.imp.gltf2_blender_image import BlenderImage
 
-from ..com import msfs_material_props as MSFSMaterialExtensions
+from ..com import msfs_material_props as MSFS2020_MaterialExtensions
 
 
-class MSFS2020Material:
+class MSFS2020_Material_IO:
     bl_options = {"UNDO"}
 
     extensions = [
-        MSFSMaterialExtensions.AsoboMaterialCommon,
-        MSFSMaterialExtensions.AsoboMaterialGeometryDecal,
-        MSFSMaterialExtensions.AsoboMaterialGhostEffect,
-        MSFSMaterialExtensions.AsoboMaterialDrawOrder,
-        MSFSMaterialExtensions.AsoboDayNightCycle,
-        MSFSMaterialExtensions.AsoboDisableMotionBlur,
-        MSFSMaterialExtensions.AsoboPearlescent,
-        MSFSMaterialExtensions.AsoboAlphaModeDither,
-        MSFSMaterialExtensions.AsoboMaterialInvisible,
-        MSFSMaterialExtensions.AsoboMaterialEnvironmentOccluder,
-        MSFSMaterialExtensions.AsoboMaterialUVOptions,
-        MSFSMaterialExtensions.AsoboMaterialShadowOptions,
-        MSFSMaterialExtensions.AsoboMaterialResponsiveAAOptions,
-        MSFSMaterialExtensions.AsoboMaterialDetail,
-        MSFSMaterialExtensions.AsoboMaterialFakeTerrain,
-        MSFSMaterialExtensions.AsoboMaterialFresnelFade,
-        MSFSMaterialExtensions.AsoboSSS,
-        MSFSMaterialExtensions.AsoboAnisotropic,
-        MSFSMaterialExtensions.AsoboWindshield,
-        MSFSMaterialExtensions.AsoboClearCoat,
-        MSFSMaterialExtensions.AsoboParallaxWindow,
-        MSFSMaterialExtensions.AsoboGlass,
-        MSFSMaterialExtensions.AsoboTags,
-        MSFSMaterialExtensions.AsoboMaterialCode,
+        MSFS2020_MaterialExtensions.AsoboMaterialCommon,
+        MSFS2020_MaterialExtensions.AsoboMaterialGeometryDecal,
+        MSFS2020_MaterialExtensions.AsoboMaterialGhostEffect,
+        MSFS2020_MaterialExtensions.AsoboMaterialDrawOrder,
+        MSFS2020_MaterialExtensions.AsoboDayNightCycle,
+        MSFS2020_MaterialExtensions.AsoboDisableMotionBlur,
+        MSFS2020_MaterialExtensions.AsoboPearlescent,
+        MSFS2020_MaterialExtensions.AsoboAlphaModeDither,
+        MSFS2020_MaterialExtensions.AsoboMaterialInvisible,
+        MSFS2020_MaterialExtensions.AsoboMaterialEnvironmentOccluder,
+        MSFS2020_MaterialExtensions.AsoboMaterialUVOptions,
+        MSFS2020_MaterialExtensions.AsoboMaterialShadowOptions,
+        MSFS2020_MaterialExtensions.AsoboMaterialResponsiveAAOptions,
+        MSFS2020_MaterialExtensions.AsoboMaterialDetail,
+        MSFS2020_MaterialExtensions.AsoboMaterialFakeTerrain,
+        MSFS2020_MaterialExtensions.AsoboMaterialFresnelFade,
+        MSFS2020_MaterialExtensions.AsoboSSS,
+        MSFS2020_MaterialExtensions.AsoboAnisotropic,
+        MSFS2020_MaterialExtensions.AsoboWindshield,
+        MSFS2020_MaterialExtensions.AsoboClearCoat,
+        MSFS2020_MaterialExtensions.AsoboParallaxWindow,
+        MSFS2020_MaterialExtensions.AsoboGlass,
+        MSFS2020_MaterialExtensions.AsoboTags,
+        MSFS2020_MaterialExtensions.AsoboMaterialCode,
     ]
 
     def __new__(cls, *args, **kwargs):
@@ -187,10 +187,10 @@ class MSFS2020Material:
 
     @staticmethod
     def create(gltf2_material, blender_material, import_settings):
-        for extension in MSFS2020Material.extensions:
+        for extension in MSFS2020_Material_IO.extensions:
             extension.from_dict(blender_material, gltf2_material, import_settings)
 
     @staticmethod
     def export(gltf2_material, blender_material, export_settings):
-        for extension in MSFS2020Material.extensions:
+        for extension in MSFS2020_Material_IO.extensions:
             extension.to_extension(blender_material, gltf2_material, export_settings)

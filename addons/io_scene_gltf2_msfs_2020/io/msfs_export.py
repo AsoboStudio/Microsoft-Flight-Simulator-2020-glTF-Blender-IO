@@ -19,9 +19,17 @@ import urllib
 from .. import get_version_string
 from .msfs_gizmo import MSFS2020Gizmo
 from .msfs_light import MSFS2020Light
-from .msfs_material import MSFS2020Material
+from .msfs_material import MSFS2020_Material_IO
 from .msfs_unique_id import MSFS2020_unique_id
 
+def get_blender_version_string() -> str:
+    return (
+        str(bpy.app.version[0])
+        + "."
+        + str(bpy.app.version[1])
+        + "."
+        + str(bpy.app.version[2])
+    )
 
 class Export:
     def __init__(self):
@@ -48,7 +56,8 @@ class Export:
             required=False
         )
 
-        gltf2_asset.generator += " and Asobo Studio MSFS2020 Blender I/O v" + get_version_string()
+        gltf2_asset.generator += f" and Asobo Studio MSFS2020 Blender I/O v{get_version_string()}" 
+        gltf2_asset.generator += f" with Blender v{get_blender_version_string()}"
 
     def gather_gltf_extensions_hook(
         self,
@@ -118,7 +127,7 @@ class Export:
         if not self.properties.enable_msfs_extension:
             return
         
-        MSFS2020Material.export(
+        MSFS2020_Material_IO.export(
             gltf2_material,
             blender_material,
             export_settings

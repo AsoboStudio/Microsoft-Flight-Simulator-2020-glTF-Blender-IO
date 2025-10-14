@@ -24,8 +24,8 @@ from .material.utils.msfs_material_enum import (
 
 
 class MSFS2020_Material:
-    bl_idname = "MSFS_ShaderNodeTree"
-    bl_label = "MSFS Shader Node Tree"
+    bl_idname = "MSFS2020_ShaderNodeTree"
+    bl_label = "MSFS2020 Shader Node Tree"
     bl_icon = "SOUND"
 
     def __init__(self, material, buildTree=False):
@@ -46,30 +46,30 @@ class MSFS2020_Material:
         self.createNodetree()
 
     def force_update_properties(self):
-        from .msfs_material_prop_update import MSFS_Material_Property_Update
+        from .msfs_material_prop_update import MSFS2020_Material_Property_Update
 
-        MSFS_Material_Property_Update.update_base_color_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_comp_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_normal_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_emissive_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_detail_color_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_detail_comp_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_detail_normal_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_blend_mask_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_extra_slot1_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_dirt_texture(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_alpha_mode(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_emissive_scale(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_normal_scale(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_color_sss(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_double_sided(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_alpha_cutoff(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_detail_uv(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_base_color_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_comp_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_normal_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_emissive_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_detail_color_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_detail_comp_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_detail_normal_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_blend_mask_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_extra_slot1_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_dirt_texture(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_alpha_mode(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_emissive_scale(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_normal_scale(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_color_sss(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_double_sided(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_alpha_cutoff(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_detail_uv(self.material, bpy.context)
         # Trigger setters
-        MSFS_Material_Property_Update.update_base_color(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_emissive_color(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_metallic_scale(self.material, bpy.context)
-        MSFS_Material_Property_Update.update_roughness_scale(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_base_color(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_emissive_color(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_metallic_scale(self.material, bpy.context)
+        MSFS2020_Material_Property_Update.update_roughness_scale(self.material, bpy.context)
 
     def cleanNodeTree(self):
         nodes = self.material.node_tree.nodes

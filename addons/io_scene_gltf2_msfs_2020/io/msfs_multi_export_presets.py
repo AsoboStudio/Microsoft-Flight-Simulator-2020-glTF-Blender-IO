@@ -134,7 +134,7 @@ class MSFS2020_OT_EditLayers(bpy.types.Operator):
 
 class MSFS2020_PT_MultiExporterPresetsView(bpy.types.Panel):
     bl_label = ""
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "Multi-Export glTF 2.0"

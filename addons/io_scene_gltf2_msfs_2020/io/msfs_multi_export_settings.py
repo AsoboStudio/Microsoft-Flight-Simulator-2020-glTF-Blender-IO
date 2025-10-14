@@ -815,7 +815,7 @@ class MSFS2020_PT_export_main(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "General"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"HIDE_HEADER"}
     
     @classmethod
@@ -845,7 +845,7 @@ class MSFS2020_PT_export_texture(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Textures"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -878,11 +878,11 @@ class MSFS2020_PT_export_texture(bpy.types.Panel):
         )
 
 # region MSFS2024
-class MSFS2020_PT_MSFS_export(bpy.types.Panel):
+class MSFS2020_PT_export(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Microsoft Flight Simulator 2020"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -899,11 +899,11 @@ class MSFS2020_PT_MSFS_export(bpy.types.Panel):
     def draw(self, context):
         return
 
-class MSFS2020_PT_MSFS_extension(bpy.types.Panel):
+class MSFS2020_PT_extension(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Extensions"
-    bl_parent_id = "MSFS_PT_MSFS_export"
+    bl_parent_id = "MSFS2020_PT_export"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -931,7 +931,7 @@ class MSFS2020_PT_export_include(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Include"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -966,7 +966,7 @@ class MSFS2020_PT_export_transform(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Transform"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -987,7 +987,7 @@ class MSFS2020_PT_export_scene_graph(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Scene Graph"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -1020,7 +1020,7 @@ class MSFS2020_PT_export_geometry(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Mesh"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -1061,7 +1061,7 @@ class MSFS2020_PT_export_geometry(bpy.types.Panel):
 
         if bpy.app.version >= (4, 2, 0):
             header, body = layout.panel(
-                "MSFS_PT_export_vertex_colors",
+                "MSFS2020_PT_export_vertex_colors",
                 default_closed=True
             )
             header.label(text="Vertex Colors")
@@ -1074,7 +1074,7 @@ class MSFS2020_PT_export_material(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Material"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -1109,7 +1109,7 @@ class MSFS2020_PT_export_material(bpy.types.Panel):
             col.prop(settings, "export_image_webp_fallback")
 
             header, body = layout.panel(
-                "MSFS_PT_export_unused_images_textures",
+                "MSFS2020_PT_export_unused_images_textures",
                 default_closed=True
             )
             header.label(text="Unused Textures & Images")
@@ -1121,7 +1121,7 @@ class MSFS2020_PT_export_shapekeys(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_label = "Shape Keys"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
@@ -1160,7 +1160,7 @@ class MSFS2020_PT_export_shapekeys(bpy.types.Panel):
             return
         
         header, body = layout.panel(
-            "MSFS_PT_export_optimize_shapekeys", 
+            "MSFS2020_PT_export_optimize_shapekeys", 
             default_closed=True
         )
         header.label(text="Optimize Shape Keys")
@@ -1176,7 +1176,7 @@ class MSFS2020_PT_export_armature(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Armature"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -1229,7 +1229,7 @@ class MSFS2020_PT_export_skinning(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Skinning"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -1261,7 +1261,7 @@ class MSFS2020_PT_export_Lighting(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Lighting"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -1291,7 +1291,7 @@ class MSFS2020_PT_export_geometry_compression(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_label = "Compression"
-    bl_parent_id = "MSFS_PT_export_geometry"
+    bl_parent_id = "MSFS2020_PT_export_geometry"
     bl_options = {'DEFAULT_CLOSED'}
 
     def __init__(self):
@@ -1333,7 +1333,7 @@ class MSFS2020_PT_export_animation(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Animation"
-    bl_parent_id = "MSFS_PT_MultiExporter"
+    bl_parent_id = "MSFS2020_PT_MultiExporter"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
@@ -1399,7 +1399,7 @@ class MSFS2020_PT_export_animation_notes(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Notes"
-    bl_parent_id = "MSFS_PT_export_animation"
+    bl_parent_id = "MSFS2020_PT_export_animation"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
@@ -1437,7 +1437,7 @@ class MSFS2020_PT_export_animation_ranges(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Rest & Ranges"
-    bl_parent_id = "MSFS_PT_export_animation"
+    bl_parent_id = "MSFS2020_PT_export_animation"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
@@ -1470,7 +1470,7 @@ class MSFS2020_PT_export_animation_armature(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Armature"
-    bl_parent_id = "MSFS_PT_export_animation"
+    bl_parent_id = "MSFS2020_PT_export_animation"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
@@ -1500,7 +1500,7 @@ class MSFS2020_PT_export_animation_shapekeys(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Shape keys Animation"
-    bl_parent_id = "MSFS_PT_export_animation"
+    bl_parent_id = "MSFS2020_PT_export_animation"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
@@ -1540,7 +1540,7 @@ class MSFS2020_PT_export_animation_sampling(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Sampling Animations"
-    bl_parent_id = "MSFS_PT_export_animation"
+    bl_parent_id = "MSFS2020_PT_export_animation"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
@@ -1580,7 +1580,7 @@ class MSFS2020_PT_export_animation_optimize(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Optimize Animations"
-    bl_parent_id = "MSFS_PT_export_animation"
+    bl_parent_id = "MSFS2020_PT_export_animation"
     bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
