@@ -10,10 +10,15 @@ This repository contains the current version of the official Microsoft Flight Si
 :warning: This plugin cannot import glTF files that have been built into a Microsoft Flight Simulator 2020 package through the Sim's Package Builder.
 <br>
 
-:warning: **NOTE:2** This plugin is NOT compatible with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
+:warning: This plugin is NOT compatible with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
 <br>
 
-:warning: The version **1.3.x** is compatible with Blender **3.3.x LTS**, **3.6.x LTS** and **4.2.x LTS** only. We can't guarantee not having bugs with other unstable versions 
+:warning: Supported blender versions of the latest version of the addon:
+- **3.3.x LTS**
+- **3.6.x LTS**
+- **4.2.x LTS**
+- **4.5.x LTS** 
+We can't guarantee not having bugs with other unstable versions 
 
 *******
 
