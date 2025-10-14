@@ -13,7 +13,7 @@ This repository contains the current version of the official Microsoft Flight Si
 :warning: **NOTE:2** This plugin is NOT compatible with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
 <br>
 
-:warning: The version **1.3.x** is compatible with Blender **3.3.x LTS** and **3.6.x LTS** only. We can't guarantee not having bugs with other unstable versions 
+:warning: The version **1.3.x** is compatible with Blender **3.3.x LTS**, **3.6.x LTS** and **4.2.x LTS** only. We can't guarantee not having bugs with other unstable versions 
 
 *******
 
@@ -34,7 +34,7 @@ There are two ways to install the MSFS2020 Blender exporter. Either using the Ed
 
 ## How to Install the ASOBO Blender MSFS2020 Importer/Exporter using Blender:
 
-1. Go to the Releases section of the https://github.com/AsoboStudio/glTF-Blender-IO-MSFS repository. Then download the zip file `io_scene_gltf2_msfs_2020.zip`.
+1. Go to the Releases section of the https://github.com/AsoboStudio/Microsoft-Flight-Simulator-2020-glTF-Blender-IO repository. Then download the zip file `io_scene_gltf2_msfs_2020.zip`.
 
 ![Download Release](misc/Install/Download_rel.png)
 
