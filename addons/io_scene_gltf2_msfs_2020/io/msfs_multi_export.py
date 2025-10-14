@@ -261,17 +261,6 @@ def export_blender_4_2(file_path, settings):
     )
 
 
-# Scene Properties
-class MSFS2020MultiExporterProperties:
-    bpy.types.Scene.msfs_multi_exporter_current_tab = bpy.props.EnumProperty(
-        items=(
-            ("OBJECTS", "Objects", ""),
-            ("PRESETS", " Presets", ""),
-            ("SETTINGS", "Settings", ""),
-        )
-    )
-
-
 # Operators
 class MSFS2020_OT_MultiExportGLTF2(bpy.types.Operator):
     bl_idname = "export_scene.multi_export_gltf"
@@ -439,7 +428,7 @@ class MSFS2020_OT_ChangeTab(bpy.types.Operator):
     bl_idname = "msfs2020.multi_export_change_tab"
     bl_label = "Change tab"
 
-    current_tab: bpy.types.Scene.msfs_multi_exporter_current_tab
+    current_tab: bpy.props.StringProperty()
 
     def execute(self, context):
         context.scene.msfs_multi_exporter_current_tab = self.current_tab
@@ -453,6 +442,9 @@ class MSFS2020_PT_MultiExporter(bpy.types.Panel):
     bl_region_type = "UI"
     bl_category = "Micorosoft Flight Simulator 2020 Tools"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
     @classmethod
     def poll(cls, context):
         return context.scene.msfs_exporter_settings
@@ -500,4 +492,21 @@ def unregister_panel():
     try:
         bpy.utils.unregister_class(MSFS2020_PT_MultiExporter)
     except Exception:
+        pass
+
+
+def register():
+    bpy.types.Scene.msfs_multi_exporter_current_tab = bpy.props.EnumProperty(
+        items=(
+            ("OBJECTS", "Objects", ""),
+            ("PRESETS", " Presets", ""),
+            ("SETTINGS", "Settings", ""),
+        )
+    )
+
+
+def unregister():
+    try:
+        del bpy.types.Scene.msfs_multi_exporter_current_tab
+    except:
         pass

@@ -24,7 +24,7 @@ bl_info = {
     "author": "Asobo Studio",
     "description": "This toolkit prepares your 3D assets to be used for Microsoft Flight Simulator 2020",
     "blender": (3, 3, 0),
-    "version": (2, 3, 0),
+    "version": (3, 3, 0),
     "location": "File > Import-Export",
     "category": "Import-Export",
     "tracker_url": "https://github.com/AsoboStudio/glTF-Blender-IO-MSFS-2020",
@@ -310,8 +310,8 @@ from .io.msfs_import import Import
 
 
 class glTF2ImportUserExtension(Import):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 # endregion
@@ -322,8 +322,8 @@ from .io.msfs_export import Export
 
 
 class glTF2ExportUserExtension(Export):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 # endregion

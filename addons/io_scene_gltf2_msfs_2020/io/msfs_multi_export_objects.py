@@ -20,12 +20,32 @@ from .msfs_multi_export import MSFS2020_OT_MultiExportGLTF2
 
 
 class MultiExporterLOD(bpy.types.PropertyGroup):
-    objectLOD: bpy.props.PointerProperty(name="", type=bpy.types.Object)
-    collection: bpy.props.PointerProperty(name="", type=bpy.types.Collection)
+    objectLOD: bpy.props.PointerProperty(
+        name="",
+        type=bpy.types.Object
+    )
+    
+    collection: bpy.props.PointerProperty(
+        name="", 
+        type=bpy.types.Collection
+    )
 
-    enabled: bpy.props.BoolProperty(name="", default=False)
-    lod_value: bpy.props.IntProperty(name="", default=0, min=0, max=999)
-    file_name: bpy.props.StringProperty(name="", default="")
+    enabled: bpy.props.BoolProperty(
+        name="", 
+        default=False
+    )
+    
+    lod_value: bpy.props.IntProperty(
+        name="",
+        default=0,
+        min=0,
+        max=999
+    )
+    
+    file_name: bpy.props.StringProperty(
+        name="",
+        default=""
+    )
 
 def update_relative_path(self, context):
     if self.folder_path == "//":
@@ -52,6 +72,9 @@ class MultiExporterLODGroup(bpy.types.PropertyGroup):
         subtype="DIR_PATH",
         description="Path to the directory where you want your model to be exported",
         update=update_relative_path,
+        options=(
+            {"PATH_SUPPORTS_BLEND_RELATIVE"} if bpy.app.version >= (4, 5, 0) else set()
+        ),
     )
     
     generate_xml: bpy.props.BoolProperty(
