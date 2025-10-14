@@ -1265,21 +1265,23 @@ class AsoboSSS:
 
         result = {}
         if blender_material.msfs_material_type not in ("msfs_sss", "msfs_hair"):
-            if blender_material.msfs_sss_color:
-                result["SSSColor"] = list(blender_material.msfs_sss_color)
+            return
+        
+        if blender_material.msfs_sss_color:
+            result["SSSColor"] = list(blender_material.msfs_sss_color)
 
-            if blender_material.msfs_opacity_texture is not None:
-                result["opacityTexture"] = MSFS2020_Material_IO.export_image(
-                    blender_material,
-                    blender_material.msfs_opacity_texture,
-                    "DEFAULT",
-                    export_settings,
-                )
+        if blender_material.msfs_opacity_texture is not None:
+            result["opacityTexture"] = MSFS2020_Material_IO.export_image(
+                blender_material,
+                blender_material.msfs_opacity_texture,
+                "DEFAULT",
+                export_settings,
+            )
 
-            if result:
-                gltf2_material.extensions[AsoboSSS.SerializedName] = Extension(
-                    name=AsoboSSS.SerializedName, extension=result, required=False
-                )
+        if result:
+            gltf2_material.extensions[AsoboSSS.SerializedName] = Extension(
+                name=AsoboSSS.SerializedName, extension=result, required=False
+            )
 
 
 class AsoboAnisotropic:

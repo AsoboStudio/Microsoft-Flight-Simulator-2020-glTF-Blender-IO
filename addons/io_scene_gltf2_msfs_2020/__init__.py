@@ -24,7 +24,7 @@ bl_info = {
     "author": "Asobo Studio",
     "description": "This toolkit prepares your 3D assets to be used for Microsoft Flight Simulator 2020",
     "blender": (3, 3, 0),
-    "version": (2, 3, 0),
+    "version": (2, 3, 1),
     "location": "File > Import-Export",
     "category": "Import-Export",
     "tracker_url": "https://github.com/AsoboStudio/glTF-Blender-IO-MSFS-2020",
