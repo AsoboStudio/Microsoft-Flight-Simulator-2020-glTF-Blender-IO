@@ -10,17 +10,17 @@ This repository contains the current version of the official Microsoft Flight Si
 :warning: This plugin cannot import glTF files that have been built into a Microsoft Flight Simulator 2020 package through the Sim's Package Builder.
 <br>
 
-:warning: **NOTE:2** This plugin is NOT compatible with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
+:warning: This plugin is NOT compatible with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
 <br>
 
-:warning: The version **1.3.x** is compatible with Blender **3.3.x LTS**, **3.6.x LTS** and **4.2.x LTS** only. We can't guarantee not having bugs with other unstable versions 
+:warning: The latest version of this addon is compatible with Blender **3.3.x LTS**, **3.6.x LTS** and **4.2.x LTS** only. We can't guarantee not having bugs with other unstable versions
+
+:warning: This addon need to have the `Import-Export: gltf 2.0 format` addon (gltf2 Khronos IO) **enabled** to work. Do not remove it or disable it !
 
 *******
 
 # Summary
-- [How to Install the Add-on](#how-to-install-the-add-on)
-  - [How to Install the ASOBO Blender MSFS2020 Importer/Exporter using Blender:](#how-to-install-the-asobo-blender-msfs2020-importerexporter-using-blender)
-  - [How to Install the ASOBO Blender msfs2020 exporter by Copy/Paste to AppData](#how-to-install-the-asobo-blender-msfs2020-exporter-by-copypaste-to-appdata)
+- [How to Install the ASOBO Blender MSFS2020 Importer/Exporter using Blender:](#how-to-install-the-asobo-blender-msfs2020-importerexporter-using-blender)
 - [How to remove the Add-on](#how-to-remove-the-add-on)
 - [Migration of Legacy Blend File Material Types/Modes](#migration-of-legacy-blend-file-material-typesmodes)
   - [Steps For Migration](#steps-for-migration)
@@ -28,15 +28,9 @@ This repository contains the current version of the official Microsoft Flight Si
 - [Notes On Shadertree](#notes-on-shadertree)
 
 
-# How to Install the Add-on
-
-There are two ways to install the MSFS2020 Blender exporter. Either using the Edit Preferences Menu and Install tab, or copy/paste the addon files to your %APPDATA% folder. Installation steps are explained down bellow :
-
 ## How to Install the ASOBO Blender MSFS2020 Importer/Exporter using Blender:
 
-1. Go to the Releases section of the https://github.com/AsoboStudio/Microsoft-Flight-Simulator-2020-glTF-Blender-IO repository. Then download the zip file `io_scene_gltf2_msfs_2020.zip`.
-
-![Download Release](misc/Install/Download_rel.png)
+1. Go to the Releases section of the https://github.com/AsoboStudio/Microsoft-Flight-Simulator-2020-glTF-Blender-IO repository. Then download the zip file `io_scene_gltf2_msfs_2020.zip` of the latest release.
 
 2. Open Blender and go to : Edit > Preferences.
 
@@ -54,23 +48,6 @@ There are two ways to install the MSFS2020 Blender exporter. Either using the Ed
 
 <br>
 
-## How to Install the ASOBO Blender MSFS2020 exporter by Copy/Paste to AppData
-
-1. Close Blender if you have it open.
-2. Go to the Releases section of the https://github.com/AsoboStudio/glTF-Blender-IO-MSFS repository. Then download the zip file `io_scene_gltf2_msfs_2020.zip`
-3. Decompress the contents of the file to a temporary location.
-4. Select the `io_scene_gltf2_msfs_2020` folder then copy it to the clipboard (Ctrl + "C").
-5. Now browse to the Blender `addons` folder, which - by default - can be found in the following locations:
-   - **Windows**: This will usually be in `%AppData%\Blender Foundation\Blender\<blender-version>\scripts\addons\`.
-   - **Mac OS X**: This will be in your Library (Press the *Option* key when in Finder's `Go` menu to open your Library folder): `\Users\<username>\Library\Application Support\Blender\<blender-version>\scripts\addons\`.
-6. Paste the `io_scene_gltf2_msfs_2020` into the Blender `addons` folder (Ctrl + V).
-
-After completing the process outlined above, you will need to start Blender and then activate the plugin. Activation is done from Edit > Preferences, as shown in the image below:
-
-**NOTE** : You may need to restart Blender again after activating the plugin for all the options to be visible in the IDE.
-
-![Edit Preferences - Enable](misc/Install/Enable_checkbox_addon.png)
-
 # How to remove the Add-on
 
 1. If you previously installed the Microsoft Flight Simulator 2020 glTF Extensions Add-on, Remove/Delete the older version using the Blender Edit > Preferences Menu. 
@@ -79,7 +56,7 @@ After completing the process outlined above, you will need to start Blender and 
 
 
 2. Select the Add-ons tab. Search for the `Microsoft Flight Simulator 2020 glTF Extension` Importer/Exporter add-on in the search box. Delete the `Import-Export: Microsoft Flight Simulator 2020 gltf Extension` using the `Remove` button.<br>  
-:warning: DO NOT DELETE THE `Import-Export: gltf 2.0 format` Add-on.
+:warning: DO NOT DELETE OR DISABLE THE `Import-Export: gltf 2.0 format` Add-on.
 
 ![Search Remove](misc/Install/Edit_Pref_search_rem.png)
 
