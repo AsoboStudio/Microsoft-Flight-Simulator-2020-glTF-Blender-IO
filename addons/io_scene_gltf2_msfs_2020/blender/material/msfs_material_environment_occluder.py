@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from ..msfs_material_function import MSFS2020_Material
-
+from .utils.msfs_material_enum import MSFS2020_PrincipledBSDFInputs
 
 class MSFS2020_Environment_Occluder(MSFS2020_Material):
     def __init__(self, material, buildTree=False):
@@ -22,4 +22,4 @@ class MSFS2020_Environment_Occluder(MSFS2020_Material):
     def customShaderTree(self):
         super().defaultShadersTree()
         principledBSDF = self.getNodesByClassName("ShaderNodeBsdfPrincipled")[0]
-        principledBSDF.inputs[21].default_value = 0
+        principledBSDF.inputs[MSFS2020_PrincipledBSDFInputs.alpha.value].default_value = 0
