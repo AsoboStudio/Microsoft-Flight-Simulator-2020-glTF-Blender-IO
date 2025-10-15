@@ -135,3 +135,6 @@ class Export:
         
         if "KHR_materials_clearcoat" in gltf2_material.extensions:
             gltf2_material.extensions.pop("KHR_materials_clearcoat", None)
+            
+        if "KHR_materials_anisotropy" in gltf2_material.extensions:
+            gltf2_material.extensions.pop("KHR_materials_anisotropy", None)

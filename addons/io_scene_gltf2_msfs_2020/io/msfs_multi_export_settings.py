@@ -19,7 +19,10 @@ from ..com.msfs_constants import (
     EXPORT_IMAGE_FORMAT
 )
 
-from io_scene_gltf2.io.com import gltf2_io_draco_compression_extension
+if bpy.app.version >= (4, 5, 0):
+    from io_scene_gltf2.io.com import draco as gltf2_io_draco_compression_extension
+else:
+    from io_scene_gltf2.io.com import gltf2_io_draco_compression_extension
 
 
 def on_enable_msfs_extension(self, context):
@@ -1294,8 +1297,9 @@ class MSFS2020_PT_export_geometry_compression(bpy.types.Panel):
     bl_parent_id = "MSFS2020_PT_export_geometry"
     bl_options = {'DEFAULT_CLOSED'}
 
-    def __init__(self):
-        super(MSFS2020_PT_export_main).__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        super(MSFS2020_PT_export_main).__init__(*args, **kwargs)
         self.is_draco_available = gltf2_io_draco_compression_extension.dll_exists(quiet=True)
 
     @classmethod
@@ -1443,7 +1447,7 @@ class MSFS2020_PT_export_animation_ranges(bpy.types.Panel):
     @classmethod
     def poll(cls, context):
         return (
-            context.window_manager.msfs_multi_exporter_current_tab == "SETTINGS"
+            context.scene.msfs_multi_exporter_current_tab == "SETTINGS"
             and bpy.app.version >= (3, 6, 0)
         )
 

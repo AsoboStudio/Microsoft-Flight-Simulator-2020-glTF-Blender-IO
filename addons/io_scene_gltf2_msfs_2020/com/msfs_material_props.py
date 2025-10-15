@@ -1068,68 +1068,72 @@ class AsoboMaterialDetail:
         hasTexture = False
         result = {}
         if (
-            blender_material.msfs_material_type not in (
+            blender_material.msfs_material_type  in (
                 "NONE",
                 "msfs_parallax",
                 "msfs_invisible",
                 "msfs_environment_occluder",
+                "msfs_sss",
+                "msfs_hair",
+                "msfs_fresnel_fade",
             )
         ):
+            return
 
-            if blender_material.msfs_detail_color_texture is not None:
-                result["detailColorTexture"] = MSFS2020_Material_IO.export_image(
-                    blender_material,
-                    blender_material.msfs_detail_color_texture,
-                    "DEFAULT",
-                    export_settings,
-                )
-                hasTexture = True
+        if blender_material.msfs_detail_color_texture is not None:
+            result["detailColorTexture"] = MSFS2020_Material_IO.export_image(
+                blender_material,
+                blender_material.msfs_detail_color_texture,
+                "DEFAULT",
+                export_settings,
+            )
+            hasTexture = True
 
-            if blender_material.msfs_detail_normal_texture is not None:
-                result["detailNormalTexture"] = MSFS2020_Material_IO.export_image(
-                    blender_material,
-                    blender_material.msfs_detail_normal_texture,
-                    "NORMAL",
-                    export_settings,
-                )
-                hasTexture = True
-                result["detailNormalTexture"].scale = blender_material.msfs_detail_normal_scale
+        if blender_material.msfs_detail_normal_texture is not None:
+            result["detailNormalTexture"] = MSFS2020_Material_IO.export_image(
+                blender_material,
+                blender_material.msfs_detail_normal_texture,
+                "NORMAL",
+                export_settings,
+            )
+            hasTexture = True
+            result["detailNormalTexture"].scale = blender_material.msfs_detail_normal_scale
 
-            if blender_material.msfs_detail_occlusion_metallic_roughness_texture is not None:
-                result["detailMetalRoughAOTexture"] = MSFS2020_Material_IO.export_image(
-                    blender_material,
-                    blender_material.msfs_detail_occlusion_metallic_roughness_texture,
-                    "DEFAULT",
-                    export_settings,
-                )
-                hasTexture = True
+        if blender_material.msfs_detail_occlusion_metallic_roughness_texture is not None:
+            result["detailMetalRoughAOTexture"] = MSFS2020_Material_IO.export_image(
+                blender_material,
+                blender_material.msfs_detail_occlusion_metallic_roughness_texture,
+                "DEFAULT",
+                export_settings,
+            )
+            hasTexture = True
 
-            if blender_material.msfs_blend_mask_texture is not None:
-                result["blendMaskTexture"] = MSFS2020_Material_IO.export_image(
-                    blender_material,
-                    blender_material.msfs_blend_mask_texture,
-                    "DEFAULT",
-                    export_settings,
-                )
-                hasTexture = True
-            
-            if hasTexture:
-                if blender_material.msfs_detail_uv_scale != AsoboMaterialDetail.Defaults.UVScale:
-                    result["UVScale"] = blender_material.msfs_detail_uv_scale
-                if blender_material.msfs_detail_blend_threshold != AsoboMaterialDetail.Defaults.blendThreshold:
-                    result["blendThreshold"] = blender_material.msfs_detail_blend_threshold
-                if (
-                    blender_material.msfs_detail_uv_offset_u != AsoboMaterialDetail.Defaults.UVOffset[0]
-                    or blender_material.msfs_detail_uv_offset_v != AsoboMaterialDetail.Defaults.UVOffset[1]
-                ):
-                    result["UVOffset"] = (blender_material.msfs_detail_uv_offset_u, blender_material.msfs_detail_uv_offset_v)
-            
-            if result:
-                gltf2_material.extensions[AsoboMaterialDetail.SerializedName] = Extension(
-                    name=AsoboMaterialDetail.SerializedName,
-                    extension=result,
-                    required=False,
-                )
+        if blender_material.msfs_blend_mask_texture is not None:
+            result["blendMaskTexture"] = MSFS2020_Material_IO.export_image(
+                blender_material,
+                blender_material.msfs_blend_mask_texture,
+                "DEFAULT",
+                export_settings,
+            )
+            hasTexture = True
+        
+        if hasTexture:
+            if blender_material.msfs_detail_uv_scale != AsoboMaterialDetail.Defaults.UVScale:
+                result["UVScale"] = blender_material.msfs_detail_uv_scale
+            if blender_material.msfs_detail_blend_threshold != AsoboMaterialDetail.Defaults.blendThreshold:
+                result["blendThreshold"] = blender_material.msfs_detail_blend_threshold
+            if (
+                blender_material.msfs_detail_uv_offset_u != AsoboMaterialDetail.Defaults.UVOffset[0]
+                or blender_material.msfs_detail_uv_offset_v != AsoboMaterialDetail.Defaults.UVOffset[1]
+            ):
+                result["UVOffset"] = (blender_material.msfs_detail_uv_offset_u, blender_material.msfs_detail_uv_offset_v)
+        
+        if result:
+            gltf2_material.extensions[AsoboMaterialDetail.SerializedName] = Extension(
+                name=AsoboMaterialDetail.SerializedName,
+                extension=result,
+                required=False,
+            )
 
 
 class AsoboMaterialFakeTerrain:

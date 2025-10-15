@@ -13,9 +13,15 @@ This repository contains the current version of the official Microsoft Flight Si
 :warning: This plugin is NOT compatible with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
 <br>
 
-:warning: The latest version of this addon is compatible with Blender **3.3.x LTS**, **3.6.x LTS** and **4.2.x LTS** only. We can't guarantee not having bugs with other unstable versions
-
 :warning: This addon need to have the `Import-Export: gltf 2.0 format` addon (gltf2 Khronos IO) **enabled** to work. Do not remove it or disable it !
+<br>
+
+:warning: Supported blender versions of the latest version of the addon:
+- **3.3.x LTS**
+- **3.6.x LTS**
+- **4.2.x LTS**
+- **4.5.x LTS** 
+We can't guarantee not having bugs with other unstable versions 
 
 *******
 

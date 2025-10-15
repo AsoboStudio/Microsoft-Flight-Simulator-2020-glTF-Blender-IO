@@ -24,7 +24,7 @@ bl_info = {
     "author": "Asobo Studio",
     "description": "This toolkit prepares your 3D assets to be used for Microsoft Flight Simulator 2020",
     "blender": (3, 3, 0),
-    "version": (2, 3, 2),
+    "version": (3, 3, 0),
     "location": "File > Import-Export",
     "category": "Import-Export",
     "tracker_url": "https://github.com/AsoboStudio/glTF-Blender-IO-MSFS-2020",
@@ -243,6 +243,12 @@ def register():
     bpy.types.Scene.msfs_exporter_settings = bpy.props.PointerProperty(
         type=MSFS2020_ExporterProperties
     )
+    
+    if bpy.app.version >= (4, 5, 0):
+        # This is used to add a panel in the Khronos export view
+        # Use the following 2 lines to register the UI for this hook
+        from io_scene_gltf2 import exporter_extension_layout_draw
+        exporter_extension_layout_draw['Example glTF Extension'] = draw_export
 
 def unregister():
     try:
@@ -265,7 +271,12 @@ def unregister():
     for module in modules:
         if hasattr(module, "unregister"):
             module.unregister()
-
+    
+    if bpy.app.version >= (4, 5, 0):
+        # Use the following 2 lines to unregister the UI for this hook
+        from io_scene_gltf2 import exporter_extension_layout_draw
+        del exporter_extension_layout_draw['Example glTF Extension']
+        
 extension_panels = []
 if bpy.app.version < (4, 2, 0):
     extension_panels = [
@@ -310,8 +321,8 @@ from .io.msfs_import import Import
 
 
 class glTF2ImportUserExtension(Import):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 # endregion
@@ -322,8 +333,8 @@ from .io.msfs_export import Export
 
 
 class glTF2ExportUserExtension(Export):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 # endregion

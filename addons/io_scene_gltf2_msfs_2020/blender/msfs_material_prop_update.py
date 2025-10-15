@@ -204,43 +204,64 @@ class MSFS2020_Material_Property_Update:
     @staticmethod
     def update_base_color_texture(self, context):
         material = MSFS2020_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS2020_Invisible:
+        if (
+            material is not None 
+            and type(material) not in (MSFS2020_Invisible, MSFS2020_Environment_Occluder)
+        ):
             material.setBaseColorTex(self.msfs_base_color_texture)
 
     @staticmethod
     def update_comp_texture(self, context):
         material = MSFS2020_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS2020_Invisible:
+        if (
+            material is not None 
+            and type(material) not in (MSFS2020_Invisible, MSFS2020_Environment_Occluder)
+        ):
             material.setCompTex(self.msfs_occlusion_metallic_roughness_texture)
 
     @staticmethod
     def update_normal_texture(self, context):
         material = MSFS2020_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS2020_Invisible:
+        if (
+            material is not None 
+            and type(material) not in (MSFS2020_Invisible, MSFS2020_Environment_Occluder)
+        ):
             material.setNormalTex(self.msfs_normal_texture)
 
     @staticmethod
     def update_emissive_texture(self, context):
         material = MSFS2020_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS2020_Invisible:
+        if (
+            material is not None 
+            and type(material) not in (MSFS2020_Invisible, MSFS2020_Environment_Occluder)
+        ):
             material.setEmissiveTexture(self.msfs_emissive_texture)
 
     @staticmethod
     def update_detail_color_texture(self, context):
         material = MSFS2020_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS2020_Invisible:
+        if (
+            material is not None 
+            and type(material) not in (MSFS2020_Invisible, MSFS2020_Environment_Occluder)
+        ):
             material.setDetailColorTex(self.msfs_detail_color_texture)
 
     @staticmethod
     def update_detail_comp_texture(self, context):
         material = MSFS2020_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS2020_Invisible:
+        if (
+            material is not None 
+            and type(material) not in (MSFS2020_Invisible, MSFS2020_Environment_Occluder)
+        ):
             material.setDetailCompTex(self.msfs_detail_occlusion_metallic_roughness_texture)
 
     @staticmethod
     def update_detail_normal_texture(self, context):
         material = MSFS2020_Material_Property_Update.getMaterial(self)
-        if material is not None and type(material) is not MSFS2020_Invisible:
+        if (
+            material is not None 
+            and type(material) not in (MSFS2020_Invisible, MSFS2020_Environment_Occluder)
+        ):
             material.setDetailNormalTex(self.msfs_detail_normal_texture)
 
     @staticmethod
