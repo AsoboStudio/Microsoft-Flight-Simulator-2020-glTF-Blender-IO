@@ -61,6 +61,7 @@ class MSFS2020_OT_MigrateMaterialData(bpy.types.Operator):
         "msfs_anisotropic_direction_texture": "msfs_extra_slot1_texture",
         "msfs_clearcoat_texture": "msfs_dirt_texture",
         "msfs_behind_glass_texture": "msfs_detail_color_texture",
+        "msfs_comp_texture": "msfs_occlusion_metallic_roughness_texture",
     }
 
     @staticmethod
