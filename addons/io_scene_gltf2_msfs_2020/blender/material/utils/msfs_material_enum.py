@@ -146,14 +146,15 @@ class MSFS2020_PrincipledBSDFInputs(Enum):
     roughness = "Roughness"
     anisotropic = "Anisotropic"
     anisotropicRotation = "Anisotropic Rotation"
-    clearcoat = "Clearcoat"
-    clearcoatRoughness = "Clearcoat Roughness"
     emissionStrength = "Emission Strength"
     alpha = "Alpha"
     normal = "Normal"
     if bpy.app.version < (4, 2, 0):
         emission = "Emission"
         subsurfaceColor = "Subsurface Color"
+        clearcoat = "Clearcoat"
+        clearcoatRoughness = "Clearcoat Roughness"
     else:
         emission = "Emission Color"
-    
+        clearcoat = "Coat Tint"
+        clearcoatRoughness = "Coat Roughness"

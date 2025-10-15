@@ -132,3 +132,6 @@ class Export:
             blender_material,
             export_settings
         )
+        
+        if "KHR_materials_clearcoat" in gltf2_material.extensions:
+            gltf2_material.extensions.pop("KHR_materials_clearcoat", None)

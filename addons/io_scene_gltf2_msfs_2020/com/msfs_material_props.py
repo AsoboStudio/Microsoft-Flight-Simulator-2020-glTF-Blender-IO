@@ -549,12 +549,16 @@ class AsoboDayNightCycle:
 
     @staticmethod
     def to_extension(blender_material, gltf2_material, export_settings):
+        result = {}
         if (
             blender_material.msfs_material_type == "msfs_standard"
             and blender_material.msfs_day_night_cycle
         ):
+            result["enabled"] = True
             gltf2_material.extensions[AsoboDayNightCycle.SerializedName] = Extension(
-                name=AsoboDayNightCycle.SerializedName, extension={'dummy': None} , required=False
+                name=AsoboDayNightCycle.SerializedName, 
+                extension=result , 
+                required=False
             )
 
 
