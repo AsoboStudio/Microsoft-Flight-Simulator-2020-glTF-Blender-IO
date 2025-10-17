@@ -27,7 +27,7 @@ bl_info = {
     "version": (3, 3, 0),
     "location": "File > Import-Export",
     "category": "Import-Export",
-    "tracker_url": "https://github.com/AsoboStudio/glTF-Blender-IO-MSFS-2020",
+    "tracker_url": "https://devsupport.flightsimulator.com/",
 }
 
 
