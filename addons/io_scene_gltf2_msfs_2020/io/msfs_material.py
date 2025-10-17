@@ -15,23 +15,33 @@
 import bpy
 import os
 
-if bpy.app.version >= (4, 2, 0):
-    from io_scene_gltf2.blender.exp.material.gltf2_blender_search_node_tree import (
+if bpy.app.version >= (4, 5, 0):
+    from io_scene_gltf2.blender.imp.image import BlenderImage
+    from io_scene_gltf2.blender.exp.material.search_node_tree import (
         NodeSocket
     )
-
-if bpy.app.version >= (3, 6, 0):
-    from io_scene_gltf2.blender.exp.material.gltf2_blender_gather_texture_info import (
+    from io_scene_gltf2.blender.exp.material.texture_info import (
         gather_material_normal_texture_info_class,
         gather_texture_info
     )
 else:
-    from io_scene_gltf2.blender.exp.gltf2_blender_gather_texture_info import (
-        gather_material_normal_texture_info_class,
-        gather_texture_info
-    )
+    from io_scene_gltf2.blender.imp.gltf2_blender_image import BlenderImage
     
-from io_scene_gltf2.blender.imp.gltf2_blender_image import BlenderImage
+    if bpy.app.version >= (4, 2, 0):
+        from io_scene_gltf2.blender.exp.material.gltf2_blender_search_node_tree import (
+            NodeSocket
+        )
+        
+    if bpy.app.version >= (3, 6, 0):
+        from io_scene_gltf2.blender.exp.material.gltf2_blender_gather_texture_info import (
+            gather_material_normal_texture_info_class,
+            gather_texture_info
+        )
+    else:
+        from io_scene_gltf2.blender.exp.gltf2_blender_gather_texture_info import (
+            gather_material_normal_texture_info_class,
+            gather_texture_info
+        )
 
 from ..com import msfs_material_props as MSFS2020_MaterialExtensions
 

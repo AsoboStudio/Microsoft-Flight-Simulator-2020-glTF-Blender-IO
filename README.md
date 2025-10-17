@@ -4,18 +4,21 @@
 
 This repository contains the current version of the official Microsoft Flight Simulator 2020 Blender Import/Export plugin. The flight sim community has already developed and forked the original project many times, and Asobo's intention is to fully support Blender with the help and contributions of all the developers that have already implemented features in the different unofficial Blender plugins.
 
->Asobo would especially like to thank the following people: <br>
->Vitus of [Wing42](https://wing42.com/), [tml1024](https://github.com/tml1024), [ronh991](https://github.com/ronh991), [pepperoni505](https://github.com/pepperoni505) of [FlyByWire](https://flybywiresim.com/)
+> Asobo would especially like to thank the following people: <br>
+> Vitus of [Wing42](https://wing42.com/), [tml1024](https://github.com/tml1024), [ronh991](https://github.com/ronh991), [pepperoni505](https://github.com/pepperoni505) of [FlyByWire](https://flybywiresim.com/)
 
-:warning: This plugin cannot import glTF files that have been built into a Microsoft Flight Simulator 2020 package through the Sim's Package Builder.
-<br>
+> [!WARNING]
+>- This addon cannot import glTF files that have been built into a Microsoft Flight Simulator 2020 package through the Sim's Package Builder.
+>- This addon is **NOT compatible** with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
+>- This addon need to have the `Import-Export: gltf 2.0 format` addon (gltf2 Khronos Blender IO) **enabled** to work. Do not remove it or disable it !
 
-:warning: This plugin is NOT compatible with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
-<br>
+> [!IMPORTANT]
+> Supported blender versions of the latest version of the addon (We can't guarantee not having bugs with other unstable versions):
+> - **3.3.x LTS**
+> - **3.6.x LTS**
+> - **4.2.x LTS**
+> - **4.5.x LTS**
 
-:warning: The latest version of this addon is compatible with Blender **3.3.x LTS**, **3.6.x LTS** and **4.2.x LTS** only. We can't guarantee not having bugs with other unstable versions
-
-:warning: This addon need to have the `Import-Export: gltf 2.0 format` addon (gltf2 Khronos IO) **enabled** to work. Do not remove it or disable it !
 
 *******
 

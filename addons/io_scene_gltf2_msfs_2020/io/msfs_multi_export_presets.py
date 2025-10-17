@@ -19,23 +19,55 @@ from .msfs_multi_export import MSFS2020_OT_MultiExportGLTF2
 
 class MultiExporterPresetLayer(bpy.types.PropertyGroup):
     collection: bpy.props.PointerProperty(name="", type=bpy.types.Collection)
-    enabled: bpy.props.BoolProperty(name="", default=False, description="Enable/Disable the collection for the preset")
+
+    enabled: bpy.props.BoolProperty(
+        name="",
+        default=False,
+        description="Enable/Disable the collection for the preset",
+    )
+
     expanded: bpy.props.BoolProperty(name="", default=True)
+
 
 class MultiExporterPreset(bpy.types.PropertyGroup):
 
-    def __init__(self) -> None:
-        super().__init__()
-        
     def update_relative_path(self, context):
         if self.folder_path == "//":
-            self.folder_path = self.folder_path + '\\'
-            
-    name: bpy.props.StringProperty(name="", default="", description="Name of the glTF to export")
-    folder_path: bpy.props.StringProperty(name="", default="", subtype="DIR_PATH", description="Path to the directory where you want your model to be exported", update=update_relative_path)
-    enabled: bpy.props.BoolProperty(name="", default=False, description="Enable/Disable the preset for the export")
-    expanded: bpy.props.BoolProperty(name="", default=True, description="Expand/Collapse preset.")
-    layers: bpy.props.CollectionProperty(type=MultiExporterPresetLayer)
+            self.folder_path = self.folder_path + "\\"
+
+    name: bpy.props.StringProperty(
+        name="", 
+        default="",
+        description="Name of the glTF to export"
+    )
+
+    folder_path: bpy.props.StringProperty(
+        name="",
+        default="",
+        subtype="DIR_PATH",
+        description="Path to the directory where you want your model to be exported",
+        update=update_relative_path,
+        options=(
+            {"PATH_SUPPORTS_BLEND_RELATIVE"} if bpy.app.version >= (4, 5, 0) else set()
+        ),
+    )
+
+    enabled: bpy.props.BoolProperty(
+        name="", 
+        default=False, 
+        description="Enable/Disable the preset for the export",
+    )
+
+    expanded: bpy.props.BoolProperty(
+        name="", 
+        default=True,
+        description="Expand/Collapse preset.",
+    )
+
+    layers: bpy.props.CollectionProperty(
+        type=MultiExporterPresetLayer
+    )
+
 
 class MSFS2020_OT_AddPreset(bpy.types.Operator):
     bl_idname = "msfs2020.multi_export_add_preset"
@@ -49,6 +81,7 @@ class MSFS2020_OT_AddPreset(bpy.types.Operator):
 
         return {"FINISHED"}
 
+
 class MSFS2020_OT_RemovePreset(bpy.types.Operator):
     bl_idname = "msfs2020.multi_export_remove_preset"
     bl_label = "Remove preset"
@@ -61,6 +94,7 @@ class MSFS2020_OT_RemovePreset(bpy.types.Operator):
         presets.remove(self.preset_index)
 
         return {"FINISHED"}
+
 
 class MSFS2020_OT_EditLayers(bpy.types.Operator):
     bl_idname = "msfs2020.multi_export_edit_layers"
@@ -92,7 +126,9 @@ class MSFS2020_OT_EditLayers(bpy.types.Operator):
                 layer = preset.layers.add()
                 layer.collection = collection
 
-        # Because it isn't really possible to define children in the layers, we have to generate a "tree" of collections with their children, and use that when rendering.
+        # Because it isn't really possible to define children in the layers, 
+        # we have to generate a "tree" of collections with their children, 
+        # and use that when rendering.
         self.collection_tree = self.getChildren(bpy.context.scene.collection, {})
 
         wm = context.window_manager
@@ -115,9 +151,9 @@ class MSFS2020_OT_EditLayers(bpy.types.Operator):
                                 layer,
                                 "expanded",
                                 text=layer.collection.name,
-                                icon="DOWNARROW_HLT"
-                                if layer.expanded
-                                else "RIGHTARROW",
+                                icon=(
+                                    "DOWNARROW_HLT" if layer.expanded else "RIGHTARROW"
+                                ),
                                 icon_only=True,
                                 emboss=False,
                             )
@@ -131,6 +167,7 @@ class MSFS2020_OT_EditLayers(bpy.types.Operator):
                         break
 
         drawTree(layout, self.collection_tree[bpy.context.scene.collection])
+
 
 class MSFS2020_PT_MultiExporterPresetsView(bpy.types.Panel):
     bl_label = ""
@@ -166,12 +203,18 @@ class MSFS2020_PT_MultiExporterPresetsView(bpy.types.Panel):
                 box.prop(preset, "enabled", text="Enabled")
                 box.prop(preset, "name", text="Name")
                 box.prop(preset, "folder_path", text="Export Path")
-                box.operator(MSFS2020_OT_EditLayers.bl_idname, text="Edit Layers").preset_index = i
-                box.operator(MSFS2020_OT_RemovePreset.bl_idname, text="Remove").preset_index = i
+                box.operator(
+                    MSFS2020_OT_EditLayers.bl_idname, text="Edit Layers"
+                ).preset_index = i
+                box.operator(
+                    MSFS2020_OT_RemovePreset.bl_idname, text="Remove"
+                ).preset_index = i
 
         row = layout.row()
         row.operator(MSFS2020_OT_MultiExportGLTF2.bl_idname, text="Export")
 
 
 def register():
-    bpy.types.Scene.msfs_multi_exporter_presets = bpy.props.CollectionProperty(type=MultiExporterPreset)
+    bpy.types.Scene.msfs_multi_exporter_presets = bpy.props.CollectionProperty(
+        type=MultiExporterPreset
+    )

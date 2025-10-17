@@ -95,8 +95,8 @@ class MSFS2020CollisionGizmo(bpy.types.Gizmo):
         "custom_shape_edges",
     )
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args):
+        super().__init__(*args)
         self.custom_shape_edges = None
         self.custom_shape = None
 
