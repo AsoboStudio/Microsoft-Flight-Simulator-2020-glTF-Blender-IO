@@ -26,7 +26,9 @@ def export_blender_under_3_3(file_path, settings):
         check_existing=True,
         export_format="GLTF_SEPARATE",
         export_copyright=settings.export_copyright,
-        export_image_format=settings.export_image_format,
+        export_image_format=(
+            "AUTO" if settings.enable_msfs_extension else settings.export_image_format
+        ),
         export_texture_dir=settings.export_texture_dir,
         export_keep_originals=settings.export_keep_originals,
         export_texcoords=settings.export_texcoords,
@@ -46,8 +48,8 @@ def export_blender_under_3_3(file_path, settings):
         export_cameras=settings.export_cameras,
         use_selection=settings.use_selection,
         use_visible=settings.use_visible,
-        use_renderable=settings.use_renderable,
-        use_active_collection=settings.use_active_collection,
+        use_renderable=False,
+        use_active_collection=True,
         export_yup=settings.export_yup,
         export_apply=settings.export_apply,
         export_animations=settings.export_animations,
@@ -64,7 +66,9 @@ def export_blender_under_3_3(file_path, settings):
         export_morph_tangent=settings.export_morph_tangent,
         export_lights=settings.export_lights,
         will_save_settings=settings.will_save_settings,
-        export_displacement=settings.export_displacement,
+        export_extras=(
+            False if settings.enable_msfs_extension else settings.export_extras
+        ),
     )
 
 
@@ -74,7 +78,9 @@ def export_blender_3_3(file_path, settings):
         check_existing=True,
         export_format="GLTF_SEPARATE",
         export_copyright=settings.export_copyright,
-        export_image_format=settings.export_image_format,
+        export_image_format=(
+            "AUTO" if settings.enable_msfs_extension else settings.export_image_format
+        ),
         export_texture_dir=settings.export_texture_dir,
         export_keep_originals=settings.export_keep_originals,
         export_texcoords=settings.export_texcoords,
@@ -95,9 +101,9 @@ def export_blender_3_3(file_path, settings):
         export_cameras=settings.export_cameras,
         use_selection=settings.use_selection,
         use_visible=settings.use_visible,
-        use_renderable=settings.use_renderable,
-        use_active_collection=settings.use_active_collection,
-        use_active_scene=settings.use_active_scene,
+        use_renderable=False,
+        use_active_collection=False,
+        use_active_scene=True,
         export_yup=settings.export_yup,
         export_apply=settings.export_apply,
         export_animations=settings.export_animations,
@@ -116,6 +122,9 @@ def export_blender_3_3(file_path, settings):
         export_morph_tangent=settings.export_morph_tangent,
         export_lights=settings.export_lights,
         will_save_settings=settings.will_save_settings,
+        export_extras=(
+            False if settings.enable_msfs_extension else settings.export_extras
+        ),
     )
 
 
@@ -125,9 +134,13 @@ def export_blender_3_6(file_path, settings):
         check_existing=True,
         export_format="GLTF_SEPARATE",
         export_copyright=settings.export_copyright,
-        export_image_format=settings.export_image_format,
+        export_image_format=(
+            "AUTO" if settings.enable_msfs_extension else settings.export_image_format
+        ),
+        export_jpeg_quality=(
+            75 if settings.enable_msfs_extension else settings.export_jpeg_quality
+        ),
         export_texture_dir=settings.export_texture_dir,
-        export_jpeg_quality=settings.export_jpeg_quality,
         export_keep_originals=settings.export_keep_originals,
         export_texcoords=settings.export_texcoords,
         export_normals=settings.export_normals,
@@ -148,9 +161,9 @@ def export_blender_3_6(file_path, settings):
         export_cameras=settings.export_cameras,
         use_selection=settings.use_selection,
         use_visible=settings.use_visible,
-        use_renderable=settings.use_renderable,
-        use_active_collection=settings.use_active_collection,
-        use_active_scene=settings.use_active_scene,
+        use_renderable=False,
+        use_active_collection=False,
+        use_active_scene=True,
         export_yup=settings.export_yup,
         export_apply=settings.export_apply,
         export_animations=settings.export_animations,
@@ -158,7 +171,6 @@ def export_blender_3_6(file_path, settings):
         export_frame_step=settings.export_frame_step,
         export_force_sampling=settings.export_force_sampling,
         export_animation_mode=settings.export_animation_mode,
-        export_nla_strips_merged_animation_name=settings.export_nla_strips_merged_animation_name,
         export_def_bones=settings.export_def_bones,
         export_optimize_animation_size=settings.export_optimize_animation_size,
         export_optimize_animation_keep_anim_armature=settings.export_optimize_animation_keep_anim_armature,
@@ -179,6 +191,9 @@ def export_blender_3_6(file_path, settings):
         export_morph_animation=settings.export_morph_animation,
         export_lights=settings.export_lights,
         will_save_settings=settings.will_save_settings,
+        export_extras=(
+            False if settings.enable_msfs_extension else settings.export_extras
+        ),
     )
 
 
@@ -188,8 +203,12 @@ def export_blender_4_2(file_path, settings):
         check_existing=True,
         export_format="GLTF_SEPARATE",
         export_copyright=settings.export_copyright,
-        export_image_format=settings.export_image_format,
-        export_jpeg_quality=settings.export_jpeg_quality,
+        export_image_format=(
+            "AUTO" if settings.enable_msfs_extension else settings.export_image_format
+        ),
+        export_jpeg_quality=(
+            75 if settings.enable_msfs_extension else settings.export_jpeg_quality
+        ),
         export_texture_dir=settings.export_texture_dir,
         export_keep_originals=settings.export_keep_originals,
         export_texcoords=settings.export_texcoords,
@@ -212,7 +231,7 @@ def export_blender_4_2(file_path, settings):
         use_visible=settings.use_visible,
         use_renderable=False,
         use_active_collection=False,
-        use_active_scene=False,
+        use_active_scene=True,
         export_yup=settings.export_yup,
         export_apply=settings.export_apply,
         export_animations=settings.export_animations,
@@ -233,30 +252,66 @@ def export_blender_4_2(file_path, settings):
         export_rest_position_armature=settings.export_rest_position_armature,
         export_anim_scene_split_object=settings.export_anim_scene_split_object,
         export_skins=settings.export_skins,
-        export_all_influences=settings.export_all_influences,
+        export_all_influences=(
+            False if settings.enable_msfs_extension else settings.export_all_influences
+        ),
         export_morph=settings.export_morph,
         export_morph_normal=settings.export_morph_normal,
         export_morph_tangent=settings.export_morph_tangent,
         export_morph_animation=settings.export_morph_animation,
         export_lights=settings.export_lights,
         will_save_settings=settings.will_save_settings,
-        export_extras=settings.export_extras,
-        export_gn_mesh=settings.export_gn_mesh,
-        export_gpu_instances=settings.export_gpu_instances,
-        export_hierarchy_flatten_objs=settings.export_hierarchy_flatten_objs,
-        export_hierarchy_full_collections=settings.export_hierarchy_full_collections,
+        export_extras=(
+            False if settings.enable_msfs_extension else settings.export_extras
+        ),
+        export_gn_mesh=(
+            False if settings.enable_msfs_extension else settings.export_gn_mesh
+        ),
+        export_gpu_instances=(
+            False if settings.enable_msfs_extension else settings.export_gpu_instances
+        ),
+        export_hierarchy_flatten_objs=(
+            False
+            if settings.enable_msfs_extension
+            else settings.export_hierarchy_flatten_objs
+        ),
+        export_hierarchy_full_collections=(
+            False
+            if settings.enable_msfs_extension
+            else settings.export_hierarchy_full_collections
+        ),
         export_vertex_color=settings.export_vertex_color,
         export_all_vertex_colors=settings.export_all_vertex_colors,
         export_active_vertex_color_when_no_material=settings.export_active_vertex_color_when_no_material,
-        export_image_add_webp=settings.export_image_add_webp,
-        export_image_webp_fallback=settings.export_image_webp_fallback,
-        export_unused_images=settings.export_unused_images,
-        export_unused_textures=settings.export_unused_textures,
-        export_try_sparse_sk=settings.export_try_sparse_sk,
-        export_try_omit_sparse_sk=settings.export_try_omit_sparse_sk,
+        export_image_add_webp=(
+            False if settings.enable_msfs_extension else settings.export_image_add_webp
+        ),
+        export_image_webp_fallback=(
+            False
+            if settings.enable_msfs_extension
+            else settings.export_image_webp_fallback
+        ),
+        export_unused_images=(
+            False if settings.enable_msfs_extension else settings.export_unused_images
+        ),
+        export_unused_textures=(
+            False if settings.enable_msfs_extension else settings.export_unused_textures
+        ),
+        export_try_sparse_sk=(
+            False if settings.enable_msfs_extension else settings.export_try_sparse_sk
+        ),
+        export_try_omit_sparse_sk=(
+            False
+            if settings.enable_msfs_extension
+            else settings.export_try_omit_sparse_sk
+        ),
         export_armature_object_remove=settings.export_armature_object_remove,
         export_influence_nb=settings.export_influence_nb,
-        export_import_convert_lighting_mode=settings.export_import_convert_lighting_mode,
+        export_import_convert_lighting_mode=(
+            "SPEC"
+            if settings.enable_msfs_extension
+            else settings.export_import_convert_lighting_mode
+        ),
         export_optimize_disable_viewport=settings.export_optimize_disable_viewport,
     )
 
@@ -444,7 +499,7 @@ class MSFS2020_PT_MultiExporter(bpy.types.Panel):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
     @classmethod
     def poll(cls, context):
         return context.scene.msfs_exporter_settings
