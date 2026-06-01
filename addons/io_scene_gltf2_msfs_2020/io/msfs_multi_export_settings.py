@@ -265,6 +265,11 @@ class MSFS2020_MultiExporterSettings(bpy.types.PropertyGroup):
                     "Export vertex color when used by material"
                 ),
                 (
+                    'ACTIVE',
+                    'Active',
+                    'Export active vertex color'
+                ),
+                (
                     'NONE',
                     'None',
                     "Do not export vertex color"

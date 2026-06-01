@@ -202,5 +202,7 @@ class MSFS2020_Material_IO:
 
     @staticmethod
     def export(gltf2_material, blender_material, export_settings):
+        gltf2_material.alpha_mode = blender_material.msfs_alpha_mode
+        
         for extension in MSFS2020_Material_IO.extensions:
             extension.to_extension(blender_material, gltf2_material, export_settings)
