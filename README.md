@@ -8,7 +8,7 @@ This repository contains the current version of the official Microsoft Flight Si
 > Vitus of [Wing42](https://wing42.com/), [tml1024](https://github.com/tml1024), [ronh991](https://github.com/ronh991), [pepperoni505](https://github.com/pepperoni505) of [FlyByWire](https://flybywiresim.com/)
 
 > [!WARNING]
->- This addon cannot import glTF files that have been built into a Microsoft Flight Simulator 2020 package through the Sim's Package Builder.
+>- glTF files built into a Microsoft Flight Simulator 2020 package through the Sim's Package Builder can be imported, but only for viewing: packed vertex data is decoded, skinned meshes are rebound at their rest pose, and DDS textures are looked up in the package's `texture.*` folders. Encrypted marketplace packages are not supported.
 >- This addon is **NOT compatible** with the legacy exporter developed for FSX and P3D.  Remove these plugin (Prefered) or disabled these plugins.
 >- This addon need to have the `Import-Export: gltf 2.0 format` addon (gltf2 Khronos Blender IO) **enabled** to work. Do not remove it or disable it !
 

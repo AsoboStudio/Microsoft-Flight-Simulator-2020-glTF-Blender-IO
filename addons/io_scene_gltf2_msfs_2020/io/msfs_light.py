@@ -29,7 +29,7 @@ class MSFS2020Light:
 
     @staticmethod
     def create(vnode, gltf_node, gltf):
-        if not gltf_node.extensions:
+        if gltf_node is None or not gltf_node.extensions:
             return
 
         extension = gltf_node.extensions.get(MSFS2020Light.extension_name)
@@ -67,7 +67,7 @@ class MSFS2020Light:
 
     @staticmethod
     def removeLightObject(vnode, gltf2_node, blender_node):
-        if not gltf2_node.extensions:
+        if gltf2_node is None or not gltf2_node.extensions:
             return
         
         extension = gltf2_node.extensions.get(MSFS2020Light.extension_name)

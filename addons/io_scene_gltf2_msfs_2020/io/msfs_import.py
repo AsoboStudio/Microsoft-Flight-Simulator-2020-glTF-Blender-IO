@@ -16,12 +16,26 @@ import bpy
 from .msfs_gizmo import MSFS2020Gizmo
 from .msfs_light import MSFS2020Light
 from .msfs_material import MSFS2020_Material_IO
+from .msfs_optimized import MSFS2020OptimizedAsset
 
 
 class Import:
 
     def __init__(self):
         self.properties = bpy.context.scene.msfs_importer_properties
+
+        # Package Builder output marks MSFT_texture_dds as required
+        from io_scene_gltf2.io.com.gltf2_io_extensions import Extension
+        self.extensions = [Extension(name="MSFT_texture_dds", extension={}, required=True)]
+
+    # Decode Package Builder (ASOBO_asset_optimized) data
+    def gather_import_gltf_before_hook(self, gltf):
+        MSFS2020OptimizedAsset.prepare(gltf)
+
+    # Decode BC5 normal maps Blender can't load
+    def gather_import_image_after_hook(self, img, blender_image, gltf):
+        if MSFS2020OptimizedAsset.is_optimized(gltf):
+            MSFS2020OptimizedAsset.load_bc5(gltf, img, blender_image)
 
     # Create lights
     def gather_import_light_after_hook(
