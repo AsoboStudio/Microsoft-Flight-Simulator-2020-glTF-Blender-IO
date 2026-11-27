@@ -94,6 +94,22 @@ When all your presets are set up you can click on "Export" Button:
 
 ![Export Preset](../misc/MultiExporter/Preset_Export.png)
 
+### Export progress
+
+While the exporter writes the enabled LODs or presets it shows a progress panel
+centred in the 3D viewport with the current file, file count, a progress bar and
+elapsed / estimated remaining time. The status bar mirrors the current file.
+
+`Esc` cancels after the file currently being written; files already written are
+kept.
+
+If an export fails, the panel changes to an error state and stays up until
+dismissed with `Esc` or a click. The status bar keeps the error report.
+
+![Export progress](../misc/MultiExporter/ProgressHUD_Running.png)
+![Export complete](../misc/MultiExporter/ProgressHUD_Complete.png)
+![Export error](../misc/MultiExporter/ProgressHUD_Error.png)
+
 ## Settings View :
 Here you can find the various export settings (geometry, animations, materials...etc) from the glTF export in Blender. You can disable the Microsoft Flight Simulator 2020 Extensions if you want to export your models as pure glTF(s) following the Khronos Schemas.
 
