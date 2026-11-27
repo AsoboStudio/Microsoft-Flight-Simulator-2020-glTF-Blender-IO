@@ -61,7 +61,8 @@ def format_duration(seconds):
 def hud_bounds(region_width, region_height, ui_scale):
     """Return ``(x, y, width, height)`` of the HUD in region pixels.
 
-    Shared by the draw callback and the dismiss-on-click handling so the two
+    The panel is centred in the 3D viewport rather than pinned under the
+    header.  Keep the geometry here so the draw callback and any hit-testing
     cannot drift apart.
     """
 
@@ -72,8 +73,8 @@ def hud_bounds(region_width, region_height, ui_scale):
 
     panel_height = pad * 2.0 + row * 6.0 + bar_height + 8.0 * ui_scale
     x = max(16.0 * ui_scale, (region_width - width) * 0.5)
-    top = region_height - 18.0 * ui_scale
-    return x, top - panel_height, width, panel_height
+    y = max(16.0 * ui_scale, (region_height - panel_height) * 0.5)
+    return x, y, width, panel_height
 
 
 class MSFS2020_ExportProgress:
